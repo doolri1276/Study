@@ -35,6 +35,33 @@
             android:textColor="@color/colorDeepGray"
             android:textSize="@dimen/txt_text" />
 
+        <EditText
+            android:id="@+id/et_info02"
+            android:layout_marginTop="@dimen/normal_padding"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/et_height"
+            android:layout_below="@+id/tv_info"
+            android:background="@color/colorWhite"
+            android:inputType="number"
+            android:lines="1"
+            android:paddingLeft="@dimen/normal_padding"
+            android:paddingRight="@dimen/normal_padding"
+            android:textColor="@color/colorDeepGray"
+            android:textSize="@dimen/txt_text"
+            android:visibility="gone"/>
+
+        <TextView
+            android:id="@+id/tv_warning"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tv_info"
+            android:layout_marginTop="@dimen/et_height"
+            android:paddingTop="@dimen/big_padding"
+            android:text=""
+            android:textColor="@color/colorPink"
+            android:textStyle="bold"
+            android:textSize="@dimen/txt_text"/>
+
         <TextView
             android:id="@+id/tv_next"
             android:layout_width="wrap_content"
@@ -46,7 +73,8 @@
             android:textColor="@color/colorWhite"
             android:layout_marginRight="@dimen/big_padding"
             android:layout_marginBottom="@dimen/big_padding"
-            android:textStyle="bold"/>
+            android:textStyle="bold"
+            android:onClick="clickNext"/>
 
 
 

@@ -15,4 +15,9 @@
     <string name="first_next">next</string>
     <string name="first_start">Start</string>
 
+    <string name="first_warning01">The text box is Empty.</string>
+    <string name="first_warning02">This nickname already exists.</string>
+
+    <string name="error_basic">Unexpected ERROR has occured.\nPlease try again.</string>
+
 </resources>
