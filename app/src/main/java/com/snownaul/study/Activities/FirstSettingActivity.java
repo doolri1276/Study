@@ -57,7 +57,15 @@ public class FirstSettingActivity extends AppCompatActivity {
             }
         },new InputFilter.LengthFilter(12)});
 
-        et02.setFilters(new InputFilter[]{new InputFilter.LengthFilter(2)});
+        et02.setFilters(new InputFilter[]{new InputFilter() {
+            @Override
+            public CharSequence filter(CharSequence source, int start, int end, Spanned dest, int dstart, int dend) {
+                if(source.length()>0){
+                    tvWar.setVisibility(View.GONE);
+                }
+                return null;
+            }
+        },new InputFilter.LengthFilter(2)});
 
     }
 
@@ -136,6 +144,8 @@ public class FirstSettingActivity extends AppCompatActivity {
             tvWar.setVisibility(View.VISIBLE);
             return;
         }
+        page=2;
+
 
 
 
