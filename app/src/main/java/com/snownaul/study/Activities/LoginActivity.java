@@ -1,6 +1,7 @@
 package com.snownaul.study.Activities;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -19,6 +20,7 @@ import com.kakao.usermgmt.UserManagement;
 import com.kakao.usermgmt.callback.MeResponseCallback;
 import com.kakao.usermgmt.response.model.UserProfile;
 import com.kakao.util.exception.KakaoException;
+import com.snownaul.study.G;
 import com.snownaul.study.R;
 
 import java.util.logging.Logger;
@@ -48,6 +50,7 @@ public class LoginActivity extends AppCompatActivity {
         //카카오 로그인
         kakaoLoginBtn=findViewById(R.id.kakao_loginbtn);
         requestMe();
+
 
     }
 
@@ -95,16 +98,27 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onSuccess(UserProfile result) {
                 Log.i("Kakao","UserProfile : "+result);
-                Log.i("Kakao",result.toString());
+                Log.i("Kakao",result.getId()+",,,,,"+result.toString());
+
+                if(G.USER_ID==-99){
+                    String userID=result.getProperty("userID");
+                    if(userID!=null){
+
+                        G.setUserId(Integer.parseInt(userID));
+
+                    }
+                }
+
 
                 Toast.makeText(LoginActivity.this, "카카오 로그인 성공!", Toast.LENGTH_SHORT).show();
                 
-                //가입한적 있는지 확인
+
+
 
                 //첫 로그인이면 FirstSettingAc로 가고
                 
                 //로그인 한 적 있으면 MainAc로....
-                redirectMainActivity();
+                loginSuccessful();
 
             }
 
@@ -167,11 +181,22 @@ public class LoginActivity extends AppCompatActivity {
         finish();
     }
 
-    protected void redirectFirstSettingActivity(){
-        final Intent intent = new Intent(this,FirstSettingActivity.class);
-        intent.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
-        startActivity(intent);
-        finish();
+    protected void loginSuccessful(){
+
+        //sharedPreference에 userID가 저장되어있는지 확인.
+
+        if(G.USER_ID==-99){//저장된 userID가 없으면 새로 샛팅
+
+            Intent intent=new Intent(this,FirstSettingActivity.class);
+            startActivity(intent);
+            finish();
+
+        }else{//저장된 것이 있으면 바로 다음으로 이동....
+            Intent intent=new Intent(this,MainActivity.class);
+            startActivity(intent);
+            finish();
+        }
+
     }
 
 }

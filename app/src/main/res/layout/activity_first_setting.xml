@@ -1,9 +1,53 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.snownaul.study.Activities.FirstSettingActivity">
+    tools:context="com.snownaul.study.Activities.FirstSettingActivity"
+    android:background="@color/colorDeepSkyBlue"
+    android:padding="@dimen/normal_padding"
+    >
 
-</android.support.constraint.ConstraintLayout>
+
+        <TextView
+            android:id="@+id/tv_info"
+            android:layout_marginTop="150dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/first_info01"
+            android:textColor="@color/colorWhite"
+            android:textStyle="bold"
+            android:textSize="@dimen/txt_bigtitle"/>
+
+        <EditText
+            android:id="@+id/et_info01"
+            android:layout_marginTop="@dimen/normal_padding"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/et_height"
+            android:layout_below="@+id/tv_info"
+            android:background="@color/colorWhite"
+            android:inputType="text"
+            android:lines="1"
+            android:paddingLeft="@dimen/normal_padding"
+            android:paddingRight="@dimen/normal_padding"
+            android:textColor="@color/colorDeepGray"
+            android:textSize="@dimen/txt_text" />
+
+        <TextView
+            android:id="@+id/tv_next"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/first_next"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentBottom="true"
+            android:textSize="@dimen/txt_stitle"
+            android:textColor="@color/colorWhite"
+            android:layout_marginRight="@dimen/big_padding"
+            android:layout_marginBottom="@dimen/big_padding"
+            android:textStyle="bold"/>
+
+
+
+</RelativeLayout>

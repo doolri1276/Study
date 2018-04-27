@@ -35,7 +35,8 @@
         <activity
             android:name=".Activities.LoginActivity"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".Activities.FirstSettingActivity" />
+        <activity android:name=".Activities.FirstSettingActivity"
+            android:theme="@style/Theme.AppCompat.NoActionBar"/>
         <activity android:name=".Activities.MainActivity" />
 
         <meta-data

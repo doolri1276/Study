@@ -7,5 +7,12 @@
     <string name="login_continue">CONTINUE</string>
     <string name="login_lostpsw">Forgot your password?</string>
 
+    <string name="first_info01">Nickname</string>
+    <string name="first_info02">Age</string>
+    <string name="first_info03">Interests</string>
+    <string name="first_info04">Settings</string>
+
+    <string name="first_next">next</string>
+    <string name="first_start">Start</string>
 
 </resources>
