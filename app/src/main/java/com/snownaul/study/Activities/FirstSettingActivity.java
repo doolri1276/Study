@@ -93,7 +93,6 @@ public class FirstSettingActivity extends AppCompatActivity {
 
                 Log.i("NicknameCheck",response+"");
 
-                //TODO: 메세지를 받으면 실행할 것들..
                 if(response.equals("Available")){
                     Toast.makeText(FirstSettingActivity.this, response+"닉네임 사용가능", Toast.LENGTH_SHORT).show();
 
