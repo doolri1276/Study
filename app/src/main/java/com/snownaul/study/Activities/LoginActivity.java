@@ -156,6 +156,9 @@ public class LoginActivity extends AppCompatActivity {
             //첫 로그인이면 FirstSettingAc로 가고
 
             //로그인 한 적 있으면 MainAc로....
+
+            requestMe();
+
         }
 
         //로그인 실패한 상태
@@ -169,6 +172,8 @@ public class LoginActivity extends AppCompatActivity {
                 
             }
         }
+
+
 
     }
 
