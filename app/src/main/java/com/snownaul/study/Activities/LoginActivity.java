@@ -100,6 +100,8 @@ public class LoginActivity extends AppCompatActivity {
                 Log.i("Kakao","UserProfile : "+result);
                 Log.i("Kakao",result.getId()+",,,,,"+result.toString());
 
+
+
                 if(G.USER_ID==-99){
                     String userID=result.getProperty("userID");
                     if(userID!=null){
@@ -111,10 +113,10 @@ public class LoginActivity extends AppCompatActivity {
 
 
                 Toast.makeText(LoginActivity.this, "카카오 로그인 성공!", Toast.LENGTH_SHORT).show();
-                
 
 
 
+                G.setUserSns("kakao");
                 //첫 로그인이면 FirstSettingAc로 가고
                 
                 //로그인 한 적 있으면 MainAc로....
@@ -191,6 +193,8 @@ public class LoginActivity extends AppCompatActivity {
         //sharedPreference에 userID가 저장되어있는지 확인.
 
         if(G.USER_ID==-99){//저장된 userID가 없으면 새로 샛팅
+
+
 
             Intent intent=new Intent(this,FirstSettingActivity.class);
             startActivity(intent);

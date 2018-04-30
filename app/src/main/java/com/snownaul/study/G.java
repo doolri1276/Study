@@ -11,6 +11,11 @@ import com.snownaul.study.Activities.IntroActivity;
 public class G {
 
     public static int USER_ID;
+    public static String USER_SNS;
+    public static String USER_SNSID;
+    public static String USER_NICKNAME;
+    public static int USER_AGE;
+    public static String USER_PROFILEPIC;
 
     public static SharedPreferences PREF;
 
@@ -20,6 +25,11 @@ public class G {
         G.PREF=pref;
 
         USER_ID=pref.getInt("userID",-99);
+        USER_SNS=pref.getString("userSns",null);
+        USER_SNSID=pref.getString("userSnsId",null);
+        USER_NICKNAME=pref.getString("userNickname",null);
+        USER_AGE=pref.getInt("userAge",-99);
+        USER_PROFILEPIC=pref.getString("userProfilePic",null);
 
     }
 
@@ -31,6 +41,53 @@ public class G {
         editor.putInt("userID",USER_ID);
         editor.commit();
     }
+
+    public static void setUserSns(String USER_SNS){
+        G.USER_SNS=USER_SNS;
+
+        SharedPreferences.Editor editor=PREF.edit();
+
+        editor.putString("userSns",USER_SNS);
+        editor.commit();
+    }
+
+    public static void setUserSnsId(String USER_SNSID){
+        G.USER_SNSID=USER_SNSID;
+
+        SharedPreferences.Editor editor=PREF.edit();
+
+        editor.putString("userSnsId",USER_SNSID);
+        editor.commit();
+    }
+
+    public static void setUserNickname(String USER_NICKNAME){
+        G.USER_NICKNAME=USER_NICKNAME;
+
+        SharedPreferences.Editor editor=PREF.edit();
+
+        editor.putString("userNickname",USER_NICKNAME);
+        editor.commit();
+    }
+
+    public static void setUserAge(int USER_AGE){
+        G.USER_AGE=USER_AGE;
+
+        SharedPreferences.Editor editor=PREF.edit();
+
+        editor.putInt("userAge",USER_AGE);
+        editor.commit();
+    }
+
+    public static void setUserProfilepic(String USER_PROFILEPIC){
+        G.USER_PROFILEPIC=USER_PROFILEPIC;
+
+        SharedPreferences.Editor editor=PREF.edit();
+
+        editor.putString("userProfilePic",USER_PROFILEPIC);
+        editor.commit();
+    }
+
+
 
 
 }
