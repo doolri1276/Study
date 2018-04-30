@@ -39,6 +39,9 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        requestMe();
+
         setContentView(R.layout.activity_login);
 
         //애니메이션 설정
@@ -49,9 +52,6 @@ public class LoginActivity extends AppCompatActivity {
 
         //카카오 로그인
         kakaoLoginBtn=findViewById(R.id.kakao_loginbtn);
-        requestMe();
-
-
     }
 
     @Override
@@ -86,6 +86,7 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onSessionClosed(ErrorResult errorResult) {
                 Log.d("Error", "오류로 카카오로그인 실패 ");
+                Log.d("Error",errorResult.getErrorMessage());
                 Toast.makeText(LoginActivity.this, "카카오 로그인 실패", Toast.LENGTH_SHORT).show();
 
             }
@@ -117,6 +118,10 @@ public class LoginActivity extends AppCompatActivity {
 
 
                 G.setUserSns("kakao");
+                G.setUserSnsId(result.getId());
+                G.setUserProfilepic(result.getProfileImagePath());
+
+
                 //첫 로그인이면 FirstSettingAc로 가고
                 
                 //로그인 한 적 있으면 MainAc로....
@@ -193,9 +198,6 @@ public class LoginActivity extends AppCompatActivity {
         //sharedPreference에 userID가 저장되어있는지 확인.
 
         if(G.USER_ID==-99){//저장된 userID가 없으면 새로 샛팅
-
-
-
             Intent intent=new Intent(this,FirstSettingActivity.class);
             startActivity(intent);
             finish();

@@ -1,5 +1,6 @@
 package com.snownaul.study.Activities;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.InputFilter;
@@ -16,7 +17,12 @@ import com.android.volley.Response;
 import com.android.volley.error.VolleyError;
 import com.android.volley.request.SimpleMultiPartRequest;
 import com.android.volley.toolbox.Volley;
+import com.kakao.usermgmt.UserManagement;
+import com.snownaul.study.G;
 import com.snownaul.study.R;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class FirstSettingActivity extends AppCompatActivity {
 
@@ -90,6 +96,7 @@ public class FirstSettingActivity extends AppCompatActivity {
                 checkSetting();
                 break;
             case 4:
+                Log.i("MyTag",G.getUserSnsid()+"   snsID");
                 registerUser();
                 break;
         }
@@ -120,11 +127,12 @@ public class FirstSettingActivity extends AppCompatActivity {
 
                     page=1;
 
-                    nickname=nick;
+                    G.setUserNickname(nick);
 
                     tv.setText(R.string.first_info01+page);
                     et01.setVisibility(View.GONE);
                     et02.setVisibility(View.VISIBLE);
+                    tvWar.setVisibility(View.GONE);
 
 
                 }else{
@@ -144,7 +152,7 @@ public class FirstSettingActivity extends AppCompatActivity {
 
         //요청객체에 데이터 추가하기
         multiPartRequest.addStringParam("nickname",nick);
-
+        Log.i("MyTag",nick+" 닉네임 서버에 전송");
         RequestQueue requestQueue= Volley.newRequestQueue(this);
 
         requestQueue.add(multiPartRequest);
@@ -164,8 +172,12 @@ public class FirstSettingActivity extends AppCompatActivity {
 
         age=Integer.parseInt(str);
 
+        G.setUserAge(age);
+
         page=2;
 
+        tvWar.setVisibility(View.GONE);
+        et02.setVisibility(View.GONE);
         tv.setText(R.string.first_info01+page);
 
 
@@ -198,6 +210,17 @@ public class FirstSettingActivity extends AppCompatActivity {
             @Override
             public void onResponse(String response) {
 
+                Log.i("MyTag","결과 왔다 왔다~~~"+response);
+                G.setUserId(Integer.parseInt(response.split("&")[1]));
+
+
+
+
+
+                Intent intent =new Intent(FirstSettingActivity.this,MainActivity.class);
+                startActivity(intent);
+                finish();
+
 
 
             }
@@ -209,14 +232,26 @@ public class FirstSettingActivity extends AppCompatActivity {
         });
 
         //요청객체에 데이터 추가하기
-        multiPartRequest.addStringParam("nickname",nickname);
-        multiPartRequest.addStringParam("age",age+"");
+        multiPartRequest.addStringParam("nickname",G.getUserNickname());
+        multiPartRequest.addStringParam("age",G.getUserAge()+"");
+        multiPartRequest.addStringParam("sns",G.getUserSns());
+        multiPartRequest.addStringParam("snsId",G.getUserSnsid()+"");
+        multiPartRequest.addStringParam("profilePic",G.getUserProfilepic());
+
 
         RequestQueue requestQueue= Volley.newRequestQueue(this);
 
         requestQueue.add(multiPartRequest);
 
 
+
+
+    }
+
+    private void requestUpdateProfile(){
+        final Map<String, String> properties=new HashMap<>();
+        properties.put("nickname",G.getUserNickname());
+        properties.put("userID",G.getUserId()+"");
 
 
     }

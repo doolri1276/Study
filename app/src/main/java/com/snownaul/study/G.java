@@ -12,7 +12,7 @@ public class G {
 
     public static int USER_ID;
     public static String USER_SNS;
-    public static String USER_SNSID;
+    public static long USER_SNSID;
     public static String USER_NICKNAME;
     public static int USER_AGE;
     public static String USER_PROFILEPIC;
@@ -26,7 +26,7 @@ public class G {
 
         USER_ID=pref.getInt("userID",-99);
         USER_SNS=pref.getString("userSns",null);
-        USER_SNSID=pref.getString("userSnsId",null);
+        USER_SNSID=pref.getLong("userSnsId",-99);
         USER_NICKNAME=pref.getString("userNickname",null);
         USER_AGE=pref.getInt("userAge",-99);
         USER_PROFILEPIC=pref.getString("userProfilePic",null);
@@ -51,12 +51,12 @@ public class G {
         editor.commit();
     }
 
-    public static void setUserSnsId(String USER_SNSID){
+    public static void setUserSnsId(long USER_SNSID){
         G.USER_SNSID=USER_SNSID;
 
         SharedPreferences.Editor editor=PREF.edit();
 
-        editor.putString("userSnsId",USER_SNSID);
+        editor.putLong("userSnsId",USER_SNSID);
         editor.commit();
     }
 
@@ -87,7 +87,28 @@ public class G {
         editor.commit();
     }
 
+    public static int getUserId() {
+        return USER_ID;
+    }
 
+    public static String getUserSns() {
+        return USER_SNS;
+    }
 
+    public static long getUserSnsid() {
+        return USER_SNSID;
+    }
+
+    public static int getUserAge() {
+        return USER_AGE;
+    }
+
+    public static String getUserNickname() {
+        return USER_NICKNAME;
+    }
+
+    public static String getUserProfilepic() {
+        return USER_PROFILEPIC;
+    }
 
 }
