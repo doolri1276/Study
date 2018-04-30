@@ -26,6 +26,10 @@ public class FirstSettingActivity extends AppCompatActivity {
 
     int page=0;
 
+    String nickname;
+    int age;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -78,15 +82,25 @@ public class FirstSettingActivity extends AppCompatActivity {
             case 1:
                 checkAge();
                 break;
+
+            case 2:
+                checkInterest();
+                break;
+            case 3:
+                checkSetting();
+                break;
+            case 4:
+                registerUser();
+                break;
         }
 
     }
 
     public void checkNickname(){
 
-        String nickname=et01.getText().toString();
+        final String nick=et01.getText().toString();
 
-        if(nickname==null||nickname.length()==0){
+        if(nick==null||nick.length()==0){
             tvWar.setText(R.string.first_warning01);
             tvWar.setVisibility(View.VISIBLE);
             return;
@@ -106,9 +120,12 @@ public class FirstSettingActivity extends AppCompatActivity {
 
                     page=1;
 
+                    nickname=nick;
+
                     tv.setText(R.string.first_info01+page);
                     et01.setVisibility(View.GONE);
                     et02.setVisibility(View.VISIBLE);
+
 
                 }else{
                     Toast.makeText(FirstSettingActivity.this, response+"닉네임 중복!!!!!", Toast.LENGTH_SHORT).show();
@@ -124,12 +141,12 @@ public class FirstSettingActivity extends AppCompatActivity {
                 Toast.makeText(FirstSettingActivity.this, getString(R.string.error_basic), Toast.LENGTH_SHORT).show();
             }
         });
-        
+
         //요청객체에 데이터 추가하기
-        multiPartRequest.addStringParam("nickname",nickname);
+        multiPartRequest.addStringParam("nickname",nick);
 
         RequestQueue requestQueue= Volley.newRequestQueue(this);
-        
+
         requestQueue.add(multiPartRequest);
 
 
@@ -144,14 +161,65 @@ public class FirstSettingActivity extends AppCompatActivity {
             tvWar.setVisibility(View.VISIBLE);
             return;
         }
+
+        age=Integer.parseInt(str);
+
         page=2;
+
+        tv.setText(R.string.first_info01+page);
+
+
 
 
 
 
     }
 
+    public void checkInterest(){
+        page=3;
 
+        tv.setText(R.string.first_info01+page);
+    }
+
+    public void checkSetting(){
+        page=4;
+
+        tv.setText(R.string.first_info01+page);
+
+    }
+
+    public void registerUser(){
+
+        //지금까지 모인것들을 가지고 서버에 등록을 한다
+        String serverUrl="http://snownaul2.dothome.co.kr/StudyGuide/User/registerUser.php";
+
+        //파일전송요청객체 생성
+        SimpleMultiPartRequest multiPartRequest=new SimpleMultiPartRequest(Request.Method.POST, serverUrl, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+
+
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(FirstSettingActivity.this, getString(R.string.error_basic), Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        //요청객체에 데이터 추가하기
+        multiPartRequest.addStringParam("nickname",nickname);
+        multiPartRequest.addStringParam("age",age+"");
+
+        RequestQueue requestQueue= Volley.newRequestQueue(this);
+
+        requestQueue.add(multiPartRequest);
+
+
+
+
+    }
 
 
 
