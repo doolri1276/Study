@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/f1_home"
+        android:icon="@drawable/ic_home"
+        android:title="home" />
+
+    <item
+        android:id="@+id/f2_feed"
+        android:icon="@drawable/ic_feed"
+        android:title="feed" />
+
+    <item
+        android:id="@+id/f3_study"
+        android:icon="@drawable/ic_study"
+        android:title="study" />
+
+    <item
+        android:id="@+id/f4_report"
+        android:icon="@drawable/ic_report"
+        android:title="report" />
+
+    <item
+        android:id="@+id/f5_setting"
+        android:icon="@drawable/ic_settings"
+        android:title="settings" />
+
+</menu>
