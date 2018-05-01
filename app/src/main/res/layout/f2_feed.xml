@@ -10,6 +10,28 @@
         android:layout_height="?attr/actionBarSize"
         android:theme="@style/AppTheme.Toolbar"
         >
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:layout_marginRight="@dimen/normal_padding">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/f2_feed"
+                android:textColor="@color/colorWhite"
+                android:textSize="@dimen/txt_toolbar"
+                android:textStyle="bold"/>
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_bookmark"
+                android:layout_alignParentRight="true"
+                />
+        </RelativeLayout>
+
+
 
     </android.support.v7.widget.Toolbar>
 
@@ -44,5 +66,17 @@
 
 
     </uk.co.imallan.jellyrefresh.JellyRefreshLayout>
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/bigger_padding"
+        android:src="@drawable/ic_add"
+        app:fabSize="auto"
+        app:backgroundTint="@color/colorPink"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        />
 
 </RelativeLayout>

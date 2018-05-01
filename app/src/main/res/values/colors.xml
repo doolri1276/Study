@@ -14,6 +14,7 @@
     <color name="colorGray">#aaaaaa</color>
     <color name="colorLightGray">#efefef</color>
 
+    <color name="colorBase">#FAFAFA</color>
 
     <color name="colorGreen">#31e042</color>
     <color name="colorRed">#f43737</color>

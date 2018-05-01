@@ -7,6 +7,13 @@
     <string name="login_continue">CONTINUE</string>
     <string name="login_lostpsw">Forgot your password?</string>
 
+    <string name="f1_home">Home</string>
+    <string name="f2_feed">Feed</string>
+    <string name="f3_study">Study</string>
+    <string name="f4_report">Report</string>
+    <string name="f5_setting">Setting</string>
+
+
     <string name="first_info01">Nickname</string>
     <string name="first_info02">Age</string>
     <string name="first_info03">Interests</string>

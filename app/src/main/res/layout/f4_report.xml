@@ -11,6 +11,29 @@
         android:layout_height="?attr/actionBarSize"
         android:theme="@style/AppTheme.Toolbar"
         >
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:layout_marginRight="@dimen/normal_padding">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/f4_report"
+                android:textColor="@color/colorWhite"
+                android:textSize="@dimen/txt_toolbar"
+                android:textStyle="bold"/>
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_search"
+                android:layout_alignParentRight="true"
+                android:visibility="gone"
+                />
+        </RelativeLayout>
+
+
 
     </android.support.v7.widget.Toolbar>
 

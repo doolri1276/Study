@@ -12,11 +12,15 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 
+import com.bumptech.glide.Glide;
 import com.snownaul.study.Activities.MainActivity;
+import com.snownaul.study.G;
 import com.snownaul.study.R;
 
+import de.hdodenhof.circleimageview.CircleImageView;
 import uk.co.imallan.jellyrefresh.JellyRefreshLayout;
 import uk.co.imallan.jellyrefresh.PullToRefreshLayout;
 
@@ -39,7 +43,7 @@ public class F1Home extends Fragment {
         toolbar=view.findViewById(R.id.toolbar);
 
         ((MainActivity)getActivity()).setSupportActionBar(toolbar);
-        toolbar.setTitle("Home");
+        //toolbar.setTitle("Home");
         setHasOptionsMenu(true);
 
         jelly=view.findViewById(R.id.jelly);
@@ -57,8 +61,6 @@ public class F1Home extends Fragment {
 
         View loadingView=LayoutInflater.from(getContext()).inflate(R.layout.jelly_loading,null);
         jelly.setLoadingView(loadingView);
-
-
 
 
         return view;
@@ -89,6 +91,7 @@ public class F1Home extends Fragment {
                 @Override
                 public void run() {
                     jelly.setRefreshing(true);
+
                 }
             });
             jelly.postDelayed(new Runnable() {

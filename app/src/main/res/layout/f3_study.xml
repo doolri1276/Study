@@ -2,6 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_marginBottom="?attr/actionBarSize"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <android.support.v7.widget.Toolbar
@@ -10,6 +11,28 @@
         android:layout_height="?attr/actionBarSize"
         android:theme="@style/AppTheme.Toolbar"
         >
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:layout_marginRight="@dimen/normal_padding">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/f3_study"
+                android:textColor="@color/colorWhite"
+                android:textSize="@dimen/txt_toolbar"
+                android:textStyle="bold"/>
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_search"
+                android:layout_alignParentRight="true"
+                />
+        </RelativeLayout>
+
+
 
     </android.support.v7.widget.Toolbar>
 
@@ -21,7 +44,6 @@
         app:pullHeight="128dp"
         app:triggerHeight="96dp"
         android:layout_below="@id/toolbar"
-        android:layout_marginBottom="?attr/actionBarSize"
         app:headerHeight="48dp"
         >
 
@@ -31,18 +53,273 @@
 
             >
 
-            <LinearLayout
+            <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="vertical">
+                android:background="@color/colorLightSkyBlue"
+                >
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="180dp"
+                    />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+                    <android.support.v7.widget.CardView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:elevation="4dp"
+                        app:cardBackgroundColor="@color/colorBase"
+                        app:cardCornerRadius="0dp">
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:padding="@dimen/normal_padding">
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:paddingLeft="@dimen/small_padding"
+                                android:paddingTop="@dimen/small_padding"
+                                >
+
+                                <de.hdodenhof.circleimageview.CircleImageView
+                                    android:id="@+id/profile"
+                                    android:layout_width="48dp"
+                                    android:layout_height="48dp"
+                                    android:src="@drawable/tulips"
+
+
+                                    />
+
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:orientation="vertical"
+                                    android:layout_marginLeft="@dimen/normal_padding"
+                                    android:layout_gravity="center_vertical">
+
+                                    <TextView
+                                        android:id="@+id/nickname"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:textSize="@dimen/txt_text"
+                                        android:text="John Doe"
+                                        android:textStyle="bold"
+                                        android:textColor="@color/colorDeepSkyBlue"
+                                        />
+
+                                    <TextView
+                                        android:id="@+id/date"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:textSize="@dimen/txt_tiny"
+                                        android:text="2018 03 04 "
+                                        android:textColor="@color/colorGray"/>
+
+                                </LinearLayout>
+
+
+                            </LinearLayout>
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content">
+                                <LinearLayout
+                                    android:layout_width="0dp"
+                                    android:layout_weight="1"
+                                    android:layout_height="wrap_content"
+                                    android:orientation="vertical"
+                                    android:gravity="center_horizontal"
+                                    android:paddingRight="@dimen/small_padding"
+                                    android:paddingLeft="@dimen/small_padding">
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:text="14"
+                                        android:textStyle="bold"
+                                        android:textSize="@dimen/txt_text"
+                                        android:textColor="@color/colorDeepSkyBlue"/>
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:text="Questions Sets"
+                                        android:textColor="@color/colorDeepGray"/>
+
+
+                                </LinearLayout>
+                                <LinearLayout
+                                    android:layout_width="0dp"
+                                    android:layout_weight="1"
+                                    android:layout_height="wrap_content"
+                                    android:orientation="vertical"
+                                    android:gravity="center_horizontal"
+                                    android:paddingRight="@dimen/small_padding"
+                                    android:paddingLeft="@dimen/small_padding">
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:text="14"
+                                        android:textStyle="bold"
+                                        android:textSize="@dimen/txt_text"
+                                        android:textColor="@color/colorDeepSkyBlue"/>
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:text="Questions Sets"
+                                        android:textColor="@color/colorDeepGray"/>
+
+
+                                </LinearLayout>
+                                <LinearLayout
+                                    android:layout_width="0dp"
+                                    android:layout_weight="1"
+                                    android:layout_height="wrap_content"
+                                    android:orientation="vertical"
+                                    android:gravity="center_horizontal"
+                                    android:paddingRight="@dimen/small_padding"
+                                    android:paddingLeft="@dimen/small_padding">
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:text="14"
+                                        android:textStyle="bold"
+                                        android:textSize="@dimen/txt_text"
+                                        android:textColor="@color/colorDeepSkyBlue"/>
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:text="Questions Sets"
+                                        android:textColor="@color/colorDeepGray"/>
+
+
+                                </LinearLayout>
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="@dimen/normal_padding"
+                                android:layout_gravity="center_horizontal">
+
+                                <RelativeLayout
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_margin="@dimen/small_padding">
+                                    <ImageView
+                                        android:layout_width="48dp"
+                                        android:layout_height="48dp"
+                                        android:src="@drawable/ic_circle"
+                                        android:tint="@color/colorLighterSkyBlue"/>
+
+                                    <ImageView
+                                        android:layout_width="24dp"
+                                        android:layout_height="24dp"
+                                        android:src="@drawable/ic_bookmark"
+                                        android:tint="@color/colorDeeperSkyBlue"
+                                        android:layout_centerInParent="true"/>
+                                </RelativeLayout>
+                                <RelativeLayout
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_margin="@dimen/small_padding">
+                                    <ImageView
+                                        android:layout_width="48dp"
+                                        android:layout_height="48dp"
+                                        android:src="@drawable/ic_circle"
+                                        android:tint="@color/colorLighterSkyBlue"
+                                        android:visibility="invisible"/>
+
+                                    <ImageView
+                                        android:layout_width="24dp"
+                                        android:layout_height="24dp"
+                                        android:src="@drawable/ic_home"
+                                        android:tint="@color/colorLightSkyBlue"
+                                        android:layout_centerInParent="true"/>
+                                </RelativeLayout>
+                                <RelativeLayout
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_margin="@dimen/small_padding">
+                                    <ImageView
+                                        android:layout_width="48dp"
+                                        android:layout_height="48dp"
+                                        android:src="@drawable/ic_circle"
+                                        android:tint="@color/colorLighterSkyBlue"
+                                        android:visibility="invisible"/>
+
+                                    <ImageView
+                                        android:layout_width="24dp"
+                                        android:layout_height="24dp"
+                                        android:src="@drawable/ic_search"
+                                        android:tint="@color/colorLightSkyBlue"
+                                        android:layout_centerInParent="true"/>
+                                </RelativeLayout>
+                                <RelativeLayout
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_margin="@dimen/small_padding">
+                                    <ImageView
+                                        android:layout_width="48dp"
+                                        android:layout_height="48dp"
+                                        android:src="@drawable/ic_circle"
+                                        android:tint="@color/colorLighterSkyBlue"
+                                        android:visibility="invisible"/>
+
+                                    <ImageView
+                                        android:layout_width="24dp"
+                                        android:layout_height="24dp"
+                                        android:src="@drawable/ic_bookmark"
+                                        android:tint="@color/colorLightSkyBlue"
+                                        android:layout_centerInParent="true"/>
+                                </RelativeLayout>
+
+                            </LinearLayout>
+
+                        </LinearLayout>
+                    </android.support.v7.widget.CardView>
+
+                    <android.support.v7.widget.CardView
+                        android:layout_width="match_parent"
+                        android:layout_marginTop="@dimen/small_padding"
+                        android:layout_height="100dp"
+                        app:cardBackgroundColor="@color/colorBase"
+                        android:layout_marginBottom="@dimen/small_padding"
+                        android:elevation="8dp"
+                        >
+
+                    </android.support.v7.widget.CardView>
+                </LinearLayout>
 
 
 
-            </LinearLayout>
+
+
+            </RelativeLayout>
 
         </ScrollView>
 
 
     </uk.co.imallan.jellyrefresh.JellyRefreshLayout>
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/bigger_padding"
+        android:src="@drawable/ic_add"
+        app:fabSize="auto"
+        app:backgroundTint="@color/colorPink"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        />
 
 </RelativeLayout>
