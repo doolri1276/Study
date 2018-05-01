@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -45,13 +46,15 @@ public class F1Home extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
+
+
     }
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-
+        //super.onCreateOptionsMenu(menu, inflater);
+        Log.i("My","f1home");
         inflater.inflate(R.menu.f1_menu,menu);
 
-        super.onCreateOptionsMenu(menu, inflater);
     }
 }

@@ -37,5 +37,6 @@ public class F5Settings extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
+        getActivity().invalidateOptionsMenu();
     }
 }
