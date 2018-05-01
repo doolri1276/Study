@@ -4,7 +4,7 @@ android {
     compileSdkVersion 26
     defaultConfig {
         applicationId "com.snownaul.study"
-        minSdkVersion 16
+        minSdkVersion 19
         targetSdkVersion 26
         versionCode 1
         versionName "1.0"
@@ -29,6 +29,14 @@ dependencies {
     compile 'dev.dworks.libs:volleyplus:+'
     //카카오 로그인 연동
     compile group: 'com.kakao.sdk', name: 'usermgmt', version: project.KAKAO_SDK_VERSION
+
+
     implementation 'com.android.support:design:26.1.0'
     implementation 'com.android.support:recyclerview-v7:26.1.0'
+
+    //JellyRefreshLayout
+    compile 'com.github.allan1st:JellyRefreshLayout:2.0'
+
+    //CircleImageView
+    implementation 'de.hdodenhof:circleimageview:2.2.0'
 }

@@ -4,12 +4,19 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.snownaul.study.Activities.MainActivity;
 import com.snownaul.study.R;
+
+import uk.co.imallan.jellyrefresh.JellyRefreshLayout;
+import uk.co.imallan.jellyrefresh.PullToRefreshLayout;
 
 /**
  * Created by alfo6-11 on 2018-05-01.
@@ -19,6 +26,7 @@ public class F4Report extends Fragment {
 
     Toolbar toolbar;
 
+    JellyRefreshLayout jelly;
 
     @Nullable
     @Override
@@ -31,6 +39,22 @@ public class F4Report extends Fragment {
         toolbar.setTitle("Report");
         setHasOptionsMenu(true);
 
+        jelly=view.findViewById(R.id.jelly);
+        jelly.setPullToRefreshListener(new PullToRefreshLayout.PullToRefreshListener() {
+            @Override
+            public void onRefresh(PullToRefreshLayout pullToRefreshLayout) {
+                pullToRefreshLayout.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        jelly.setRefreshing(false);
+                    }
+                },3000);
+            }
+        });
+
+        View loadingView=LayoutInflater.from(getContext()).inflate(R.layout.jelly_loading,null);
+        jelly.setLoadingView(loadingView);
+
         return view;
     }
 
@@ -38,5 +62,38 @@ public class F4Report extends Fragment {
     public void onResume() {
         super.onResume();
         getActivity().invalidateOptionsMenu();
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+
+        Log.i("My","f4report");
+        inflater.inflate(R.menu.f4_menu,menu);
+        super.onCreateOptionsMenu(menu, inflater);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        int id=item.getItemId();
+
+        if(id==R.id.action_refresh){
+            jelly.post(new Runnable() {
+                @Override
+                public void run() {
+                    jelly.setRefreshing(true);
+                }
+            });
+            jelly.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    jelly.setRefreshing(false);
+                }
+            },3000);
+            return true;
+        }
+
+
+        return super.onOptionsItemSelected(item);
     }
 }

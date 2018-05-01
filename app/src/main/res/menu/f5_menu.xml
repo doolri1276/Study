@@ -3,17 +3,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
-        android:id="@+id/f1_search"
-        android:icon="@drawable/ic_search"
-        android:title="home"
-        android:iconTint="@color/colorWhite"
-        app:showAsAction="always"/>
-
-    <item
         android:id="@+id/action_refresh"
         android:orderInCategory="100"
         android:title="@string/action_refresh"
-        app:showAsAction="never"
-        />
+        app:showAsAction="never"/>
 
 </menu>

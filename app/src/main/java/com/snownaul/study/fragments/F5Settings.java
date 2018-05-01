@@ -11,6 +11,8 @@ import android.view.ViewGroup;
 import com.snownaul.study.Activities.MainActivity;
 import com.snownaul.study.R;
 
+import uk.co.imallan.jellyrefresh.JellyRefreshLayout;
+
 /**
  * Created by alfo6-11 on 2018-05-01.
  */
@@ -19,6 +21,7 @@ public class F5Settings extends Fragment {
 
     Toolbar toolbar;
 
+    JellyRefreshLayout jelly;
 
     @Nullable
     @Override
