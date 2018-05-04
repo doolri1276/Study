@@ -26,6 +26,7 @@ import com.android.volley.error.VolleyError;
 import com.android.volley.request.SimpleMultiPartRequest;
 import com.android.volley.toolbox.Volley;
 import com.fenjuly.mylibrary.ToggleExpandLayout;
+import com.github.bluzwong.swipeback.SwipeBackActivityHelper;
 import com.snownaul.study.G;
 import com.snownaul.study.R;
 import com.snownaul.study.adapters.NewQuestionsAdapter;
@@ -285,6 +286,10 @@ public class AddSetActivity extends AppCompatActivity {
                 }else{
                     Toast.makeText(AddSetActivity.this, "실패실패", Toast.LENGTH_SHORT).show();
                 }
+
+                SwipeBackActivityHelper.startSwipeActivity(AddSetActivity.this,new Intent(AddSetActivity.this,StudySetMainActivity.class),true,true,true);
+                finish();
+
 
             }
         }, new Response.ErrorListener() {

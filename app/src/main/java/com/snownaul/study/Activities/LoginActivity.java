@@ -215,22 +215,4 @@ public class LoginActivity extends AppCompatActivity {
     }
 
 
-
-    protected void loginSuccessful(){
-
-        //sharedPreference에 userID가 저장되어있는지 확인.
-
-        if(G.USER_ID==-99){//저장된 userID가 없으면 새로 샛팅
-            Intent intent=new Intent(this,FirstSettingActivity.class);
-            startActivity(intent);
-            finish();
-
-        }else{//저장된 것이 있으면 바로 다음으로 이동....
-            Intent intent=new Intent(this,MainActivity.class);
-            startActivity(intent);
-            finish();
-        }
-
-    }
-
 }

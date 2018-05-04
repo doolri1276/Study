@@ -1,9 +1,258 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.snownaul.study.Activities.StudySetMainActivity">
+    tools:context="com.snownaul.study.Activities.StudySetMainActivity"
+    android:background="@color/colorLighterSkyBlue">
 
-</android.support.constraint.ConstraintLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorWhite"
+            android:padding="@dimen/big_padding"
+            android:orientation="vertical">
+            <TextView
+                android:id="@+id/tv_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Biology Test"
+                android:textStyle="bold"
+                android:textColor="@color/colorDeeperSkyBlue"
+                android:textSize="@dimen/txt_stitle"/>
+            <TextView
+                android:id="@+id/tv_info"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="This is about Biology and his superman rodie"
+                android:textSize="@dimen/txt_text"
+                android:textColor="@color/colorBlueGray"
+                android:layout_marginTop="@dimen/big_padding"
+                />
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/small_padding"
+            android:background="@color/colorWhite"
+            android:paddingTop="@dimen/big_padding"
+            android:paddingBottom="@dimen/big_padding"
+            android:paddingRight="@dimen/normal_padding"
+            android:paddingLeft="@dimen/normal_padding"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:gravity="center_horizontal"
+                android:paddingRight="@dimen/small_padding"
+                android:paddingLeft="@dimen/small_padding">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="14"
+                    android:textStyle="bold"
+                    android:textSize="@dimen/txt_text"
+                    android:textColor="@color/colorDeeperSkyBlue"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Questions"
+                    android:textSize="@dimen/txt_text"
+                    android:textColor="@color/colorDeepGray"/>
+
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:gravity="center_horizontal"
+                android:paddingRight="@dimen/small_padding"
+                android:paddingLeft="@dimen/small_padding">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="14"
+                    android:textStyle="bold"
+                    android:textSize="@dimen/txt_text"
+                    android:textColor="@color/colorDeeperSkyBlue"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Studied Times"
+                    android:textSize="@dimen/txt_text"
+                    android:textColor="@color/colorDeepGray"/>
+
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:gravity="center_horizontal"
+                android:paddingRight="@dimen/small_padding"
+                android:paddingLeft="@dimen/small_padding">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="14"
+                    android:textStyle="bold"
+                    android:textSize="@dimen/txt_text"
+                    android:textColor="@color/colorDeeperSkyBlue"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Studied Hours"
+                    android:textSize="@dimen/txt_text"
+                    android:textColor="@color/colorDeepGray"/>
+
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginTop="@dimen/small_padding">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@color/colorWhite"
+                    android:paddingRight="@dimen/big_padding"
+                    android:paddingLeft="@dimen/big_padding"
+                    android:paddingTop="@dimen/normal_padding"
+                    android:paddingBottom="@dimen/normal_padding">
+                    <ImageView
+                        android:layout_width="@dimen/big_padding"
+                        android:layout_height="@dimen/big_padding"
+                        android:src="@drawable/ic_bookmark"
+                        android:tint="@color/colorLightSkyBlue"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Storage"
+                        android:textColor="@color/colorDeepGray"
+                        android:textSize="@dimen/txt_text"
+                        android:textStyle="bold"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginLeft="@dimen/normal_padding"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@color/colorLightSkyBlue"
+                    android:paddingRight="@dimen/big_padding"
+                    android:paddingLeft="@dimen/big_padding"
+                    android:paddingTop="@dimen/normal_padding"
+                    android:paddingBottom="@dimen/normal_padding"
+                    >
+                    <ImageView
+                        android:layout_width="@dimen/big_padding"
+                        android:layout_height="@dimen/big_padding"
+                        android:src="@drawable/ic_study"
+                        android:tint="@color/colorDeeperSkyBlue"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Study"
+                        android:textColor="@color/colorDeepGray"
+                        android:textSize="@dimen/txt_text"
+                        android:textStyle="bold"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginLeft="@dimen/normal_padding"/>
+
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@color/colorDeepSkyBlue"
+                    android:paddingRight="@dimen/big_padding"
+                    android:paddingLeft="@dimen/big_padding"
+                    android:paddingTop="@dimen/normal_padding"
+                    android:paddingBottom="@dimen/normal_padding">
+                    <ImageView
+                        android:layout_width="@dimen/big_padding"
+                        android:layout_height="@dimen/big_padding"
+                        android:src="@drawable/ic_book"
+                        android:tint="@color/colorLighterSkyBlue"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Play"
+                        android:textColor="@color/colorWhite"
+                        android:textSize="@dimen/txt_text"
+                        android:textStyle="bold"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginLeft="@dimen/normal_padding"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@color/colorDeeperSkyBlue"
+                    android:paddingRight="@dimen/big_padding"
+                    android:paddingLeft="@dimen/big_padding"
+                    android:paddingTop="@dimen/normal_padding"
+                    android:paddingBottom="@dimen/normal_padding"
+                    >
+                    <ImageView
+                        android:layout_width="@dimen/big_padding"
+                        android:layout_height="@dimen/big_padding"
+                        android:src="@drawable/ic_report"
+                        android:tint="@color/colorWhite"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Report"
+                        android:textColor="@color/colorWhite"
+                        android:textSize="@dimen/txt_text"
+                        android:textStyle="bold"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginLeft="@dimen/normal_padding"/>
+
+                </LinearLayout>
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</RelativeLayout>
