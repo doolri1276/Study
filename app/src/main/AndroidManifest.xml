@@ -47,7 +47,8 @@
             android:value="@string/kakao_app_key" />
 
         <activity android:name=".Main2Activity" />
-        <activity android:name=".Activities.AddSetActivity"></activity>
+        <activity android:name=".Activities.AddSetActivity" />
+        <activity android:name=".Activities.StudySetMainActivity"></activity>
     </application>
 
 </manifest>

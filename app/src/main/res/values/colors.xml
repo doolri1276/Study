@@ -9,10 +9,12 @@
     <color name="colorCalmSkyBlue">#71B8BA</color>
     <color name="colorLightSkyBlue">#b1ecef</color>
     <color name="colorLighterSkyBlue">#d3f2f4</color>
+    <color name="colorLightestSkyBlue">#effeff</color>
     <color name="colorWhite">#ffffff</color>
     <color name="colorDeepGray">#4B4B4B</color>
     <color name="colorGray">#aaaaaa</color>
     <color name="colorLightGray">#efefef</color>
+    <color name="colorBlueGray">#7b8d93</color>
 
     <color name="colorBase">#FAFAFA</color>
 

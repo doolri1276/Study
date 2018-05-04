@@ -16,6 +16,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.snownaul.study.Activities.AddSetActivity;
 import com.snownaul.study.Activities.MainActivity;
 import com.snownaul.study.G;
 import com.snownaul.study.R;
@@ -79,7 +80,8 @@ public class F3Study extends Fragment {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                
+                Intent intent=new Intent(getContext(), AddSetActivity.class);
+                startActivity(intent);
             }
         });
 

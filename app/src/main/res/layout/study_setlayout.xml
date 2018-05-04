@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_marginTop="@dimen/small_padding"
+    app:contentPadding="@dimen/normal_padding"
+    app:cardBackgroundColor="@color/colorBase"
+    app:cardCornerRadius="0dp"
+    android:elevation="0dp"
+    >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Biology Midterm"
+                android:textSize="@dimen/txt_text"
+                android:textColor="@color/colorDeepGray"
+                android:textStyle="bold"
+                />
+
+            <TextView
+                android:id="@+id/time_recent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="2018 05 13:28:31"
+                android:textSize="@dimen/txt_tiny"
+                android:textColor="@color/colorGray"
+                android:layout_marginTop="@dimen/tiny_padding"/>
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/small_padding"
+                android:gravity="center_vertical">
+
+                <ToggleButton
+                    android:id="@+id/favor"
+                    android:layout_width="@dimen/normal_padding"
+                    android:layout_height="@dimen/normal_padding"
+                    android:background="@drawable/sel_favor"
+                    android:textOff=""
+                    android:textOn=""
+                    />
+
+                <TextView
+                    android:layout_width="55dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/small_padding"
+                    android:text="32"
+                    android:textSize="@dimen/txt_stext"
+                    android:textColor="@color/colorDeepGray"
+                    android:textStyle="bold"/>
+
+                <ImageView
+                    android:layout_width="@dimen/normal_padding"
+                    android:layout_height="@dimen/normal_padding"
+                    android:src="@drawable/ic_book"
+                    />
+
+                <TextView
+                    android:layout_width="55dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/small_padding"
+                    android:text="32"
+                    android:textSize="@dimen/txt_stext"
+                    android:textColor="@color/colorDeepGray"
+                    android:textStyle="bold"/>
+
+                <!--<com.sackcentury.shinebuttonlib.ShineButton-->
+                    <!--android:id="@+id/favors"-->
+                    <!--android:layout_width="@dimen/normal_padding"-->
+                    <!--android:layout_height="@dimen/normal_padding"-->
+                    <!--android:src="@color/colorCalmSkyBlue"-->
+                    <!--app:btn_color="@color/colorCalmSkyBlue"-->
+                    <!--app:btn_fill_color="@color/colorRed"-->
+                    <!--app:allow_random_color="false"-->
+                    <!--app:siShape="@drawable/ic_favor_n"-->
+
+                    <!--/>-->
+
+                <!--<com.sackcentury.shinebuttonlib.ShineButton-->
+                    <!--android:id="@+id/favor2"-->
+                    <!--android:layout_width="@dimen/normal_padding"-->
+                    <!--android:layout_height="@dimen/normal_padding"-->
+                    <!--android:src="@color/colorCalmSkyBlue"-->
+                    <!--app:btn_color="@color/colorCalmSkyBlue"-->
+                    <!--app:btn_fill_color="@color/colorRed"-->
+                    <!--app:allow_random_color="false"-->
+                    <!--app:siShape="@drawable/heart"-->
+
+                    <!--/>-->
+
+                <!--<com.sackcentury.shinebuttonlib.ShineButton-->
+                    <!--android:layout_width="50dp"-->
+                    <!--android:layout_height="50dp"-->
+                    <!--android:layout_centerInParent="true"-->
+                    <!--android:src="@android:color/darker_gray"-->
+                    <!--android:id="@+id/po_image1"-->
+                    <!--app:btn_color="@android:color/darker_gray"-->
+                    <!--app:btn_fill_color="#FF6666"-->
+                    <!--app:allow_random_color="false"-->
+                    <!--app:enable_flashing="false"-->
+                    <!--app:big_shine_color="#FF6666"-->
+                    <!--app:click_animation_duration="200"-->
+                    <!--app:shine_animation_duration="1500"-->
+                    <!--app:shine_turn_angle="10"-->
+                    <!--app:small_shine_offset_angle="20"-->
+                    <!--app:shine_distance_multiple="1.5"-->
+                    <!--app:small_shine_color="#CC9999"-->
+                    <!--app:shine_count="15"-->
+                    <!--app:siShape="@drawable/heart"/>-->
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <ImageView
+            android:layout_width="@dimen/normal_padding"
+            android:layout_height="@dimen/normal_padding"
+            android:src="@drawable/ic_che_r"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:tint="@color/colorDeepSkyBlue"
+            />
+
+    </RelativeLayout>
+
+
+</android.support.v7.widget.CardView>

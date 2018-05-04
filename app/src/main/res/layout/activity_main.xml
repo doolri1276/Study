@@ -26,6 +26,7 @@
         android:layout_alignParentBottom="true"
         app:itemIconTint="@color/sel_navi"
         app:itemTextColor="@color/sel_navi"
+        android:elevation="8dp"
         app:menu="@menu/main_navi">
 
     </android.support.design.widget.BottomNavigationView>

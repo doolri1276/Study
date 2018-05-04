@@ -3,6 +3,13 @@ package com.snownaul.study;
 import android.content.SharedPreferences;
 
 import com.snownaul.study.Activities.IntroActivity;
+import com.snownaul.study.study_classes.Question;
+import com.snownaul.study.study_classes.SgSet;
+
+import java.sql.Time;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.TimeZone;
 
 /**
  * Created by alfo6-11 on 2018-04-27.
@@ -19,6 +26,10 @@ public class G {
 
     public static SharedPreferences PREF;
 
+    //Study에 관련
+    public static SgSet newSgSet;
+    public static ArrayList<Question> newQuestions;
+
 
     public static void openG(SharedPreferences pref){
 
@@ -31,6 +42,28 @@ public class G {
         USER_AGE=pref.getInt("userAge",-99);
         USER_PROFILEPIC=pref.getString("userProfilePic",null);
 
+    }
+
+
+    public static long convertLocalTimeToUTC(long pv_localDateTime){
+        long lv_UTCTime=pv_localDateTime;
+
+        TimeZone z=TimeZone.getDefault();
+
+        int offset=z.getOffset(pv_localDateTime);
+        lv_UTCTime=pv_localDateTime-offset;
+        return lv_UTCTime;
+    }
+
+    public static long convertUTCToLocalTime(long pv_UTCDateTime){
+        long lv_localDateTIme=pv_UTCDateTime;
+
+        TimeZone z= TimeZone.getDefault();
+        int offset=z.getOffset(pv_UTCDateTime);
+
+        lv_localDateTIme=pv_UTCDateTime+offset;
+
+        return lv_localDateTIme;
     }
 
     public static void setUserId(int USER_ID){

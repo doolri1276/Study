@@ -82,6 +82,8 @@ public class GlobalApplication extends Application{
                 public boolean isSaveFormData() {
                     return true;
                 }
+
+
             };
         }
     }

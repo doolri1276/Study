@@ -1,9 +1,207 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.snownaul.study.Activities.AddSetActivity">
+    tools:context="com.snownaul.study.Activities.AddSetActivity"
+    android:background="@color/colorBlueGray">
 
-</android.support.constraint.ConstraintLayout>
+    <ScrollView
+        android:id="@+id/scroll"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        >
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            >
+
+
+
+            <LinearLayout
+                android:paddingRight="@dimen/normal_padding"
+                android:paddingLeft="@dimen/normal_padding"
+                android:paddingTop="@dimen/big_padding"
+                android:paddingBottom="@dimen/big_padding"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:background="@color/colorLightSkyBlue"
+                >
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/addset_title"
+                    android:textColor="@color/colorDeepGray"
+                    android:textStyle="bold"
+                    android:textSize="@dimen/txt_text"
+                    />
+
+                <EditText
+                    android:id="@+id/et_title"
+                    android:layout_marginTop="@dimen/tiny_padding"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingRight="@dimen/normal_padding"
+                    android:paddingLeft="@dimen/normal_padding"
+                    android:paddingTop="@dimen/small_padding"
+                    android:paddingBottom="@dimen/small_padding"
+                    android:text="Which if"
+                    android:textSize="@dimen/txt_text"
+                    android:hint="what is the title of this set?"
+                    android:textColor="@color/colorDeepGray"
+                    android:background="@color/colorWhite"
+                    />
+
+                <TextView
+                    android:layout_marginTop="@dimen/normal_padding"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/addset_info"
+                    android:textColor="@color/colorDeepGray"
+                    android:textStyle="bold"
+                    android:textSize="@dimen/txt_text"
+                    />
+
+                <EditText
+                    android:id="@+id/et_info"
+                    android:layout_marginTop="@dimen/tiny_padding"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingRight="@dimen/normal_padding"
+                    android:paddingLeft="@dimen/normal_padding"
+                    android:paddingTop="@dimen/small_padding"
+                    android:paddingBottom="@dimen/small_padding"
+                    android:textSize="@dimen/txt_text"
+                    android:textColor="@color/colorDeepGray"
+                    android:hint="What is this set about?"
+                    android:background="@color/colorWhite" />
+
+                <TextView
+                    android:layout_marginTop="@dimen/normal_padding"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/addset_area"
+                    android:textColor="@color/colorDeepGray"
+                    android:textStyle="bold"
+                    android:textSize="@dimen/txt_text"
+                    />
+
+                <EditText
+                    android:layout_marginTop="@dimen/tiny_padding"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingRight="@dimen/normal_padding"
+                    android:paddingLeft="@dimen/normal_padding"
+                    android:paddingTop="@dimen/small_padding"
+                    android:paddingBottom="@dimen/small_padding"
+                    android:textSize="@dimen/txt_text"
+                    android:textColor="@color/colorDeepGray"
+                    android:hint="What is this set about?"
+                    android:background="@color/colorWhite"
+                    />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/normal_padding">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Detailed Settings"
+                        android:textColor="@color/colorDeeperSkyBlue"
+                        android:textSize="@dimen/txt_text"
+                        android:textStyle="bold"
+                        android:layout_weight="1"/>
+
+                    <ImageView
+                        android:layout_width="@dimen/normal_padding"
+                        android:layout_height="@dimen/normal_padding"
+                        android:src="@drawable/ic_settings"
+                        android:tint="@color/colorDeeperSkyBlue"/>
+
+                </LinearLayout>
+
+
+
+            </LinearLayout>
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/recycler"
+                app:layoutManager="android.support.v7.widget.LinearLayoutManager"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+            </android.support.v7.widget.RecyclerView>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/colorLighterSkyBlue"
+                android:paddingTop="@dimen/normal_padding"
+                android:paddingRight="@dimen/normal_padding"
+                android:paddingLeft="@dimen/normal_padding"
+                android:paddingBottom="@dimen/normal_padding">
+                <LinearLayout
+                    android:id="@+id/add_question"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/colorDeepSkyBlue"
+                    android:gravity="center"
+                    android:paddingTop="@dimen/small_padding"
+                    android:paddingBottom="@dimen/small_padding"
+                    android:onClick="clickAddQuestion">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/addset_addstart"
+                        android:textSize="@dimen/txt_text"
+                        android:textColor="@color/colorWhite"
+                        />
+                    <TextView
+                        android:id="@+id/tv_question_type"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="@dimen/small_padding"
+                        android:layout_marginLeft="@dimen/small_padding"
+                        android:text="@string/q_type_1"
+                        android:textColor="@color/colorWhite"
+                        android:textSize="@dimen/txt_text"
+                        android:textStyle="bold"/>
+                    
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/addset_addend"
+                        android:textStyle="normal"
+                        android:textSize="@dimen/txt_text"
+                        android:textColor="@color/colorWhite"/>
+                </LinearLayout>
+
+            </LinearLayout>
+
+
+
+        </LinearLayout>
+    </ScrollView>
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="@dimen/bigger_padding"
+        android:layout_marginBottom="@dimen/big_padding"
+        android:src="@drawable/ic_arrow_t"
+        app:fabSize="auto"
+        app:backgroundTint="@color/colorPink"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        android:onClick="clickFab"
+        />
+
+
+</RelativeLayout>

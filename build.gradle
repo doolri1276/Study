@@ -29,6 +29,13 @@ allprojects {
         maven {
             url "https://jitpack.io"
         }
+
+        //ToggleExpandLayout
+        maven {
+            url "https://jitpack.io"
+        }
+
+
     }
 }
 

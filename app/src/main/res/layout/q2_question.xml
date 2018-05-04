@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="@dimen/small_padding"
+    android:padding="@dimen/normal_padding"
+    android:background="@color/colorLighterSkyBlue">
+
+    <ImageView
+        android:layout_width="@dimen/big_padding"
+        android:layout_height="@dimen/big_padding"
+        android:src="@drawable/ic_clear"
+        android:tint="@color/colorGray"
+        android:layout_alignParentRight="true"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/q_basic_question"
+                android:textStyle="bold"
+                android:textSize="@dimen/txt_text"
+                android:textColor="@color/colorDeepGray"
+                android:layout_marginRight="@dimen/tiny_padding"/>
+            <TextView
+
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="1"
+                android:textStyle="bold"
+                android:textSize="@dimen/txt_text"
+                android:textColor="@color/colorDeepGray"
+                android:layout_marginRight="@dimen/small_padding"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/txt_stext"
+                android:text="@string/q_type_2"
+                android:textColor="@color/colorBlueGray"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/small_padding"
+            android:background="@color/colorWhite"
+            android:paddingTop="@dimen/small_padding"
+            android:paddingRight="@dimen/normal_padding"
+            android:paddingLeft="@dimen/normal_padding">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/q2_qstart"
+                android:textSize="@dimen/txt_text"
+                android:textColor="@color/colorDeepGray"
+                android:textStyle="bold"/>
+            <ToggleButton
+                android:layout_width="@dimen/bigger_icon"
+                android:layout_height="@dimen/normal_padding"
+                android:background="@drawable/sel_qtype2"
+                android:layout_gravity="bottom"
+                android:textOn=""
+                android:layout_marginRight="@dimen/tiny_padding"
+                android:layout_marginLeft="@dimen/tiny_padding"
+                android:textOff=""/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/q2_qend"
+                android:textStyle="bold"
+                android:textColor="@color/colorDeepGray"
+                android:textSize="@dimen/txt_text"/>
+        </LinearLayout>
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorWhite"
+            android:paddingBottom="@dimen/small_padding"
+            android:paddingRight="@dimen/normal_padding"
+            android:paddingLeft="@dimen/normal_padding"
+            android:textSize="@dimen/txt_text"
+            android:paddingTop="@dimen/small_padding"
+            android:textColor="@color/colorDeepGray"
+            android:hint="@string/q_basic_quesitonhint"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/q_basic_answer"
+            android:textStyle="bold"
+            android:textSize="@dimen/txt_text"
+            android:textColor="@color/colorDeepGray"
+            android:layout_marginTop="@dimen/normal_padding"
+            android:layout_marginBottom="@dimen/tiny_padding"
+            />
+
+        <include layout="@layout/a1_answer"/>
+        <include layout="@layout/a1_answer"/>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorWhite"
+            android:layout_marginTop="@dimen/tiny_padding"
+            android:gravity="center"
+            android:paddingTop="@dimen/tiny_padding"
+            android:paddingBottom="@dimen/tiny_padding">
+            <ImageView
+                android:layout_width="@dimen/big_padding"
+                android:layout_height="@dimen/big_padding"
+                android:src="@drawable/ic_add"
+                android:tint="@color/colorGray"/>
+        </RelativeLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/q_basic_explanation"
+            android:textStyle="bold"
+            android:textSize="@dimen/txt_text"
+            android:textColor="@color/colorDeepGray"
+            android:layout_marginTop="@dimen/normal_padding"
+            android:layout_marginBottom="@dimen/tiny_padding"
+            />
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorWhite"
+            android:paddingTop="@dimen/small_padding"
+            android:paddingBottom="@dimen/small_padding"
+            android:paddingRight="@dimen/normal_padding"
+            android:paddingLeft="@dimen/normal_padding"
+            android:layout_marginTop="@dimen/small_padding"
+            android:textSize="@dimen/txt_text"
+            android:textColor="@color/colorDeepGray"
+            android:hint="@string/q_basic_explanationhint"/>
+
+
+
+
+    </LinearLayout>
+
+</RelativeLayout>

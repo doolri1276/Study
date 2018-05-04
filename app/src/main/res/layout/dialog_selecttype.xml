@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    android:orientation="vertical"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@color/colorLightSkyBlue"
+    >
+
+    <TextView
+        android:id="@+id/type1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/q_type_1"
+        android:textColor="@color/colorDeepGray"
+        android:textSize="@dimen/txt_text"
+        android:padding="@dimen/small_padding"
+        android:textStyle="bold"
+        android:gravity="center"/>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/colorWhite"/>
+    <TextView
+        android:id="@+id/type2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/q_type_2"
+        android:textStyle="bold"
+        android:textColor="@color/colorDeepGray"
+        android:textSize="@dimen/txt_text"
+        android:padding="@dimen/small_padding"
+        android:gravity="center"/>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/colorWhite"/>
+    <TextView
+        android:id="@+id/type3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/q_type_3"
+        android:textStyle="bold"
+        android:textColor="@color/colorDeepGray"
+        android:textSize="@dimen/txt_text"
+        android:padding="@dimen/small_padding"
+        android:gravity="center"/>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/colorWhite"/>
+    <TextView
+        android:id="@+id/type4"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/q_type_4"
+        android:textColor="@color/colorDeepGray"
+        android:textSize="@dimen/txt_text"
+        android:textStyle="bold"
+        android:padding="@dimen/small_padding"
+        android:gravity="center"/>
+
+</LinearLayout>

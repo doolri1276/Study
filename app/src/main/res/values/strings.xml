@@ -7,6 +7,10 @@
     <string name="login_continue">CONTINUE</string>
     <string name="login_lostpsw">Forgot your password?</string>
 
+    <string name="login_fail01">An ERROR has occurred.</string>
+    <string name="login_fail02">This user doesn't exist.</string>
+    <string name="login_fail03">Failed to connect to the server.</string>
+
     <string name="f1_home">Home</string>
     <string name="f2_feed">Feed</string>
     <string name="f3_study">Study</string>
@@ -30,5 +34,35 @@
 
     <string name="action_refresh">Refresh</string>
     <!--<string name="loading">Loading</string>-->
+
+    <string name="addset_title">Title*</string>
+    <string name="addset_info">Info</string>
+    <string name="addset_area">Area</string>
+    <string name="addset_submit">Submit</string>
+
+    <string name="addset_submit_fail01">Title is missing.</string>
+    <string name="addset_submit_fail02">Question is missing.</string>
+    <string name="addset_submit_fail03">Answer is missing.</string>
+    <string name="addset_submit_fail04">Question should include at least one correct answer.</string>
+    <string name="addset_submit_fail05">Failed to upload. Please try again.</string>
+
+    <string name="addset_addstart">Add a new</string>
+    <string name="addset_addend">question</string>
+
+    <string name="q_basic_question">Question </string>
+    <string name="q_basic_quesitonhint">Question goes here.</string>
+    <string name="q_basic_answer">Answer</string>
+    <string name="q_basic_answerhint">Answer goes here.</string>
+    <string name="q_basic_explanation">Explanation</string>
+    <string name="q_basic_explanationhint">Explanation goes here.</string>
+
+    <string name="q_type_1">Basic Type</string>
+    <string name="q_type_2">Right or Wrong</string>
+    <string name="q_type_3">One Answer Type</string>
+    <string name="q_type_4">Order Type</string>
+
+    <string name="q2_qstart">Which of the following is</string>
+    <string name="q2_qend">about</string>
+
 
 </resources>
