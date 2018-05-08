@@ -31,11 +31,55 @@
                 android:id="@+id/tv_info"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="This is about Biology and his superman rodie"
+                android:text="This is about Biology and his superman rodie. You know what? I started to really like the movies from MARVEL hahaha lolll. Rumy is snoring now lollllll hahahahaha"
                 android:textSize="@dimen/txt_text"
                 android:textColor="@color/colorBlueGray"
                 android:layout_marginTop="@dimen/big_padding"
                 />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/big_padding"
+                android:gravity="center_vertical">
+
+                <ToggleButton
+                    android:id="@+id/tb_favor"
+                    android:layout_width="@dimen/normal_padding"
+                    android:layout_height="@dimen/normal_padding"
+                    android:background="@drawable/sel_favor"
+                    android:checked="false"
+                    android:textOff=""
+                    android:textOn=""
+                    />
+
+                <TextView
+                    android:id="@+id/tv_favor_cnt"
+                    android:layout_width="55dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/small_padding"
+                    android:text="32"
+                    android:textSize="@dimen/txt_text"
+                    android:textColor="@color/colorDeepGray"
+                    android:textStyle="bold"/>
+
+                <ImageView
+                    android:layout_width="@dimen/normal_padding"
+                    android:layout_height="@dimen/normal_padding"
+                    android:src="@drawable/ic_book"
+                    />
+
+                <TextView
+                    android:id="@+id/tv_studied_totalcnt"
+                    android:layout_width="55dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/small_padding"
+                    android:text="32"
+                    android:textSize="@dimen/txt_text"
+                    android:textColor="@color/colorDeepGray"
+                    android:textStyle="bold"/>
+
+            </LinearLayout>
 
 
         </LinearLayout>
@@ -148,7 +192,8 @@
                     android:paddingRight="@dimen/big_padding"
                     android:paddingLeft="@dimen/big_padding"
                     android:paddingTop="@dimen/normal_padding"
-                    android:paddingBottom="@dimen/normal_padding">
+                    android:paddingBottom="@dimen/normal_padding"
+                    android:onClick="clickStorage">
                     <ImageView
                         android:layout_width="@dimen/big_padding"
                         android:layout_height="@dimen/big_padding"
@@ -175,6 +220,7 @@
                     android:paddingLeft="@dimen/big_padding"
                     android:paddingTop="@dimen/normal_padding"
                     android:paddingBottom="@dimen/normal_padding"
+                    android:onClick="clickStudy"
                     >
                     <ImageView
                         android:layout_width="@dimen/big_padding"
@@ -196,7 +242,8 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:onClick="clickPlay">
                 <LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -232,6 +279,7 @@
                     android:paddingLeft="@dimen/big_padding"
                     android:paddingTop="@dimen/normal_padding"
                     android:paddingBottom="@dimen/normal_padding"
+                    android:onClick="clickReport"
                     >
                     <ImageView
                         android:layout_width="@dimen/big_padding"
