@@ -1,12 +1,15 @@
 package com.snownaul.study;
 
+import android.app.Activity;
 import android.content.SharedPreferences;
+import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 
-import com.snownaul.study.Activities.IntroActivity;
 import com.snownaul.study.study_classes.Question;
 import com.snownaul.study.study_classes.SgSet;
+import com.snownaul.study.study_classes.StudySet;
 
-import java.sql.Time;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.TimeZone;
@@ -30,6 +33,10 @@ public class G {
     public static SgSet newSgSet;
     public static ArrayList<Question> newQuestions;
 
+    public static ArrayList<StudySet> studySets;
+
+    public static StudySet currentStudySet;
+
 
     public static void openG(SharedPreferences pref){
 
@@ -42,6 +49,7 @@ public class G {
         USER_AGE=pref.getInt("userAge",-99);
         USER_PROFILEPIC=pref.getString("userProfilePic",null);
 
+        studySets=new ArrayList<>();
     }
 
 
@@ -55,15 +63,35 @@ public class G {
         return lv_UTCTime;
     }
 
-    public static long convertUTCToLocalTime(long pv_UTCDateTime){
-        long lv_localDateTIme=pv_UTCDateTime;
+    public static String convertUTCToLocalTime(String datetime){
+        String locTime=null;
 
-        TimeZone z= TimeZone.getDefault();
-        int offset=z.getOffset(pv_UTCDateTime);
+        TimeZone tz= TimeZone.getDefault();
 
-        lv_localDateTIme=pv_UTCDateTime+offset;
+        SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
-        return lv_localDateTIme;
+        try{
+            Date parseDate=sdf.parse(datetime);
+            long milliseconds=parseDate.getTime();
+            int offset=tz.getOffset(milliseconds);
+            locTime=sdf.format(milliseconds+offset);
+            locTime=locTime.replace("+0000","");
+
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return locTime;
+    }
+
+    public static void hideKeyboard(Activity activity) {
+        InputMethodManager imm = (InputMethodManager) activity.getSystemService(Activity.INPUT_METHOD_SERVICE);
+        //Find the currently focused view, so we can grab the correct window token from it.
+        View view = activity.getCurrentFocus();
+        //If no view currently has focus, create a new one, just so we can grab a window token from it
+        if (view == null) {
+            view = new View(activity);
+        }
+        imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
     }
 
     public static void setUserId(int USER_ID){

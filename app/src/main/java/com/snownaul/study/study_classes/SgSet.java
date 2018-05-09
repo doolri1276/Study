@@ -1,5 +1,7 @@
 package com.snownaul.study.study_classes;
 
+import java.util.ArrayList;
+
 /**
  * Created by alfo6-11 on 2018-05-03.
  */
@@ -12,11 +14,21 @@ public class SgSet {
     private String title;
     private String info;
 
-    private String user_nickname;//
+    private String user_nickname;
+    private int likeCnt;
+    private ArrayList<Question> questions;
+    private int studiedTotalCnt;
+
+
+    public SgSet(int sgSetID) {
+        this.sgSetID = sgSetID;
+        questions=new ArrayList<>();
+    }
 
     public SgSet(int userID, String user_nickname) {
         this.userID = userID;
         this.user_nickname = user_nickname;
+        questions=new ArrayList<>();
     }
 
     public int getSgSetID() {
@@ -65,5 +77,29 @@ public class SgSet {
 
     public void setUser_nickname(String user_nickname) {
         this.user_nickname = user_nickname;
+    }
+
+    public int getLikeCnt() {
+        return likeCnt;
+    }
+
+    public void setLikeCnt(int likeCnt) {
+        this.likeCnt = likeCnt;
+    }
+
+    public ArrayList<Question> getQuestions() {
+        return questions;
+    }
+
+    public void setQuestions(ArrayList<Question> questions) {
+        this.questions = questions;
+    }
+
+    public int getStudiedTotalCnt() {
+        return studiedTotalCnt;
+    }
+
+    public void setStudiedTotalCnt(int studiedTotalCnt) {
+        this.studiedTotalCnt = studiedTotalCnt;
     }
 }

@@ -3,6 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_marginBottom="?attr/actionBarSize"
+
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <android.support.v7.widget.Toolbar
@@ -68,16 +69,12 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
-                    <android.support.v7.widget.CardView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:elevation="0dp"
-                        app:cardBackgroundColor="@color/colorBase"
-                        app:cardCornerRadius="0dp">
+
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:orientation="vertical"
+                            android:background="@color/colorBase"
                             android:padding="@dimen/normal_padding">
                             <LinearLayout
                                 android:layout_width="match_parent"
@@ -224,7 +221,7 @@
                                         android:layout_width="@dimen/prof_studyf"
                                         android:layout_height="@dimen/prof_studyf"
                                         android:src="@drawable/ic_circle"
-                                        android:tint="@color/colorLightestSkyBlue"/>
+                                        android:tint="@color/colorLighterSkyBlue"/>
 
                                     <ImageView
                                         android:layout_width="@dimen/normal_padding"
@@ -243,27 +240,7 @@
                                         android:layout_width="@dimen/prof_studyf"
                                         android:layout_height="@dimen/prof_studyf"
                                         android:src="@drawable/ic_circle"
-                                        android:tint="@color/colorLightestSkyBlue"/>
-
-                                    <ImageView
-                                        android:layout_width="@dimen/normal_padding"
-                                        android:layout_height="@dimen/normal_padding"
-                                        android:src="@drawable/ic_bookmark"
-                                        android:tint="@color/colorDeeperSkyBlue"
-                                        android:layout_centerInParent="true"/>
-                                </RelativeLayout>
-
-                                <RelativeLayout
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginRight="@dimen/small_padding"
-                                    android:layout_marginLeft="@dimen/small_padding"
-                                    >
-                                    <ImageView
-                                        android:layout_width="@dimen/prof_studyf"
-                                        android:layout_height="@dimen/prof_studyf"
-                                        android:src="@drawable/ic_circle"
-                                        android:tint="@color/colorLightestSkyBlue"/>
+                                        android:tint="@color/colorLighterSkyBlue"/>
 
                                     <ImageView
                                         android:layout_width="@dimen/normal_padding"
@@ -283,7 +260,27 @@
                                         android:layout_width="@dimen/prof_studyf"
                                         android:layout_height="@dimen/prof_studyf"
                                         android:src="@drawable/ic_circle"
-                                        android:tint="@color/colorLightestSkyBlue"/>
+                                        android:tint="@color/colorLighterSkyBlue"/>
+
+                                    <ImageView
+                                        android:layout_width="@dimen/normal_padding"
+                                        android:layout_height="@dimen/normal_padding"
+                                        android:src="@drawable/ic_bookmark"
+                                        android:tint="@color/colorDeeperSkyBlue"
+                                        android:layout_centerInParent="true"/>
+                                </RelativeLayout>
+
+                                <RelativeLayout
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginRight="@dimen/small_padding"
+                                    android:layout_marginLeft="@dimen/small_padding"
+                                    >
+                                    <ImageView
+                                        android:layout_width="@dimen/prof_studyf"
+                                        android:layout_height="@dimen/prof_studyf"
+                                        android:src="@drawable/ic_circle"
+                                        android:tint="@color/colorLighterSkyBlue"/>
 
                                     <ImageView
                                         android:layout_width="@dimen/normal_padding"
@@ -296,15 +293,15 @@
                             </LinearLayout>
 
                         </LinearLayout>
-                    </android.support.v7.widget.CardView>
 
-                    <include layout="@layout/study_setlayout"/>
+                    <android.support.v7.widget.RecyclerView
+                        android:id="@+id/recycler"
+                        app:layoutManager="android.support.v7.widget.LinearLayoutManager"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
 
-                    <include layout="@layout/study_setlayout"/>
+                    </android.support.v7.widget.RecyclerView>
 
-                    <include layout="@layout/study_setlayout"/>
-
-                    <include layout="@layout/study_setlayout"/>
                 </LinearLayout>
 
 

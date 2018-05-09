@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.snownaul.study.Activities.StudyStorageActivity"
+    android:background="@color/colorLighterSkyBlue">
+
+    <uk.co.imallan.jellyrefresh.JellyRefreshLayout
+        android:id="@+id/jelly"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:jellyColor="@color/colorDeepSkyBlue"
+        app:pullHeight="128dp"
+        app:triggerHeight="96dp"
+        android:layout_below="@id/toolbar"
+        app:headerHeight="48dp"
+        >
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:overScrollMode="never">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <EditText
+                    android:id="@+id/et_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Excepteru can morie an roue."
+                    android:background="@color/colorBase"
+                    android:padding="@dimen/big_padding"
+                    android:textStyle="bold"
+                    android:enabled="false"
+                    android:textColor="@color/colorDeeperSkyBlue"
+                    android:textSize="@dimen/txt_stitle"/>
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/recycler"
+                    app:layoutManager="android.support.v7.widget.LinearLayoutManager"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:overScrollMode="never">
+
+                </android.support.v7.widget.RecyclerView>
+
+            </LinearLayout>
+
+        </ScrollView>
+
+    </uk.co.imallan.jellyrefresh.JellyRefreshLayout>
+
+
+
+</RelativeLayout>

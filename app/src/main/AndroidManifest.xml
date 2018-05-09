@@ -48,8 +48,11 @@
 
         <activity android:name=".Main2Activity" />
         <activity android:name=".Activities.AddSetActivity" />
-        <activity android:name=".Activities.StudySetMainActivity"
-            ></activity>
+        <activity android:name=".Activities.StudySetMainActivity" />
+        <activity android:name=".Activities.StudyStorageActivity" />
+        <activity android:name=".Activities.StudyStudyActivity" />
+        <activity android:name=".Activities.StudyStudyingPageActivity"
+            android:theme="@style/AppTheme.StudyingPage"></activity>
     </application>
 
 </manifest>

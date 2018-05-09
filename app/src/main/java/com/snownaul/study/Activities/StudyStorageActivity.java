@@ -1,15 +1,17 @@
 package com.snownaul.study.Activities;
 
-import android.content.Intent;
+import android.app.Activity;
+import android.content.Context;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.ToggleButton;
-
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -17,7 +19,6 @@ import com.android.volley.Response;
 import com.android.volley.error.VolleyError;
 import com.android.volley.request.SimpleMultiPartRequest;
 import com.android.volley.toolbox.Volley;
-import com.bumptech.glide.Glide;
 import com.github.bluzwong.swipeback.SwipeBackActivityHelper;
 import com.snownaul.study.G;
 import com.snownaul.study.R;
@@ -28,21 +29,21 @@ import com.snownaul.study.study_classes.Question;
 import uk.co.imallan.jellyrefresh.JellyRefreshLayout;
 import uk.co.imallan.jellyrefresh.PullToRefreshLayout;
 
-public class StudySetMainActivity extends AppCompatActivity {
+public class StudyStorageActivity extends AppCompatActivity {
 
     SwipeBackActivityHelper helper=new SwipeBackActivityHelper();
-
-    TextView tvTitle,tvInfo;
-    ToggleButton tbFavor;
-    TextView tvFavorCnt, tvStudiedTotalCnt;
-
     JellyRefreshLayout jelly;
+
+    RecyclerView recyclerView;
+    StoQuestionsAdapter stoQuestionsAdapter;
+
+    EditText etTitle;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_study_set_main);
+        setContentView(R.layout.activity_study_storage);
 
         jelly=findViewById(R.id.jelly);
         jelly.setPullToRefreshListener(new PullToRefreshLayout.PullToRefreshListener() {
@@ -64,19 +65,60 @@ public class StudySetMainActivity extends AppCompatActivity {
 
 
         helper.setEdgeMode(true).setParallaxMode(true).setParallaxRatio(3).setNeedBackgroundShadow(true).init(this);
-
-        tvTitle=findViewById(R.id.tv_title);
-        tvInfo=findViewById(R.id.tv_info);
-        tbFavor=findViewById(R.id.tb_favor);
-        tvFavorCnt=findViewById(R.id.tv_favor_cnt);
-        tvStudiedTotalCnt=findViewById(R.id.tv_studied_totalcnt);
-
-        loadQuestions();
-        setView();
-
-
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+        recyclerView=findViewById(R.id.recycler);
+        stoQuestionsAdapter=new StoQuestionsAdapter(this);
+        recyclerView.setAdapter(stoQuestionsAdapter);
+
+        etTitle=findViewById(R.id.et_title);
+
+        G.hideKeyboard(this);
+
+
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        G.hideKeyboard(this);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                helper.finish();
+                return true;
+            case R.id.action_refresh:
+                jelly.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        jelly.setRefreshing(true);
+                        Log.i("MyTag","2 REFRESH!!!!!!!!");
+                    }
+                });
+                jelly.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        jelly.setRefreshing(false);
+                        Log.i("MyTag","3 REFRESH!!!!!!!!");
+                    }
+                },2000);
+                return true;
+
+        }
+
+
+
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onBackPressed() {
+        helper.finish();
     }
 
     public void loadQuestions(){
@@ -87,7 +129,7 @@ public class StudySetMainActivity extends AppCompatActivity {
             @Override
             public void onResponse(String response) {
 
-                Log.i("MyTag","bbiib : "+response);
+                Log.i("MyTag","STORAGGGGGG : "+response);
 
                 String[] questionInfos=response.split("&Q&");
                 String[] setInfos=questionInfos[0].split("&");
@@ -110,7 +152,7 @@ public class StudySetMainActivity extends AppCompatActivity {
                     q.setQuestionID(Integer.parseInt(questionDetailInfos[0]));
                     q.setQuestion(questionDetailInfos[2]);
                     q.setExplanation(questionDetailInfos[3]);
-                    q.setRightOrWrong(Boolean.parseBoolean(questionDetailInfos[4]));
+                    q.setRightOrWrong(questionDetailInfos[4].equals("1")?true:false);
 
                     q.setTriedCnt(Integer.parseInt(questionDetailInfos[5]));
                     q.setSolvedCnt(Integer.parseInt(questionDetailInfos[6]));
@@ -132,7 +174,7 @@ public class StudySetMainActivity extends AppCompatActivity {
 
                     G.currentStudySet.getSgSet().getQuestions().add(G.currentStudySet.getSgSet().getQuestions().size(),q);
                 }
-                setView();
+                stoQuestionsAdapter.notifyDataSetChanged();
 
             }
         }, new Response.ErrorListener() {
@@ -149,70 +191,6 @@ public class StudySetMainActivity extends AppCompatActivity {
         RequestQueue requestQueue= Volley.newRequestQueue(this);
 
         requestQueue.add(multiPartRequest);
-
-    }
-
-    public void setView(){
-        tvTitle.setText(G.currentStudySet.getSgSet().getTitle());
-        tvInfo.setText(G.currentStudySet.getSgSet().getInfo());
-        tbFavor.setChecked(G.currentStudySet.isLiked());
-        tvFavorCnt.setText(G.currentStudySet.getSgSet().getLikeCnt()+"");
-        tvStudiedTotalCnt.setText(G.currentStudySet.getTriedCnt()+"");
-
-
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-
-
-        switch (item.getItemId()) {
-            case android.R.id.home:
-                helper.finish();
-                return true;
-            case R.id.action_refresh:
-                    jelly.post(new Runnable() {
-                        @Override
-                        public void run() {
-                            jelly.setRefreshing(true);
-                            Log.i("MyTag","2 REFRESH!!!!!!!!");
-                        }
-                    });
-                    jelly.postDelayed(new Runnable() {
-                        @Override
-                        public void run() {
-                            jelly.setRefreshing(false);
-                            Log.i("MyTag","3 REFRESH!!!!!!!!");
-                        }
-                    },2000);
-                    return true;
-
-        }
-
-
-
-        return super.onOptionsItemSelected(item);
-    }
-
-    @Override
-    public void onBackPressed() {
-        helper.finish();
-    }
-
-    public void clickStorage(View v){
-        SwipeBackActivityHelper.startSwipeActivity(this,new Intent(this,StudyStorageActivity.class),true,true,true);
-
-    }
-
-    public void clickStudy(View v){
-        SwipeBackActivityHelper.startSwipeActivity(this,new Intent(this,StudyStudyActivity.class),true,true,true);
-    }
-
-    public void clickPlay(View v){
-
-    }
-
-    public void clickReport(View v){
 
     }
 }

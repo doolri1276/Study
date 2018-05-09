@@ -8,299 +8,317 @@
     tools:context="com.snownaul.study.Activities.StudySetMainActivity"
     android:background="@color/colorLighterSkyBlue">
 
-    <LinearLayout
+    <uk.co.imallan.jellyrefresh.JellyRefreshLayout
+        android:id="@+id/jelly"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        app:jellyColor="@color/colorDeepSkyBlue"
+        app:pullHeight="128dp"
+        app:triggerHeight="96dp"
+        android:layout_below="@id/toolbar"
+        app:headerHeight="48dp"
+        >
 
-        <LinearLayout
+        <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/colorWhite"
-            android:padding="@dimen/big_padding"
-            android:orientation="vertical">
-            <TextView
-                android:id="@+id/tv_title"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Biology Test"
-                android:textStyle="bold"
-                android:textColor="@color/colorDeeperSkyBlue"
-                android:textSize="@dimen/txt_stitle"/>
-            <TextView
-                android:id="@+id/tv_info"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="This is about Biology and his superman rodie. You know what? I started to really like the movies from MARVEL hahaha lolll. Rumy is snoring now lollllll hahahahaha"
-                android:textSize="@dimen/txt_text"
-                android:textColor="@color/colorBlueGray"
-                android:layout_marginTop="@dimen/big_padding"
-                />
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/big_padding"
-                android:gravity="center_vertical">
-
-                <ToggleButton
-                    android:id="@+id/tb_favor"
-                    android:layout_width="@dimen/normal_padding"
-                    android:layout_height="@dimen/normal_padding"
-                    android:background="@drawable/sel_favor"
-                    android:checked="false"
-                    android:textOff=""
-                    android:textOn=""
-                    />
-
-                <TextView
-                    android:id="@+id/tv_favor_cnt"
-                    android:layout_width="55dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/small_padding"
-                    android:text="32"
-                    android:textSize="@dimen/txt_text"
-                    android:textColor="@color/colorDeepGray"
-                    android:textStyle="bold"/>
-
-                <ImageView
-                    android:layout_width="@dimen/normal_padding"
-                    android:layout_height="@dimen/normal_padding"
-                    android:src="@drawable/ic_book"
-                    />
-
-                <TextView
-                    android:id="@+id/tv_studied_totalcnt"
-                    android:layout_width="55dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/small_padding"
-                    android:text="32"
-                    android:textSize="@dimen/txt_text"
-                    android:textColor="@color/colorDeepGray"
-                    android:textStyle="bold"/>
-
-            </LinearLayout>
-
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/small_padding"
-            android:background="@color/colorWhite"
-            android:paddingTop="@dimen/big_padding"
-            android:paddingBottom="@dimen/big_padding"
-            android:paddingRight="@dimen/normal_padding"
-            android:paddingLeft="@dimen/normal_padding"
-            android:orientation="horizontal">
-
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:gravity="center_horizontal"
-                android:paddingRight="@dimen/small_padding"
-                android:paddingLeft="@dimen/small_padding">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="14"
-                    android:textStyle="bold"
-                    android:textSize="@dimen/txt_text"
-                    android:textColor="@color/colorDeeperSkyBlue"/>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Questions"
-                    android:textSize="@dimen/txt_text"
-                    android:textColor="@color/colorDeepGray"/>
-
-
-            </LinearLayout>
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:gravity="center_horizontal"
-                android:paddingRight="@dimen/small_padding"
-                android:paddingLeft="@dimen/small_padding">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="14"
-                    android:textStyle="bold"
-                    android:textSize="@dimen/txt_text"
-                    android:textColor="@color/colorDeeperSkyBlue"/>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Studied Times"
-                    android:textSize="@dimen/txt_text"
-                    android:textColor="@color/colorDeepGray"/>
-
-
-            </LinearLayout>
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:gravity="center_horizontal"
-                android:paddingRight="@dimen/small_padding"
-                android:paddingLeft="@dimen/small_padding">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="14"
-                    android:textStyle="bold"
-                    android:textSize="@dimen/txt_text"
-                    android:textColor="@color/colorDeeperSkyBlue"/>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Studied Hours"
-                    android:textSize="@dimen/txt_text"
-                    android:textColor="@color/colorDeepGray"/>
-
-
-            </LinearLayout>
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_marginTop="@dimen/small_padding">
+            android:layout_height="match_parent">
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
                 <LinearLayout
-                    android:layout_width="0dp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
                     android:background="@color/colorWhite"
-                    android:paddingRight="@dimen/big_padding"
-                    android:paddingLeft="@dimen/big_padding"
-                    android:paddingTop="@dimen/normal_padding"
-                    android:paddingBottom="@dimen/normal_padding"
-                    android:onClick="clickStorage">
-                    <ImageView
-                        android:layout_width="@dimen/big_padding"
-                        android:layout_height="@dimen/big_padding"
-                        android:src="@drawable/ic_bookmark"
-                        android:tint="@color/colorLightSkyBlue"/>
+                    android:padding="@dimen/big_padding"
+                    android:orientation="vertical">
                     <TextView
+                        android:id="@+id/tv_title"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Biology Test"
+                        android:textStyle="bold"
+                        android:textColor="@color/colorDeeperSkyBlue"
+                        android:textSize="@dimen/txt_stitle"/>
+                    <TextView
+                        android:id="@+id/tv_info"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="This is about Biology and his superman rodie. You know what? I started to really like the movies from MARVEL hahaha lolll. Rumy is snoring now lollllll hahahahaha"
+                        android:textSize="@dimen/txt_text"
+                        android:textColor="@color/colorBlueGray"
+                        android:layout_marginTop="@dimen/big_padding"
+                        />
+
+                    <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Storage"
-                        android:textColor="@color/colorDeepGray"
-                        android:textSize="@dimen/txt_text"
-                        android:textStyle="bold"
-                        android:layout_gravity="center_vertical"
-                        android:layout_marginLeft="@dimen/normal_padding"/>
+                        android:layout_marginTop="@dimen/big_padding"
+                        android:gravity="center_vertical">
+
+                        <ToggleButton
+                            android:id="@+id/tb_favor"
+                            android:layout_width="@dimen/normal_padding"
+                            android:layout_height="@dimen/normal_padding"
+                            android:background="@drawable/sel_favor"
+                            android:checked="false"
+                            android:textOff=""
+                            android:textOn=""
+                            />
+
+                        <TextView
+                            android:id="@+id/tv_favor_cnt"
+                            android:layout_width="55dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/small_padding"
+                            android:text="32"
+                            android:textSize="@dimen/txt_text"
+                            android:textColor="@color/colorDeepGray"
+                            android:textStyle="bold"/>
+
+                        <ImageView
+                            android:layout_width="@dimen/normal_padding"
+                            android:layout_height="@dimen/normal_padding"
+                            android:src="@drawable/ic_book"
+                            />
+
+                        <TextView
+                            android:id="@+id/tv_studied_totalcnt"
+                            android:layout_width="55dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/small_padding"
+                            android:text="32"
+                            android:textSize="@dimen/txt_text"
+                            android:textColor="@color/colorDeepGray"
+                            android:textStyle="bold"/>
+
+                    </LinearLayout>
+
 
                 </LinearLayout>
 
                 <LinearLayout
-                    android:layout_width="0dp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:background="@color/colorLightSkyBlue"
-                    android:paddingRight="@dimen/big_padding"
-                    android:paddingLeft="@dimen/big_padding"
-                    android:paddingTop="@dimen/normal_padding"
-                    android:paddingBottom="@dimen/normal_padding"
-                    android:onClick="clickStudy"
-                    >
-                    <ImageView
-                        android:layout_width="@dimen/big_padding"
-                        android:layout_height="@dimen/big_padding"
-                        android:src="@drawable/ic_study"
-                        android:tint="@color/colorDeeperSkyBlue"/>
-                    <TextView
-                        android:layout_width="wrap_content"
+                    android:layout_marginTop="@dimen/small_padding"
+                    android:background="@color/colorWhite"
+                    android:paddingTop="@dimen/big_padding"
+                    android:paddingBottom="@dimen/big_padding"
+                    android:paddingRight="@dimen/normal_padding"
+                    android:paddingLeft="@dimen/normal_padding"
+                    android:orientation="horizontal">
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
                         android:layout_height="wrap_content"
-                        android:text="Study"
-                        android:textColor="@color/colorDeepGray"
-                        android:textSize="@dimen/txt_text"
-                        android:textStyle="bold"
-                        android:layout_gravity="center_vertical"
-                        android:layout_marginLeft="@dimen/normal_padding"/>
+                        android:orientation="vertical"
+                        android:gravity="center_horizontal"
+                        android:paddingRight="@dimen/small_padding"
+                        android:paddingLeft="@dimen/small_padding">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="14"
+                            android:textStyle="bold"
+                            android:textSize="@dimen/txt_text"
+                            android:textColor="@color/colorDeeperSkyBlue"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Questions"
+                            android:textSize="@dimen/txt_text"
+                            android:textColor="@color/colorDeepGray"/>
+
+
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:gravity="center_horizontal"
+                        android:paddingRight="@dimen/small_padding"
+                        android:paddingLeft="@dimen/small_padding">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="14"
+                            android:textStyle="bold"
+                            android:textSize="@dimen/txt_text"
+                            android:textColor="@color/colorDeeperSkyBlue"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Studied Times"
+                            android:textSize="@dimen/txt_text"
+                            android:textColor="@color/colorDeepGray"/>
+
+
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:gravity="center_horizontal"
+                        android:paddingRight="@dimen/small_padding"
+                        android:paddingLeft="@dimen/small_padding">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="14"
+                            android:textStyle="bold"
+                            android:textSize="@dimen/txt_text"
+                            android:textColor="@color/colorDeeperSkyBlue"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Studied Hours"
+                            android:textSize="@dimen/txt_text"
+                            android:textColor="@color/colorDeepGray"/>
+
+
+                    </LinearLayout>
 
                 </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_marginTop="@dimen/small_padding">
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:background="@color/colorWhite"
+                            android:paddingRight="@dimen/big_padding"
+                            android:paddingLeft="@dimen/big_padding"
+                            android:paddingTop="@dimen/normal_padding"
+                            android:paddingBottom="@dimen/normal_padding"
+                            android:onClick="clickStorage">
+                            <ImageView
+                                android:layout_width="@dimen/big_padding"
+                                android:layout_height="@dimen/big_padding"
+                                android:src="@drawable/ic_bookmark"
+                                android:tint="@color/colorLightSkyBlue"/>
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Storage"
+                                android:textColor="@color/colorDeepGray"
+                                android:textSize="@dimen/txt_text"
+                                android:textStyle="bold"
+                                android:layout_gravity="center_vertical"
+                                android:layout_marginLeft="@dimen/normal_padding"/>
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:background="@color/colorLightSkyBlue"
+                            android:paddingRight="@dimen/big_padding"
+                            android:paddingLeft="@dimen/big_padding"
+                            android:paddingTop="@dimen/normal_padding"
+                            android:paddingBottom="@dimen/normal_padding"
+                            android:onClick="clickStudy"
+                            >
+                            <ImageView
+                                android:layout_width="@dimen/big_padding"
+                                android:layout_height="@dimen/big_padding"
+                                android:src="@drawable/ic_study"
+                                android:tint="@color/colorDeeperSkyBlue"/>
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Study"
+                                android:textColor="@color/colorDeepGray"
+                                android:textSize="@dimen/txt_text"
+                                android:textStyle="bold"
+                                android:layout_gravity="center_vertical"
+                                android:layout_marginLeft="@dimen/normal_padding"/>
+
+                        </LinearLayout>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:onClick="clickPlay">
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:background="@color/colorDeepSkyBlue"
+                            android:paddingRight="@dimen/big_padding"
+                            android:paddingLeft="@dimen/big_padding"
+                            android:paddingTop="@dimen/normal_padding"
+                            android:paddingBottom="@dimen/normal_padding">
+                            <ImageView
+                                android:layout_width="@dimen/big_padding"
+                                android:layout_height="@dimen/big_padding"
+                                android:src="@drawable/ic_book"
+                                android:tint="@color/colorLighterSkyBlue"/>
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Play"
+                                android:textColor="@color/colorWhite"
+                                android:textSize="@dimen/txt_text"
+                                android:textStyle="bold"
+                                android:layout_gravity="center_vertical"
+                                android:layout_marginLeft="@dimen/normal_padding"/>
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:background="@color/colorDeeperSkyBlue"
+                            android:paddingRight="@dimen/big_padding"
+                            android:paddingLeft="@dimen/big_padding"
+                            android:paddingTop="@dimen/normal_padding"
+                            android:paddingBottom="@dimen/normal_padding"
+                            android:onClick="clickReport"
+                            >
+                            <ImageView
+                                android:layout_width="@dimen/big_padding"
+                                android:layout_height="@dimen/big_padding"
+                                android:src="@drawable/ic_report"
+                                android:tint="@color/colorWhite"/>
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Report"
+                                android:textColor="@color/colorWhite"
+                                android:textSize="@dimen/txt_text"
+                                android:textStyle="bold"
+                                android:layout_gravity="center_vertical"
+                                android:layout_marginLeft="@dimen/normal_padding"/>
+
+                        </LinearLayout>
+                    </LinearLayout>
+
+                </LinearLayout>
+
             </LinearLayout>
+        </ScrollView>
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:onClick="clickPlay">
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:background="@color/colorDeepSkyBlue"
-                    android:paddingRight="@dimen/big_padding"
-                    android:paddingLeft="@dimen/big_padding"
-                    android:paddingTop="@dimen/normal_padding"
-                    android:paddingBottom="@dimen/normal_padding">
-                    <ImageView
-                        android:layout_width="@dimen/big_padding"
-                        android:layout_height="@dimen/big_padding"
-                        android:src="@drawable/ic_book"
-                        android:tint="@color/colorLighterSkyBlue"/>
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Play"
-                        android:textColor="@color/colorWhite"
-                        android:textSize="@dimen/txt_text"
-                        android:textStyle="bold"
-                        android:layout_gravity="center_vertical"
-                        android:layout_marginLeft="@dimen/normal_padding"/>
 
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:background="@color/colorDeeperSkyBlue"
-                    android:paddingRight="@dimen/big_padding"
-                    android:paddingLeft="@dimen/big_padding"
-                    android:paddingTop="@dimen/normal_padding"
-                    android:paddingBottom="@dimen/normal_padding"
-                    android:onClick="clickReport"
-                    >
-                    <ImageView
-                        android:layout_width="@dimen/big_padding"
-                        android:layout_height="@dimen/big_padding"
-                        android:src="@drawable/ic_report"
-                        android:tint="@color/colorWhite"/>
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Report"
-                        android:textColor="@color/colorWhite"
-                        android:textSize="@dimen/txt_text"
-                        android:textStyle="bold"
-                        android:layout_gravity="center_vertical"
-                        android:layout_marginLeft="@dimen/normal_padding"/>
-
-                </LinearLayout>
-            </LinearLayout>
-
-        </LinearLayout>
-
-    </LinearLayout>
+    </uk.co.imallan.jellyrefresh.JellyRefreshLayout>
 
 </RelativeLayout>

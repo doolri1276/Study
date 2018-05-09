@@ -1,12 +1,14 @@
 package com.snownaul.study.study_classes;
 
+import android.support.annotation.NonNull;
+
 import java.util.ArrayList;
 
 /**
  * Created by alfo6-11 on 2018-05-03.
  */
 
-public class Question {
+public class Question implements Comparable{
     private int QuestionID;
     private int sgSetID;
 
@@ -14,6 +16,13 @@ public class Question {
     private String question;
     private String explanation;
     private boolean rightOrWrong;
+    private boolean isEditMode;
+    private boolean isLiked;
+
+    private int triedCnt;
+    private int solvedCnt;
+    private int keptCorrection;
+    private int timeLength;
 
     public static final int TYPE_BASIC=0;
     public static final int TYPE_RIGHTORWRONG=1;
@@ -85,5 +94,58 @@ public class Question {
 
     public void setAnswers(ArrayList<Answer> answers) {
         this.answers = answers;
+    }
+
+    public boolean isEditMode() {
+        return isEditMode;
+    }
+
+    public void setEditMode(boolean editMode) {
+        isEditMode = editMode;
+    }
+
+    public boolean isLiked() {
+        return isLiked;
+    }
+
+    public void setLiked(boolean liked) {
+        isLiked = liked;
+    }
+
+    public int getTriedCnt() {
+        return triedCnt;
+    }
+
+    public void setTriedCnt(int triedCnt) {
+        this.triedCnt = triedCnt;
+    }
+
+    public int getSolvedCnt() {
+        return solvedCnt;
+    }
+
+    public void setSolvedCnt(int solvedCnt) {
+        this.solvedCnt = solvedCnt;
+    }
+
+    public int getKeptCorrection() {
+        return keptCorrection;
+    }
+
+    public void setKeptCorrection(int keptCorrection) {
+        this.keptCorrection = keptCorrection;
+    }
+
+    public int getTimeLength() {
+        return timeLength;
+    }
+
+    public void setTimeLength(int timeLength) {
+        this.timeLength = timeLength;
+    }
+
+    @Override
+    public int compareTo(@NonNull Object o) {
+        return solvedCnt-((Question)o).solvedCnt;
     }
 }

@@ -144,7 +144,7 @@ public class AddSetActivity extends AppCompatActivity {
             }
         });
 
-
+        G.hideKeyboard(this);
 
     }
 
@@ -281,13 +281,7 @@ public class AddSetActivity extends AppCompatActivity {
                 //TODO: set추가 성공시 해야할 행동들..
                 String[] str=response.split("&");
                 Log.i("MyTag",response);
-                if(str[0].equals("SUCCESSFUL")){
-                    Toast.makeText(AddSetActivity.this, "successful : "+str[1], Toast.LENGTH_SHORT).show();
-                }else{
-                    Toast.makeText(AddSetActivity.this, "실패실패", Toast.LENGTH_SHORT).show();
-                }
 
-                SwipeBackActivityHelper.startSwipeActivity(AddSetActivity.this,new Intent(AddSetActivity.this,StudySetMainActivity.class),true,true,true);
                 finish();
 
 
@@ -317,13 +311,13 @@ public class AddSetActivity extends AppCompatActivity {
 //            if(expl==null||expl.length()==0)
 //                buffer.append("NULL"+detailDivider);
             buffer.append(t.getExplanation()+detailDivider);
-            buffer.append(t.isRightOrWrong());
+            buffer.append((t.isRightOrWrong()==true?1:0));
 
             for(int j=0;j<t.getAnswers().size();j++){
                 Answer ta=t.getAnswers().get(j);
                 buffer.append(aDivider);
                 buffer.append(ta.getAnswer()+detailDivider);
-                buffer.append(ta.isCorrect()+detailDivider);
+                buffer.append((ta.isCorrect()?1:0)+detailDivider);
                 buffer.append(ta.getSgOrder());
             }
 
