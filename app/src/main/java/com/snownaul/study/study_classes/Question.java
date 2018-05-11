@@ -28,16 +28,35 @@ public class Question implements Comparable{
     public static final int TYPE_RIGHTORWRONG=1;
     public static final int TYPE_ONEANSWER=2;
     public static final int TYPE_ORDER=3;
-
     private ArrayList<Answer> answers;
+
+
+
+    //업데이트 관련 변수들
+    private int updateState;
+    public static final int MODE_UNCHAGED=0;
+    public static final int MODE_UPDATED=1;
+    public static final int MODE_ADDED=2;
+    public static final int MODE_DELETED=3;
+
 
     public Question(int questionType) {
         this.questionType = questionType;
         answers=new ArrayList<>();
-        answers.add(new Answer());
+        Answer a=new Answer();
+        a.setQuestionID(getQuestionID());
+        answers.add(a);
         if(questionType==TYPE_ONEANSWER||questionType==TYPE_ORDER){
             answers.get(0).setCorrect(true);
         }
+    }
+
+    public int getUpdateState() {
+        return updateState;
+    }
+
+    public void setUpdateState(int updateState) {
+        this.updateState = updateState;
     }
 
     public int getQuestionID() {
@@ -143,6 +162,9 @@ public class Question implements Comparable{
     public void setTimeLength(int timeLength) {
         this.timeLength = timeLength;
     }
+
+
+
 
     @Override
     public int compareTo(@NonNull Object o) {

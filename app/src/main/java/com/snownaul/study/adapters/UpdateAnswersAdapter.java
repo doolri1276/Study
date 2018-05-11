@@ -4,6 +4,7 @@ import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +14,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.snownaul.study.G;
 import com.snownaul.study.R;
 import com.snownaul.study.study_classes.Answer;
 import com.snownaul.study.study_classes.Question;
@@ -20,26 +22,26 @@ import com.snownaul.study.study_classes.Question;
 import java.util.ArrayList;
 
 /**
- * Created by alfo6-11 on 2018-05-09.
+ * Created by alfo6-11 on 2018-05-03.
  */
 
-public class StoAnswersAdapter extends RecyclerView.Adapter {
+public class UpdateAnswersAdapter extends RecyclerView.Adapter {
 
     Context context;
     ArrayList<Answer> answers;
     int questionType;
-    boolean isEditMode;
 
-    public StoAnswersAdapter(Context context, ArrayList<Answer> answers, int questionType, boolean isEditMode) {
+    boolean updatable;
+
+    public UpdateAnswersAdapter(Context context, ArrayList<Answer> answers, int questionType) {
         this.context = context;
         this.answers = answers;
-        this.questionType = questionType;
-        this.isEditMode = isEditMode;
+        this.questionType=questionType;
     }
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View itemView= LayoutInflater.from(context).inflate(R.layout.a2_answer,parent,false);
+        View itemView= LayoutInflater.from(context).inflate(R.layout.a1_answer,parent,false);
         VH vh=new VH(itemView);
 
         return vh;
@@ -47,40 +49,29 @@ public class StoAnswersAdapter extends RecyclerView.Adapter {
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+        updatable=false;
+
         VH vh=(VH)holder;
         Answer t=answers.get(position);
 
         vh.cb.setChecked(t.isCorrect());
 
-        if(isEditMode){
-            vh.answer.setEnabled(true);
-            vh.btnClear.setVisibility(View.VISIBLE);
-            vh.cb.setEnabled(true);
-            vh.tvNum.setEnabled(true);
-
-            if(position==0){
-                vh.btnClear.setVisibility(View.GONE);
-            }else {
-                vh.btnClear.setVisibility(View.VISIBLE);
-            }
-        }else{
-            vh.answer.setEnabled(false);
+        if(position==0){
             vh.btnClear.setVisibility(View.GONE);
-            vh.cb.setEnabled(false);
-            vh.tvNum.setEnabled(false);
-
+        }else {
+            vh.btnClear.setVisibility(View.VISIBLE);
         }
 
-
-
-        if(questionType==Question.TYPE_ORDER){
-            vh.tvNum.setText(t.getSgOrder()+"");
-        }
-
+        if(questionType==Question.TYPE_ORDER)
+            vh.tvNum.setText(position+1+"");
 
         t.setSgOrder(position+1);
 
         vh.answer.setText(t.getAnswer());
+
+
+        updatable=true;
+
     }
 
     @Override
@@ -92,7 +83,7 @@ public class StoAnswersAdapter extends RecyclerView.Adapter {
 
         CheckBox cb;
         TextView tvNum;
-        TextView answer;
+        EditText answer;
         ImageView btnClear;
 
         public VH(View itemView) {
@@ -104,10 +95,10 @@ public class StoAnswersAdapter extends RecyclerView.Adapter {
             btnClear=itemView.findViewById(R.id.btn_clear);
 
 
-//            if(studyingMode&&answers.size()>1){
-//
-//                answer.requestFocus();
-//            }
+            if(answers.size()>1){
+
+                answer.requestFocus();
+            }
 
 
             switch (questionType){
@@ -123,7 +114,13 @@ public class StoAnswersAdapter extends RecyclerView.Adapter {
             cb.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                 @Override
                 public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                    answers.get(getLayoutPosition()).setCorrect(isChecked);
+                    if(!updatable)return;
+                    Answer ta=answers.get(getLayoutPosition());
+                    ta.setCorrect(isChecked);
+                    if(ta.getUpdateState()!=Answer.MODE_ADDED&&ta.getUpdateState()!=Answer.MODE_ADDED_BYQUESTION) {
+                        answers.get(getLayoutPosition()).setUpdateState(Answer.MODE_UPDATED);
+                        Log.i("MyTag",answers.get(getLayoutPosition()).getAnswerID()+"번 AAAAAAAAAnswer cb UPDATED>>>>>>>>>>>>>>>");
+                    }
                 }
             });
 
@@ -140,17 +137,29 @@ public class StoAnswersAdapter extends RecyclerView.Adapter {
 
                 @Override
                 public void afterTextChanged(Editable s) {
-                    answers.get(getLayoutPosition()).setAnswer(s.toString());
+                    if(!updatable)return;
+
+                    Answer ta=answers.get(getLayoutPosition());
+
+                   ta.setAnswer(s.toString());
+                    if(ta.getUpdateState()!=Answer.MODE_ADDED&&ta.getUpdateState()!=Answer.MODE_ADDED_BYQUESTION) {
+                        ta.setUpdateState(Answer.MODE_UPDATED);
+                        Log.i("MyTag",ta.getAnswerID()+"번 AAAAAAAAAnswer answer UPDATED>>>>>>>>>>>>>>>");
+                    }
                 }
             });
 
             btnClear.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    if(!updatable)return;
                     if(answers.size()<=1) return;
+                    answers.get(getLayoutPosition()).setUpdateState(Answer.MODE_DELETED);
+                    if(answers.get(getLayoutPosition()).getAnswerID()!=0) G.deletedAnswers.add(answers.get(getLayoutPosition()));
+                    Log.i("MyTag",answers.get(getLayoutPosition()).getAnswerID()+"번 AAAAAAAAAnswer DELETED >>>>>>>>>>>>>>>");
                     answers.remove(getLayoutPosition());
-                    StoAnswersAdapter.this.notifyItemRemoved(getLayoutPosition());
-                    StoAnswersAdapter.this.notifyItemRangeChanged(getLayoutPosition(),answers.size()-getLayoutPosition());
+                    UpdateAnswersAdapter.this.notifyItemRemoved(getLayoutPosition());
+                    UpdateAnswersAdapter.this.notifyItemRangeChanged(getLayoutPosition(),answers.size()-getLayoutPosition());
                 }
             });
         }

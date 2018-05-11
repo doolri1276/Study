@@ -1,33 +1,25 @@
 package com.snownaul.study.Activities;
 
-import android.app.Activity;
-import android.content.Context;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.inputmethod.InputMethodManager;
-import android.widget.EditText;
 import android.widget.TextView;
 
-import com.android.volley.Request;
-import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.error.VolleyError;
-import com.android.volley.request.SimpleMultiPartRequest;
-import com.android.volley.toolbox.Volley;
 import com.github.bluzwong.swipeback.SwipeBackActivityHelper;
 import com.snownaul.study.G;
 import com.snownaul.study.R;
 import com.snownaul.study.adapters.StoQuestionsAdapter;
-import com.snownaul.study.study_classes.Answer;
-import com.snownaul.study.study_classes.Question;
 
 import uk.co.imallan.jellyrefresh.JellyRefreshLayout;
 import uk.co.imallan.jellyrefresh.PullToRefreshLayout;
+
+import static android.view.View.GONE;
 
 public class StudyStorageActivity extends AppCompatActivity {
 
@@ -37,7 +29,7 @@ public class StudyStorageActivity extends AppCompatActivity {
     RecyclerView recyclerView;
     StoQuestionsAdapter stoQuestionsAdapter;
 
-    EditText etTitle;
+    TextView tvTitle, tvInfo;
 
 
     @Override
@@ -53,7 +45,8 @@ public class StudyStorageActivity extends AppCompatActivity {
                     @Override
                     public void run() {
                         Log.i("MyTag","1 REFRESH!!!!!!!!");
-                        loadQuestions();
+                        G.loadCurrentSet(StudyStorageActivity.this);
+                        setView();
                         jelly.setRefreshing(false);
                     }
                 },2000);
@@ -71,17 +64,32 @@ public class StudyStorageActivity extends AppCompatActivity {
         stoQuestionsAdapter=new StoQuestionsAdapter(this);
         recyclerView.setAdapter(stoQuestionsAdapter);
 
-        etTitle=findViewById(R.id.et_title);
+        tvTitle =findViewById(R.id.tv_title);
+        tvInfo=findViewById(R.id.tv_info);
 
-        G.hideKeyboard(this);
+        setView();
 
 
+    }
+
+    public void setView(){
+        tvTitle.setText(G.currentStudySet.getSgSet().getTitle());
+        tvInfo.setText(G.currentStudySet.getSgSet().getInfo());
+        if(tvInfo.getText().length()==0) tvInfo.setVisibility(GONE);
+        else tvInfo.setVisibility(View.VISIBLE);
+         stoQuestionsAdapter.notifyDataSetChanged();
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        G.hideKeyboard(this);
+        setView();
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.studystorage_menu,menu);
+        return super.onCreateOptionsMenu(menu);
     }
 
     @Override
@@ -91,6 +99,17 @@ public class StudyStorageActivity extends AppCompatActivity {
         switch (item.getItemId()) {
             case android.R.id.home:
                 helper.finish();
+                return true;
+
+            case R.id.edit:
+                Intent intent=new Intent(StudyStorageActivity.this,UpdateSetActivity.class);
+                intent.putExtra("mode","update");
+                View currentFocus = getCurrentFocus();
+                if (currentFocus != null) {
+                    currentFocus.clearFocus();
+                }
+                startActivity(intent);
+
                 return true;
             case R.id.action_refresh:
                 jelly.post(new Runnable() {
@@ -121,76 +140,5 @@ public class StudyStorageActivity extends AppCompatActivity {
         helper.finish();
     }
 
-    public void loadQuestions(){
-        //TODO: 문제들 받아오기...
-        String serverUrl="http://snownaul2.dothome.co.kr/StudyGuide/Set/loadAllQuestions.php";
 
-        SimpleMultiPartRequest multiPartRequest=new SimpleMultiPartRequest(Request.Method.POST, serverUrl, new Response.Listener<String>() {
-            @Override
-            public void onResponse(String response) {
-
-                Log.i("MyTag","STORAGGGGGG : "+response);
-
-                String[] questionInfos=response.split("&Q&");
-                String[] setInfos=questionInfos[0].split("&");
-                G.currentStudySet.getSgSet().setTitle(setInfos[0]);
-                G.currentStudySet.getSgSet().setInfo(setInfos[1]);
-                G.currentStudySet.setEditable(Boolean.parseBoolean(setInfos[2]));
-                G.currentStudySet.getSgSet().setLikeCnt(Integer.parseInt(setInfos[3]));
-                G.currentStudySet.setLiked(Boolean.parseBoolean(setInfos[4]));
-                G.currentStudySet.setTriedCnt(Integer.parseInt(setInfos[5]));
-                G.currentStudySet.setRecentDate(G.convertUTCToLocalTime(setInfos[6]));
-                G.currentStudySet.setKeptCorrectionCnt(Integer.parseInt(setInfos[7]));
-
-                G.currentStudySet.getSgSet().getQuestions().clear();
-
-                for(int i=1;i<questionInfos.length;i++){
-                    String[] answerInfos=questionInfos[i].split("&A&");
-                    String[] questionDetailInfos=answerInfos[0].split("&");
-
-                    Question q=new Question(Integer.parseInt(questionDetailInfos[1]));
-                    q.setQuestionID(Integer.parseInt(questionDetailInfos[0]));
-                    q.setQuestion(questionDetailInfos[2]);
-                    q.setExplanation(questionDetailInfos[3]);
-                    q.setRightOrWrong(questionDetailInfos[4].equals("1")?true:false);
-
-                    q.setTriedCnt(Integer.parseInt(questionDetailInfos[5]));
-                    q.setSolvedCnt(Integer.parseInt(questionDetailInfos[6]));
-                    q.setKeptCorrection(Integer.parseInt(questionDetailInfos[7]));
-                    q.setTimeLength(Integer.parseInt(questionDetailInfos[8]));
-
-                    q.getAnswers().clear();
-                    for(int j=1;j<answerInfos.length;j++){
-                        String[] answerDetailInfos=answerInfos[j].split("&");
-
-                        Answer a=new Answer();
-                        a.setAnswerID(Integer.parseInt(answerDetailInfos[0]));
-                        a.setAnswer(answerDetailInfos[1]);
-                        a.setCorrect(answerDetailInfos[2].equals("1")?true:false);
-                        a.setSgOrder(Integer.parseInt(answerDetailInfos[3]));
-
-                        q.getAnswers().add(q.getAnswers().size(),a);
-                    }
-
-                    G.currentStudySet.getSgSet().getQuestions().add(G.currentStudySet.getSgSet().getQuestions().size(),q);
-                }
-                stoQuestionsAdapter.notifyDataSetChanged();
-
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-
-            }
-        });
-
-        multiPartRequest.addStringParam("studySetID",G.currentStudySet.getStudySetId()+"");
-        multiPartRequest.addStringParam("userID",G.getUserId()+"");
-        multiPartRequest.addStringParam("sgSetID",G.currentStudySet.getSgSetID()+"");
-
-        RequestQueue requestQueue= Volley.newRequestQueue(this);
-
-        requestQueue.add(multiPartRequest);
-
-    }
 }

@@ -54,10 +54,10 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
 
         //애니메이션 설정
-        logo=findViewById(R.id.logo);
-
-        Animation ani= AnimationUtils.loadAnimation(this,R.anim.appear_logo);
-        logo.startAnimation(ani);
+//        logo=findViewById(R.id.logo);
+//
+//        Animation ani= AnimationUtils.loadAnimation(this,R.anim.appear_logo);
+//        logo.startAnimation(ani);
 
         //카카오 로그인
         kakaoLoginBtn=findViewById(R.id.kakao_loginbtn);
@@ -93,13 +93,13 @@ public class LoginActivity extends AppCompatActivity {
             public void onSessionClosed(ErrorResult errorResult) {
                 Log.d("Error", "오류로 카카오로그인 실패 ");
                 Log.d("MyTag","95 : "+errorResult.getErrorMessage());
-                Toast.makeText(LoginActivity.this, R.string.login_fail01+" : 96", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(LoginActivity.this, R.string.login_fail01+" : 96", Toast.LENGTH_SHORT).show();
 
             }
 
             @Override
             public void onNotSignedUp() {//카카오톡 회원이 아닐 시 호출됨.
-                Toast.makeText(LoginActivity.this, R.string.login_fail02+" : 102", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(LoginActivity.this, R.string.login_fail02+" : 102", Toast.LENGTH_SHORT).show();
             }
 
             @Override
@@ -143,7 +143,7 @@ public class LoginActivity extends AppCompatActivity {
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         Log.i("MyTag","132"+error.getMessage());
-                        Toast.makeText(LoginActivity.this, R.string.login_fail01+" : 133", Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(LoginActivity.this, R.string.login_fail01+" : 133", Toast.LENGTH_SHORT).show();
                     }
                 });
 
@@ -154,7 +154,7 @@ public class LoginActivity extends AppCompatActivity {
 
                 requestQueue.add(multiPartRequest);
 
-                Toast.makeText(LoginActivity.this, "카카오 로그인 성공!", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(LoginActivity.this, "카카오 로그인 성공!", Toast.LENGTH_SHORT).show();
 
 
             }
@@ -165,7 +165,7 @@ public class LoginActivity extends AppCompatActivity {
                 Log.i("Kakao",message);
                 Log.v("Kakao","fail");
 
-                Toast.makeText(LoginActivity.this, "160: "+R.string.login_fail01, Toast.LENGTH_SHORT).show();
+                //Toast.makeText(LoginActivity.this, "160: "+R.string.login_fail01, Toast.LENGTH_SHORT).show();
 
                 ErrorCode result=ErrorCode.valueOf(errorResult.getErrorCode());
                 if(result==ErrorCode.CLIENT_ERROR_CODE){
@@ -189,7 +189,7 @@ public class LoginActivity extends AppCompatActivity {
         public void onSessionOpened() {
             //가입한적 있는지 확인
 
-            Toast.makeText(LoginActivity.this, "카카오 세션 오픈!!", Toast.LENGTH_SHORT).show();
+            //Toast.makeText(LoginActivity.this, "카카오 세션 오픈!!", Toast.LENGTH_SHORT).show();
             //첫 로그인이면 FirstSettingAc로 가고
 
             //로그인 한 적 있으면 MainAc로....
@@ -202,7 +202,7 @@ public class LoginActivity extends AppCompatActivity {
         @Override
         public void onSessionOpenFailed(KakaoException exception) {
 
-            Toast.makeText(LoginActivity.this, "197: "+R.string.login_fail03, Toast.LENGTH_SHORT).show();
+            //Toast.makeText(LoginActivity.this, "197: "+R.string.login_fail03, Toast.LENGTH_SHORT).show();
             if(exception!=null){
                 com.kakao.util.helper.log.Logger.e(exception);
                 

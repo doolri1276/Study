@@ -119,6 +119,7 @@
                         android:paddingLeft="@dimen/small_padding">
 
                         <TextView
+                            android:id="@+id/tv_question_cnt"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="14"
@@ -145,6 +146,7 @@
                         android:paddingLeft="@dimen/small_padding">
 
                         <TextView
+                            android:id="@+id/tv_solved_cnt"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="14"
@@ -171,6 +173,7 @@
                         android:paddingLeft="@dimen/small_padding">
 
                         <TextView
+                            android:id="@+id/tv_time_length"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="14"

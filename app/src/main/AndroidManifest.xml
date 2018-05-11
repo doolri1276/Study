@@ -51,8 +51,10 @@
         <activity android:name=".Activities.StudySetMainActivity" />
         <activity android:name=".Activities.StudyStorageActivity" />
         <activity android:name=".Activities.StudyStudyActivity" />
-        <activity android:name=".Activities.StudyStudyingPageActivity"
-            android:theme="@style/AppTheme.StudyingPage"></activity>
+        <activity
+            android:name=".Activities.StudyStudyingPageActivity"
+            android:theme="@style/AppTheme.StudyingPage" />
+        <activity android:name=".Activities.UpdateSetActivity"></activity>
     </application>
 
 </manifest>

@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout
+    android:id="@+id/layout_question"
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -91,7 +93,7 @@
                 android:textColor="@color/colorDeepGray"
                 android:textSize="@dimen/txt_text"/>
         </LinearLayout>
-        <EditText
+        <TextView
             android:id="@+id/et_question"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -131,7 +133,7 @@
                 android:tint="@color/colorWhite"/>
         </RelativeLayout>
 
-        <EditText
+        <TextView
             android:id="@+id/et_explanation"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -154,7 +156,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:padding="@dimen/normal_padding"
-        android:visibility="visible">
+        android:visibility="gone">
         <ImageView
             android:id="@+id/btn_edit"
             android:layout_width="@dimen/normal_padding"

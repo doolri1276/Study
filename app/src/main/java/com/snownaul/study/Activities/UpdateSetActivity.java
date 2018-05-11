@@ -11,13 +11,11 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.CompoundButton;
+import android.widget.AbsListView;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
-import android.widget.Toast;
-import android.widget.ToggleButton;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -25,21 +23,17 @@ import com.android.volley.Response;
 import com.android.volley.error.VolleyError;
 import com.android.volley.request.SimpleMultiPartRequest;
 import com.android.volley.toolbox.Volley;
-import com.fenjuly.mylibrary.ToggleExpandLayout;
-import com.github.bluzwong.swipeback.SwipeBackActivityHelper;
 import com.snownaul.study.G;
 import com.snownaul.study.R;
 import com.snownaul.study.adapters.NewQuestionsAdapter;
+import com.snownaul.study.adapters.UpdateQuestionsAdapter;
 import com.snownaul.study.study_classes.Answer;
 import com.snownaul.study.study_classes.Question;
 import com.snownaul.study.study_classes.SgSet;
 
 import java.util.ArrayList;
 
-public class AddSetActivity extends AppCompatActivity {
-
-    //View들 추가
-
+public class UpdateSetActivity extends AppCompatActivity {
     ScrollView scroll;
 
     EditText etTitle;
@@ -53,7 +47,7 @@ public class AddSetActivity extends AppCompatActivity {
     int defaultQuestionType= Question.TYPE_BASIC;
     TextView questionType;
 
-    NewQuestionsAdapter newQuestionsAdapter;
+    UpdateQuestionsAdapter updateQuestionsAdapter;
 
     String title,info;
 
@@ -73,13 +67,17 @@ public class AddSetActivity extends AppCompatActivity {
 
         questionType=findViewById(R.id.tv_question_type);
 
-        //sgSet에 새로운 세트 만듬
-        G.newSgSet=new SgSet(G.getUserId(),G.getUserNickname());
-        G.newQuestions=new ArrayList<>();
-        G.newQuestions.add(new Question(defaultQuestionType));
+        G.updateSgSet=G.currentStudySet.getSgSet();
+        G.deletedQuestions=new ArrayList<>();
+        G.deletedAnswers=new ArrayList<>();
 
-        newQuestionsAdapter=new NewQuestionsAdapter(this);
-        recyclerView.setAdapter(newQuestionsAdapter);
+        etTitle.setText(G.updateSgSet.getTitle());
+        Log.i("MyTag","aaaaa Titie : "+G.updateSgSet.getTitle());
+        etInfo.setText(G.updateSgSet.getInfo());
+        Log.i("MyTag","aaaaa Info : "+G.updateSgSet.getInfo());
+
+        updateQuestionsAdapter=new UpdateQuestionsAdapter(this);
+        recyclerView.setAdapter(updateQuestionsAdapter);
 
         addQuestion.setOnLongClickListener(new View.OnLongClickListener() {
 
@@ -88,7 +86,7 @@ public class AddSetActivity extends AppCompatActivity {
 
             @Override
             public boolean onLongClick(View v) {
-                AlertDialog.Builder builder=new AlertDialog.Builder(AddSetActivity.this);
+                AlertDialog.Builder builder=new AlertDialog.Builder(UpdateSetActivity.this);
 
                 LayoutInflater inf=getLayoutInflater();
                 View view=inf.inflate(R.layout.dialog_selecttype,null);
@@ -146,7 +144,11 @@ public class AddSetActivity extends AppCompatActivity {
 
         G.hideKeyboard(this);
 
+
+
     }
+
+
 
     public void setDefaultQuestionType(int defaultQuestionType) {
         this.defaultQuestionType = defaultQuestionType;
@@ -169,6 +171,7 @@ public class AddSetActivity extends AppCompatActivity {
 
         switch (item.getItemId()) {
             case android.R.id.home:
+                G.loadCurrentSet(this);
                 finish();
                 return true;
 
@@ -183,16 +186,27 @@ public class AddSetActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        G.loadCurrentSet(this);
+    }
+
     public void clickFab(View v){
         scroll.scrollTo(5,10);
 
     }
 
     public void clickAddQuestion(View v){
-        G.newQuestions.add(new Question(defaultQuestionType));
+        G.updateSgSet.getQuestions().add(new Question(defaultQuestionType));
 
-        newQuestionsAdapter.notifyItemInserted(G.newQuestions.size()-1);
-        recyclerView.scrollToPosition(G.newQuestions.size()-1);
+        Question t=G.updateSgSet.getQuestions().get(G.updateSgSet.getQuestions().size()-1);
+
+        Log.i("MyTag",t.getQuestionID()+"번 Question ADDED");
+        t.setUpdateState(Question.MODE_ADDED);
+        t.getAnswers().get(0).setUpdateState(Answer.MODE_ADDED_BYQUESTION);
+        updateQuestionsAdapter.notifyItemInserted(G.updateSgSet.getQuestions().size()-1);
+        recyclerView.scrollToPosition(G.updateSgSet.getQuestions().size()-1);
     }
 
     public void submitSet(){
@@ -205,14 +219,14 @@ public class AddSetActivity extends AppCompatActivity {
 
         info=etInfo.getText().toString();
 
-        G.newSgSet.setTitle(title);
-        G.newSgSet.setInfo(info);
+        G.updateSgSet.setTitle(title);
+        G.updateSgSet.setInfo(info);
         //Settings내용 체크
 
         boolean answerExists;
         //문제들중에 빈칸 있는지 확인
-        for(int i=0;i<G.newQuestions.size();i++){
-            Question t=G.newQuestions.get(i);
+        for(int i=0;i<G.updateSgSet.getQuestions().size();i++){
+            Question t=G.updateSgSet.getQuestions().get(i);
             String q=t.getQuestion();
             if(q==null||q.length()==0){
                 showAlertDialog(R.string.addset_submit_fail02,i);
@@ -237,7 +251,7 @@ public class AddSetActivity extends AppCompatActivity {
             }
         }
 
-        uploadNewSgSet();
+        updateSgSet();
 
 
 
@@ -273,16 +287,106 @@ public class AddSetActivity extends AppCompatActivity {
         dialog.show();
     }
 
-    public void uploadNewSgSet(){
-        String serverUrl="http://snownaul2.dothome.co.kr/StudyGuide/Set/uploadNewSgSet.php";
+    public void updateSgSet(){
+
+        StringBuffer buffer=new StringBuffer();
+        StringBuffer updateBuffer=new StringBuffer();
+        StringBuffer questionBuffer1=new StringBuffer();
+        StringBuffer questionBuffer2=new StringBuffer();
+        StringBuffer answerBuffer1=new StringBuffer();
+        StringBuffer answerBuffer2=new StringBuffer();
+        StringBuffer deleteBufferA=new StringBuffer();
+        StringBuffer deleteBufferQ=new StringBuffer();
+
+
+        //세트에 관
+        for(int i=0;i<G.currentStudySet.getSgSet().getQuestions().size();i++){
+            Question t=G.currentStudySet.getSgSet().getQuestions().get(i);
+
+            buffer.append("Q\tID ["+t.getQuestionID()+"] state ["+t.getUpdateState()+"]\n");
+            if(t.getUpdateState()==Question.MODE_UPDATED){
+                if(questionBuffer1.toString().length()!=0) {
+                    questionBuffer1.append("&Q&");
+                    Log.i("MyTag","questionBuffer1\t"+"&Q&");
+                }
+                questionBuffer1.append(t.getQuestionID()+"[&]"+t.getQuestion()+"[&]"+t.getExplanation()+"[&]"+(t.isRightOrWrong()?1:0));
+                Log.i("MyTag","questionBuffer1\t"+t.getQuestionID()+"[&]"+t.getQuestion()+"[&]"+t.getExplanation()+"[&]"+(t.isRightOrWrong()?1:0));
+            }else if(t.getUpdateState()==Question.MODE_ADDED){
+                if(questionBuffer2.toString().length()!=0) {
+                    questionBuffer2.append("&Q&");
+                    Log.i("MyTag","questionBuffer2\t"+"&Q&");
+                }
+                questionBuffer2.append(t.getQuestionType()+"[&]"+t.getQuestion()+"[&]"+t.getExplanation()+"[&]"+(t.isRightOrWrong()?1:0));
+                Log.i("MyTag","questionBuffer2\t"+t.getQuestionType()+"[&]"+t.getQuestion()+"[&]"+t.getExplanation()+"[&]"+(t.isRightOrWrong()?1:0));
+                Log.i("MyTag","t.getAnswers().size()결과 !! - "+t.getAnswers().size());
+                for(int j=0;j<t.getAnswers().size();j++){
+                    Answer ta=t.getAnswers().get(j);
+                    Log.i("MyTag","questionBuffer2A\t"+"&A&"+ta.getAnswer()+"[&]"+(ta.isCorrect()?1:0)+"[&]"+ta.getSgOrder());
+                    questionBuffer2.append("&A&"+ta.getAnswer()+"[&]"+(ta.isCorrect()?1:0)+"[&]"+ta.getSgOrder());
+                }
+
+            }
+
+            for(int j=0;j<t.getAnswers().size();j++){
+                Answer ta=t.getAnswers().get(j);
+
+                buffer.append("\tA\tID ["+ta.getAnswerID()+"] state ["+ta.getUpdateState()+"]\n");
+
+                if(ta.getUpdateState()==Answer.MODE_UPDATED){
+                    if(answerBuffer1.toString().length()!=0) {
+                        answerBuffer1.append("&A&");
+                        //Log.i("MyTag","answerBuffer1\t"+"&A&");
+                    }
+                    answerBuffer1.append(ta.getAnswerID()+"[&]"+ta.getAnswer()+"[&]"+(ta.isCorrect()?1:0)+"[&]"+ta.getSgOrder());
+                }else if(ta.getUpdateState()==Answer.MODE_ADDED){
+                    if(answerBuffer2.toString().length()!=0) answerBuffer2.append("&A&");
+                    answerBuffer2.append(ta.getQuestionID()+"[&]"+ta.getAnswer()+"[&]"+(ta.isCorrect()?1:0)+"[&]"+ta.getSgOrder());
+                }
+
+            }
+
+        }
+
+
+        buffer.append("\n\nDELETED QUESTIONS\n");
+
+        for(int i=0;i<G.deletedQuestions.size();i++){
+            Question t=G.deletedQuestions.get(i);
+            buffer.append("Q\tID ["+t.getQuestionID()+"] state ["+t.getUpdateState()+"]\n");
+            if(deleteBufferQ.toString().length()!=0) deleteBufferQ.append("&Q&");
+            deleteBufferQ.append(t.getQuestionID());
+
+        }
+
+
+        buffer.append("\n\nDELETED ANSWERS\n");
+        for(int i=0;i<G.deletedAnswers.size();i++){
+            Answer ta=G.deletedAnswers.get(i);
+            buffer.append("\tA\tID ["+ta.getAnswerID()+"] state ["+ta.getUpdateState()+"]\n");
+            if(deleteBufferA.toString().length()!=0) deleteBufferA.append("&A&");
+            deleteBufferA.append(ta.getAnswerID());
+
+        }
+
+
+        Log.i("MyTag",buffer.toString());
+
+        updateBuffer.append(questionBuffer1.toString()+"&T&"+questionBuffer2.toString()+"&T&"+answerBuffer1.toString()+"&T&"+answerBuffer2.toString()+"&T&"+deleteBufferQ+"&T&"+deleteBufferA);
+
+        Log.i("MyTag",updateBuffer.toString());
+
+
+
+
+        String serverUrl="http://snownaul2.dothome.co.kr/StudyGuide/Set/updateSgSet.php";
 
         SimpleMultiPartRequest multiPartRequest=new SimpleMultiPartRequest(Request.Method.POST, serverUrl, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-                //TODO: set추가 성공시 해야할 행동들..
-                String[] str=response.split("&");
+                //TODO: set업데이트 성공시 해야할 행동들..
                 Log.i("MyTag",response);
 
+                G.loadCurrentSet(UpdateSetActivity.this);
                 finish();
 
 
@@ -290,53 +394,27 @@ public class AddSetActivity extends AppCompatActivity {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
+                if(error.getMessage()==null||error.getMessage().length()==0){
+                    G.loadCurrentSet(UpdateSetActivity.this);
+                    finish();
+                }
                 showAlertDialog(R.string.addset_submit_fail05);
                 Log.i("MyTag", "upload error : " + error.getMessage());
             }
         });
 
         multiPartRequest.addStringParam("userID",G.getUserId()+"");
+        multiPartRequest.addStringParam("sgSetID",G.currentStudySet.getSgSetID()+"");
+        multiPartRequest.addStringParam("studySetID",G.currentStudySet.getStudySetId()+"");
         multiPartRequest.addStringParam("title",title);
         multiPartRequest.addStringParam("info",info);
-
-        StringBuffer buffer=new StringBuffer();
-        String qDivider="&Q&";
-        String aDivider="&A&";
-        String detailDivider="[&]";
-
-        for(int i=0;i<G.newQuestions.size();i++){
-            Question t=G.newQuestions.get(i);
-            buffer.append(t.getQuestionType()+detailDivider);
-            buffer.append(t.getQuestion()+detailDivider);
-            String expl=t.getExplanation();
-//            if(expl==null||expl.length()==0)
-//                buffer.append("NULL"+detailDivider);
-            buffer.append(t.getExplanation()+detailDivider);
-            buffer.append((t.isRightOrWrong()==true?1:0));
-
-            for(int j=0;j<t.getAnswers().size();j++){
-                Answer ta=t.getAnswers().get(j);
-                buffer.append(aDivider);
-                buffer.append(ta.getAnswer()+detailDivider);
-                buffer.append((ta.isCorrect()?1:0)+detailDivider);
-                buffer.append(ta.getSgOrder());
-            }
-
-            if(i==G.newQuestions.size()-1)
-                break;
-
-            buffer.append(qDivider);
-        }
-
-        Log.i("MyTag",buffer.toString());
-
-        multiPartRequest.addStringParam("questions",buffer.toString());
+        multiPartRequest.addStringParam("update",updateBuffer.toString());
 
         RequestQueue requestQueue= Volley.newRequestQueue(this);
 
         requestQueue.add(multiPartRequest);
 
-
-
     }
+
+
 }

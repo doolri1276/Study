@@ -113,10 +113,10 @@ public class StoQuestionsAdapter extends RecyclerView.Adapter {
         ImageView btnClear;
         LinearLayout type2;
         ToggleButton tbRorW;
-        EditText etQuestion;
+        TextView etQuestion;
         RecyclerView recyclerView;
         RelativeLayout addAnswer;
-        EditText etExplanation;
+        TextView etExplanation;
 
 
         public VH(View itemView) {
@@ -135,7 +135,7 @@ public class StoQuestionsAdapter extends RecyclerView.Adapter {
             addAnswer=itemView.findViewById(R.id.add_answer);
             etExplanation=itemView.findViewById(R.id.et_explanation);
 
-//            if(G.currentStudySet.isEditMode()&&G.currentStudySet.getSgSet().getQuestions().size()>1)
+//            if(G.currentStudySet.studyingMode()&&G.currentStudySet.getSgSet().getQuestions().size()>1)
 //                etQuestion.requestFocus();
 
             btnEdit.setOnClickListener(new View.OnClickListener() {//EditMode로 전환...

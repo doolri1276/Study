@@ -59,6 +59,7 @@ public class IntroActivity extends AppCompatActivity {
         ani=AnimationUtils.loadAnimation(this,R.anim.appear_madeby);
         tvMadeBy.startAnimation(ani);
 
+
         timer.schedule(task,3000);
     }
 

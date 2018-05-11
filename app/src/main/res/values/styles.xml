@@ -34,4 +34,19 @@
         <item name="titleTextColor">@color/colorDeepGray</item>
     </style>
 
+    <style name="test_answer_n">
+        <item name="android:textColor">@color/colorDeepGray</item>
+        <item name="android:textStyle">normal</item>
+    </style>
+
+    <style name="test_answer_w">
+        <item name="android:textColor">@color/colorRed</item>
+        <item name="android:textStyle">normal</item>
+    </style>
+
+    <style name="test_answer_r">
+        <item name="android:textColor">@color/colorGreen</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
 </resources>

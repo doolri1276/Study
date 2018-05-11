@@ -63,9 +63,7 @@
             android:textColor="@color/colorDeepGray"
             android:hint="@string/q_basic_quesitonhint"/>
 
-        <include layout="@layout/a3_answer"/>
-        <include layout="@layout/a3_answer"/>
-        <include layout="@layout/a3_answer"/>
+
         <android.support.v7.widget.RecyclerView
             android:id="@+id/recycler"
             app:layoutManager="android.support.v7.widget.LinearLayoutManager"

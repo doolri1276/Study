@@ -1,16 +1,27 @@
 package com.snownaul.study;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.SharedPreferences;
+import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.error.VolleyError;
+import com.android.volley.request.SimpleMultiPartRequest;
+import com.android.volley.toolbox.Volley;
+import com.snownaul.study.study_classes.Answer;
 import com.snownaul.study.study_classes.Question;
 import com.snownaul.study.study_classes.SgSet;
 import com.snownaul.study.study_classes.StudySet;
 
+import java.lang.reflect.Array;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.TimeZone;
 
@@ -36,6 +47,9 @@ public class G {
     public static ArrayList<StudySet> studySets;
 
     public static StudySet currentStudySet;
+    public static SgSet updateSgSet;
+    public static ArrayList<Question> deletedQuestions;
+    public static ArrayList<Answer> deletedAnswers;
 
 
     public static void openG(SharedPreferences pref){
@@ -92,6 +106,84 @@ public class G {
             view = new View(activity);
         }
         imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+    }
+
+    public static void loadCurrentSet(Context context){
+        //TODO: 문제들 받아오기...
+        String serverUrl="http://snownaul2.dothome.co.kr/StudyGuide/Set/loadAllQuestions.php";
+        Log.i("MyTag",serverUrl+"에서 받아오려고 합니다.");
+
+        SimpleMultiPartRequest multiPartRequest=new SimpleMultiPartRequest(Request.Method.POST, serverUrl, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+
+                Log.i("MyTag","받아왔습니다!! : "+response);
+
+                String[] questionInfos=response.split("&Q&");
+                String[] setInfos=questionInfos[0].split("&");
+                G.currentStudySet.getSgSet().setTitle(setInfos[0]);
+                G.currentStudySet.getSgSet().setInfo(setInfos[1]);
+                G.currentStudySet.setEditable(Boolean.parseBoolean(setInfos[2]));
+                G.currentStudySet.getSgSet().setLikeCnt(Integer.parseInt(setInfos[3]));
+                G.currentStudySet.setLiked(Boolean.parseBoolean(setInfos[4]));
+                G.currentStudySet.setTriedCnt(Integer.parseInt(setInfos[5]));
+                G.currentStudySet.setRecentDate(G.convertUTCToLocalTime(setInfos[6]));
+                G.currentStudySet.setKeptCorrectionCnt(Integer.parseInt(setInfos[7]));
+
+                G.currentStudySet.getSgSet().getQuestions().clear();
+
+                for(int i=1;i<questionInfos.length;i++){
+                    String[] answerInfos=questionInfos[i].split("&A&");
+                    String[] questionDetailInfos=answerInfos[0].split("&");
+
+                    Log.i("MyTag","Check check : "+Arrays.toString(questionDetailInfos));
+                    Question q=new Question(Integer.parseInt(questionDetailInfos[1]));
+                    q.setQuestionID(Integer.parseInt(questionDetailInfos[0]));
+                    q.setQuestion(questionDetailInfos[2]);
+                    q.setExplanation(questionDetailInfos[3]);
+                    q.setRightOrWrong(Boolean.parseBoolean(questionDetailInfos[4]));
+
+                    q.setTriedCnt(Integer.parseInt(questionDetailInfos[5]));
+                    q.setSolvedCnt(Integer.parseInt(questionDetailInfos[6]));
+                    q.setKeptCorrection(Integer.parseInt(questionDetailInfos[7]));
+                    q.setTimeLength(Integer.parseInt(questionDetailInfos[8]));
+
+                    q.getAnswers().clear();
+                    for(int j=1;j<answerInfos.length;j++){
+                        String[] answerDetailInfos=answerInfos[j].split("&");
+
+                        Answer a=new Answer();
+                        a.setAnswerID(Integer.parseInt(answerDetailInfos[0]));
+                        a.setAnswer(answerDetailInfos[1]);
+                        a.setCorrect(answerDetailInfos[2].equals("1")?true:false);
+                        a.setSgOrder(Integer.parseInt(answerDetailInfos[3]));
+
+                        q.getAnswers().add(q.getAnswers().size(),a);
+                    }
+
+                    G.currentStudySet.getSgSet().getQuestions().add(G.currentStudySet.getSgSet().getQuestions().size(),q);
+                }
+
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.i("MyTag",error.getMessage()+"");
+            }
+        });
+
+        multiPartRequest.addStringParam("studySetID",G.currentStudySet.getStudySetId()+"");
+        multiPartRequest.addStringParam("userID",G.getUserId()+"");
+        multiPartRequest.addStringParam("sgSetID",G.currentStudySet.getSgSetID()+"");
+
+        RequestQueue requestQueue= Volley.newRequestQueue(context);
+
+        Log.i("MyTag","loadCurrentSet을 했다... studySetID : "+G.currentStudySet.getStudySetId()+" userID : "+G.getUserId()+" sgSetID : "+G.currentStudySet.getSgSetID());
+
+        requestQueue.add(multiPartRequest);
+        Log.i("MyTag","보냈습니다.");
+
     }
 
     public static void setUserId(int USER_ID){

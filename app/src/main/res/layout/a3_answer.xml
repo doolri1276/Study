@@ -3,8 +3,8 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:paddingTop="@dimen/small_padding"
-    android:paddingBottom="@dimen/small_padding"
+    android:paddingTop="@dimen/normal_padding"
+    android:paddingBottom="@dimen/normal_padding"
     android:background="@color/colorBase"
 >
 
@@ -13,8 +13,7 @@
         android:layout_width="@dimen/normal_padding"
         android:layout_height="@dimen/normal_padding"
         android:layout_marginTop="@dimen/tiny_padding"
-        android:checked="false"
-        android:enabled="false"
+        android:layout_marginRight="@dimen/normal_padding"
         android:button="@drawable/sel_cb"
         android:visibility="visible"/>
 
@@ -26,7 +25,8 @@
         android:checked="false"
         android:enabled="false"
         android:button="@drawable/sel_rorw"
-        android:visibility="gone"/>
+        android:visibility="gone"
+        android:layout_marginRight="@dimen/normal_padding"/>
 
     <TextView
         android:id="@+id/tv_num"
@@ -38,20 +38,18 @@
         android:textSize="@dimen/txt_text"
         android:textColor="@color/colorDeepGray"
         android:textStyle="bold"
-        android:visibility="gone"/>
+        android:visibility="gone"
+        android:layout_marginRight="@dimen/normal_padding"/>
 
-    <EditText
-        android:id="@+id/et_answer"
+    <TextView
+        android:id="@+id/tv_answer"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:text="eojfwojfwe jeowf jwof fewofjw eojfwef foewj fow iejfe dsjfjsd oifjs fwe ojfw eof weof jewo fw jfeo wijf ewf wjeofj wefew fweoijf ewofw ewfiojwe fwe"
         android:textSize="@dimen/txt_text"
-        android:enabled="false"
         android:background="@color/colorBase"
-        android:textColor="@color/colorDeepGray"
         android:hint="@string/q_basic_answerhint"
-        android:layout_marginLeft="@dimen/normal_padding"
-        />
+        style="@style/test_answer_n" />
 
 </LinearLayout>

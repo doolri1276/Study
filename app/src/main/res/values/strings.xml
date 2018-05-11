@@ -64,5 +64,9 @@
     <string name="q2_qstart">Which of the following is</string>
     <string name="q2_qend">about</string>
 
+    <string name="study_tvrorw_opening">Let\'s start!</string>
+    <string name="study_tvrorw_right">Right</string>
+    <string name="study_tvrorw_wrong">Wrong</string>
+
 
 </resources>

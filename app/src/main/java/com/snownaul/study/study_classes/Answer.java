@@ -13,6 +13,17 @@ public class Answer {
     private boolean isCorrect;
     private int sgOrder=-1;
 
+    private boolean isChecked;
+
+    //업데이트 관련 변수들
+    private int updateState;
+    public static final int MODE_UNCHAGED=0;
+    public static final int MODE_UPDATED=1;
+    public static final int MODE_ADDED=2;
+    public static final int MODE_DELETED=3;
+    public static final int MODE_ADDED_BYQUESTION=3;
+
+
 
 
     public int getAnswerID() {
@@ -53,5 +64,21 @@ public class Answer {
 
     public void setSgOrder(int sgOrder) {
         this.sgOrder = sgOrder;
+    }
+
+    public boolean isChecked() {
+        return isChecked;
+    }
+
+    public void setChecked(boolean checked) {
+        isChecked = checked;
+    }
+
+    public int getUpdateState() {
+        return updateState;
+    }
+
+    public void setUpdateState(int updateState) {
+        this.updateState = updateState;
     }
 }

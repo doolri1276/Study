@@ -17,32 +17,387 @@
     </android.support.v7.widget.Toolbar>
 
     <RelativeLayout
+        android:id="@+id/mode_opening"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@id/toolbar"
-        android:layout_above="@id/ad"
+        android:layout_above="@id/tv_rorw"
         android:layout_margin="@dimen/normal_padding"
+        android:visibility="visible"
         >
+
+        <ImageView
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:src="@drawable/test_maincircle"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="@dimen/bigger_icon"
+            />
+
+        <TextView
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:layout_centerHorizontal="true"
+            android:text="WELCOME"
+            android:gravity="center"
+            android:textSize="@dimen/txt_title"
+            android:textStyle="bold"
+            android:textColor="@color/colorDeeperSkyBlue"
+            android:layout_marginTop="@dimen/bigger_icon"/>
+
+
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/mode_studying"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/toolbar"
+        android:layout_above="@id/tv_rorw"
+        android:layout_margin="@dimen/normal_padding"
+        android:visibility="gone">
 
         <View
             android:layout_width="match_parent"
             android:layout_height="@dimen/small_padding"
-            android:background="@color/colorLighterSkyBlue"
-            />
+            android:background="@color/colorLighterSkyBlue" />
 
-        <View
-            android:id="@+id/percentage"
-            android:layout_width="130dp"
-            android:layout_height="@dimen/small_padding"
-            android:background="@color/colorDeepSkyBlue"
-/>
+        <LinearLayout
+            android:id="@+id/bar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <View
+                android:id="@+id/percentage01"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="@dimen/small_padding"
+                android:visibility="invisible"
+                android:background="@color/colorDeepSkyBlue" />
+            <View
+                android:id="@+id/percentage02"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="@dimen/small_padding"
+                android:visibility="invisible"
+                android:background="@color/colorDeepSkyBlue" />
+            <View
+                android:id="@+id/percentage03"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="@dimen/small_padding"
+                android:visibility="invisible"
+                android:background="@color/colorDeepSkyBlue" />
+            <View
+                android:id="@+id/percentage04"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:visibility="invisible"
+                android:layout_height="@dimen/small_padding"
+                android:background="@color/colorDeepSkyBlue" />
+            <View
+                android:id="@+id/percentage05"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:visibility="invisible"
+                android:layout_height="@dimen/small_padding"
+                android:background="@color/colorDeepSkyBlue" />
+            <View
+                android:id="@+id/percentage06"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="@dimen/small_padding"
+                android:visibility="invisible"
+                android:background="@color/colorDeepSkyBlue" />
+            <View
+                android:id="@+id/percentage07"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="@dimen/small_padding"
+                android:visibility="invisible"
+                android:background="@color/colorDeepSkyBlue" />
+            <View
+                android:id="@+id/percentage08"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="@dimen/small_padding"
+                android:visibility="invisible"
+                android:background="@color/colorDeepSkyBlue" />
+            <View
+                android:id="@+id/percentage09"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:visibility="invisible"
+                android:layout_height="@dimen/small_padding"
+                android:background="@color/colorDeepSkyBlue" />
+            <View
+                android:id="@+id/percentage10"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:visibility="invisible"
+                android:layout_height="@dimen/small_padding"
+                android:background="@color/colorDeepSkyBlue" />
+            <View
+                android:id="@+id/percentage11"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="@dimen/small_padding"
+                android:visibility="invisible"
+                android:background="@color/colorDeepSkyBlue" />
+            <View
+                android:id="@+id/percentage12"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="@dimen/small_padding"
+                android:visibility="invisible"
+                android:background="@color/colorDeepSkyBlue" />
+            <View
+                android:id="@+id/percentage13"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="@dimen/small_padding"
+                android:visibility="invisible"
+                android:background="@color/colorDeepSkyBlue" />
+            <View
+                android:id="@+id/percentage14"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:visibility="invisible"
+                android:layout_height="@dimen/small_padding"
+                android:background="@color/colorDeepSkyBlue" />
+            <View
+                android:id="@+id/percentage15"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:visibility="invisible"
+                android:layout_height="@dimen/small_padding"
+                android:background="@color/colorDeepSkyBlue" />
+            <View
+                android:id="@+id/percentage16"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="@dimen/small_padding"
+                android:visibility="invisible"
+                android:background="@color/colorDeepSkyBlue" />
+            <View
+                android:id="@+id/percentage17"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="@dimen/small_padding"
+                android:visibility="invisible"
+                android:background="@color/colorDeepSkyBlue" />
+            <View
+                android:id="@+id/percentage18"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="@dimen/small_padding"
+                android:visibility="invisible"
+                android:background="@color/colorDeepSkyBlue" />
+            <View
+                android:id="@+id/percentage19"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:visibility="invisible"
+                android:layout_height="@dimen/small_padding"
+                android:background="@color/colorDeepSkyBlue" />
+            <View
+                android:id="@+id/percentage20"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:visibility="invisible"
+                android:layout_height="@dimen/small_padding"
+                android:background="@color/colorDeepSkyBlue" />
+            <View
+                android:id="@+id/percentage21"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="@dimen/small_padding"
+                android:visibility="invisible"
+                android:background="@color/colorDeepSkyBlue" />
+            <View
+                android:id="@+id/percentage22"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="@dimen/small_padding"
+                android:visibility="invisible"
+                android:background="@color/colorDeepSkyBlue" />
+            <View
+                android:id="@+id/percentage23"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="@dimen/small_padding"
+                android:visibility="invisible"
+                android:background="@color/colorDeepSkyBlue" />
+            <View
+                android:id="@+id/percentage24"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:visibility="invisible"
+                android:layout_height="@dimen/small_padding"
+                android:background="@color/colorDeepSkyBlue" />
+            <View
+                android:id="@+id/percentage25"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:visibility="invisible"
+                android:layout_height="@dimen/small_padding"
+                android:background="@color/colorDeepSkyBlue" />
+            <View
+                android:id="@+id/percentage26"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="@dimen/small_padding"
+                android:visibility="invisible"
+                android:background="@color/colorDeepSkyBlue" />
+            <View
+                android:id="@+id/percentage27"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="@dimen/small_padding"
+                android:visibility="invisible"
+                android:background="@color/colorDeepSkyBlue" />
+            <View
+                android:id="@+id/percentage28"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="@dimen/small_padding"
+                android:visibility="invisible"
+                android:background="@color/colorDeepSkyBlue" />
+            <View
+                android:id="@+id/percentage29"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:visibility="invisible"
+                android:layout_height="@dimen/small_padding"
+                android:background="@color/colorDeepSkyBlue" />
+            <View
+                android:id="@+id/percentage30"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:visibility="invisible"
+                android:layout_height="@dimen/small_padding"
+                android:background="@color/colorDeepSkyBlue" />
+        </LinearLayout>
 
-        <include layout="@layout/q3_question"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/percentage"/>
 
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@id/bar"
+            android:overScrollMode="never"
+            >
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/colorBase">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/bigger_padding" />
+
+                    <LinearLayout
+                        android:id="@+id/type2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:visibility="visible">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/q2_qstart"
+                            android:textColor="@color/colorDeepGray"
+                            android:textSize="@dimen/txt_text"
+                            android:textStyle="bold" />
+
+                        <ToggleButton
+                            android:id="@+id/tb_rorw"
+                            android:layout_width="@dimen/bigger_icon"
+                            android:layout_height="@dimen/normal_padding"
+                            android:layout_gravity="bottom"
+                            android:layout_marginLeft="@dimen/tiny_padding"
+                            android:layout_marginRight="@dimen/tiny_padding"
+                            android:background="@drawable/sel_qtype2"
+                            android:enabled="false"
+                            android:textOff=""
+                            android:textOn="" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/q2_qend"
+                            android:textColor="@color/colorDeepGray"
+                            android:textSize="@dimen/txt_text"
+                            android:textStyle="bold" />
+                    </LinearLayout>
+
+                    <TextView
+                        android:id="@+id/tv_question"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@color/colorBase"
+                        android:enabled="false"
+                        android:paddingBottom="@dimen/normal_padding"
+                        android:text="Which of the following best explains about this term broid roina?"
+                        android:textColor="@color/colorDeepGray"
+                        android:textSize="@dimen/txt_text"
+                        android:textStyle="bold" />
+
+                    <android.support.v7.widget.RecyclerView
+                    android:id="@+id/recycler"
+                    app:layoutManager="android.support.v7.widget.LinearLayoutManager"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:overScrollMode="never">
+
+                    </android.support.v7.widget.RecyclerView>
+
+                    <TextView
+                        android:id="@+id/tv_explanation"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+
+
+
+
+                </LinearLayout>
+
+
+            </RelativeLayout>
+        </ScrollView>
     </RelativeLayout>
+
+    <Button
+        android:id="@+id/btn_test"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/big_icon"
+        android:layout_above="@id/ad"
+        android:background="@drawable/testbtn_g"
+        android:layout_marginRight="@dimen/normal_padding"
+        android:layout_marginLeft="@dimen/normal_padding"
+        android:layout_marginBottom="@dimen/normal_padding"
+        android:layout_marginTop="@dimen/small_padding"
+        android:onClick="clickBtn"
+        />
+
+    <TextView
+        android:id="@+id/tv_rorw"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/study_tvrorw_opening"
+        android:textStyle="bold"
+        android:textColor="@color/colorBlueGray"
+        android:layout_above="@id/btn_test"
+        android:layout_marginLeft="@dimen/normal_padding"
+        android:textSize="@dimen/txt_text"/>
+
+
+
 
     <View
         android:id="@+id/ad"

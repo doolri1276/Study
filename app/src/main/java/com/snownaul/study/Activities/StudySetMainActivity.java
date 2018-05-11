@@ -1,5 +1,6 @@
 package com.snownaul.study.Activities;
 
+import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -25,6 +26,8 @@ import com.snownaul.study.adapters.StoQuestionsAdapter;
 import com.snownaul.study.study_classes.Answer;
 import com.snownaul.study.study_classes.Question;
 
+import java.util.Arrays;
+
 import uk.co.imallan.jellyrefresh.JellyRefreshLayout;
 import uk.co.imallan.jellyrefresh.PullToRefreshLayout;
 
@@ -34,7 +37,7 @@ public class StudySetMainActivity extends AppCompatActivity {
 
     TextView tvTitle,tvInfo;
     ToggleButton tbFavor;
-    TextView tvFavorCnt, tvStudiedTotalCnt;
+    TextView tvFavorCnt, tvStudiedTotalCnt, tvQuestionCnt;
 
     JellyRefreshLayout jelly;
 
@@ -52,10 +55,12 @@ public class StudySetMainActivity extends AppCompatActivity {
                     @Override
                     public void run() {
                         Log.i("MyTag","1 REFRESH!!!!!!!!");
-                        loadQuestions();
+                        //G.loadCurrentSet(StudySetMainActivity.this);
+                        loadCurrentSet();
+                        //setView();
                         jelly.setRefreshing(false);
                     }
-                },2000);
+                },1500);
             }
         });
 
@@ -70,24 +75,29 @@ public class StudySetMainActivity extends AppCompatActivity {
         tbFavor=findViewById(R.id.tb_favor);
         tvFavorCnt=findViewById(R.id.tv_favor_cnt);
         tvStudiedTotalCnt=findViewById(R.id.tv_studied_totalcnt);
+        tvQuestionCnt=findViewById(R.id.tv_question_cnt);
 
-        loadQuestions();
-        setView();
+        //G.loadCurrentSet(this);
+        loadCurrentSet();
+
 
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
     }
 
-    public void loadQuestions(){
+    public void loadCurrentSet(){
         //TODO: 문제들 받아오기...
         String serverUrl="http://snownaul2.dothome.co.kr/StudyGuide/Set/loadAllQuestions.php";
+        Log.i("MyTag",serverUrl+"에서 받아오려고 합니다.");
 
         SimpleMultiPartRequest multiPartRequest=new SimpleMultiPartRequest(Request.Method.POST, serverUrl, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
 
-                Log.i("MyTag","bbiib : "+response);
+                Log.i("MyTag","받아왔습니다!! : "+response);
+
+
 
                 String[] questionInfos=response.split("&Q&");
                 String[] setInfos=questionInfos[0].split("&");
@@ -106,6 +116,7 @@ public class StudySetMainActivity extends AppCompatActivity {
                     String[] answerInfos=questionInfos[i].split("&A&");
                     String[] questionDetailInfos=answerInfos[0].split("&");
 
+                    Log.i("MyTag","Check check : "+ Arrays.toString(questionDetailInfos));
                     Question q=new Question(Integer.parseInt(questionDetailInfos[1]));
                     q.setQuestionID(Integer.parseInt(questionDetailInfos[0]));
                     q.setQuestion(questionDetailInfos[2]);
@@ -132,13 +143,15 @@ public class StudySetMainActivity extends AppCompatActivity {
 
                     G.currentStudySet.getSgSet().getQuestions().add(G.currentStudySet.getSgSet().getQuestions().size(),q);
                 }
+
                 setView();
+
 
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-
+                Log.i("MyTag",error.getMessage()+"");
             }
         });
 
@@ -148,8 +161,19 @@ public class StudySetMainActivity extends AppCompatActivity {
 
         RequestQueue requestQueue= Volley.newRequestQueue(this);
 
-        requestQueue.add(multiPartRequest);
+        Log.i("MyTag","loadCurrentSet을 했다... studySetID : "+G.currentStudySet.getStudySetId()+" userID : "+G.getUserId()+" sgSetID : "+G.currentStudySet.getSgSetID());
 
+        requestQueue.add(multiPartRequest);
+        Log.i("MyTag","보냈습니다.");
+
+    }
+
+
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        setView();
     }
 
     public void setView(){
@@ -158,8 +182,10 @@ public class StudySetMainActivity extends AppCompatActivity {
         tbFavor.setChecked(G.currentStudySet.isLiked());
         tvFavorCnt.setText(G.currentStudySet.getSgSet().getLikeCnt()+"");
         tvStudiedTotalCnt.setText(G.currentStudySet.getTriedCnt()+"");
+        tvQuestionCnt.setText(G.currentStudySet.getSgSet().getQuestions().size()+"");
 
 
+        Log.i("MyTag","setView()를 했다..");
     }
 
     @Override
@@ -184,7 +210,7 @@ public class StudySetMainActivity extends AppCompatActivity {
                             jelly.setRefreshing(false);
                             Log.i("MyTag","3 REFRESH!!!!!!!!");
                         }
-                    },2000);
+                    },1500);
                     return true;
 
         }

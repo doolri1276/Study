@@ -134,10 +134,11 @@ public class StudyFragAdapter extends RecyclerView.Adapter {
                 }
             });
 
-            btnDetail.setOnClickListener(new View.OnClickListener() {
+            itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     G.currentStudySet=G.studySets.get(getLayoutPosition());
+                    Log.i("MyTag","지금 넘기거덩?\n studySetID : "+G.currentStudySet.getStudySetId()+" userID : "+G.currentStudySet.getUserID()+" sgSetID : "+G.currentStudySet.getSgSetID());
                     SwipeBackActivityHelper.startSwipeActivity((MainActivity)context,new Intent(context,StudySetMainActivity.class),true,true,true);
 
                 }

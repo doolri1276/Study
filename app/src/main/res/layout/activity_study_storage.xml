@@ -29,17 +29,35 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
-                <EditText
-                    android:id="@+id/et_title"
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Excepteru can morie an roue."
+                    android:orientation="vertical"
                     android:background="@color/colorBase"
-                    android:padding="@dimen/big_padding"
-                    android:textStyle="bold"
-                    android:enabled="false"
-                    android:textColor="@color/colorDeeperSkyBlue"
-                    android:textSize="@dimen/txt_stitle"/>
+                    android:padding="@dimen/big_padding">
+                    <TextView
+                        android:id="@+id/tv_title"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Excepteru can morie an roue."
+                        android:background="@color/colorBase"
+
+                        android:textStyle="bold"
+                        android:enabled="false"
+                        android:textColor="@color/colorDeeperSkyBlue"
+                        android:textSize="@dimen/txt_stitle"/>
+
+                    <TextView
+                        android:id="@+id/tv_info"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/colorBlueGray"
+                        android:text="This is explalalalalal"
+                        android:textSize="@dimen/txt_text"
+                        android:layout_marginTop="@dimen/small_padding"
+                        />
+                </LinearLayout>
+
 
                 <android.support.v7.widget.RecyclerView
                     android:id="@+id/recycler"
