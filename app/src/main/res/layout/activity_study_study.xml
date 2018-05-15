@@ -18,8 +18,7 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
-            android:background="@color/colorBase"
-            android:text="Study!!!!!"
+            android:text="Study"
             android:textSize="@dimen/txt_title"
             android:gravity="center"
             android:textColor="@color/colorDeeperSkyBlue"
@@ -31,8 +30,13 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
-            android:background="@color/colorBase"
-            android:layout_margin="@dimen/bigger_padding"/>
+            android:text="Test"
+            android:textSize="@dimen/txt_title"
+            android:gravity="center"
+            android:textColor="@color/colorDeeperSkyBlue"
+            android:textStyle="bold"
+            android:layout_margin="@dimen/bigger_padding"
+            android:onClick="clickTest"/>
     </LinearLayout>
 
 </RelativeLayout>

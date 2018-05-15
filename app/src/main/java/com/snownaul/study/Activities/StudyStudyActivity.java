@@ -44,4 +44,8 @@ public class StudyStudyActivity extends AppCompatActivity {
         startActivity(intent);
 
     }
+
+    public void clickTest(View v){
+
+    }
 }

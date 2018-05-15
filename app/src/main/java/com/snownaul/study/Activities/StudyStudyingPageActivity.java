@@ -184,6 +184,9 @@ public class StudyStudyingPageActivity extends AppCompatActivity {
 
         //맞췄는지 틀렸는지 확인..
         correction=manager.checkCorrection(t);
+
+        G.currentStudySet.setTriedCnt(G.currentStudySet.getTriedCnt()+1);
+
         if(correction){
             for(int i=0;i<percentage.length;i++){
                 percentage[i].setBackgroundColor(getResources().getColor(R.color.colorGreen));
@@ -191,6 +194,8 @@ public class StudyStudyingPageActivity extends AppCompatActivity {
             btnTest.setBackgroundResource(R.drawable.testbtn_r);
             tvRorW.setText(getString(R.string.study_tvrorw_right));
             tvRorW.setTextColor(getResources().getColor(R.color.colorGreen));
+            G.currentStudySet.setKeptCorrectionCnt(G.currentStudySet.getKeptCorrectionCnt()+1);
+
         }else{
             for(int i=0;i<percentage.length;i++){
                 percentage[i].setBackgroundColor(getResources().getColor(R.color.colorRed));
@@ -198,6 +203,7 @@ public class StudyStudyingPageActivity extends AppCompatActivity {
             btnTest.setBackgroundResource(R.drawable.testbtn_w);
             tvRorW.setText(getString(R.string.study_tvrorw_wrong));
             tvRorW.setTextColor(getResources().getColor(R.color.colorRed));
+            G.currentStudySet.setKeptCorrectionCnt(0);
         }
 
         tvRorW.setVisibility(View.VISIBLE);
@@ -225,6 +231,9 @@ public class StudyStudyingPageActivity extends AppCompatActivity {
         studyAnswersAdapter.notifyDataSetChanged();
 
         endTime=System.currentTimeMillis()/1000;
+
+
+
 
         sendQuestionResultToServer();
 
