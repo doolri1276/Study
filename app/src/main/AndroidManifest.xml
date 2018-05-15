@@ -55,7 +55,8 @@
             android:name=".Activities.StudyStudyingPageActivity"
             android:theme="@style/AppTheme.StudyingPage" />
         <activity android:name=".Activities.UpdateSetActivity" />
-        <activity android:name=".Activities.StudyTestActivity"></activity>
+        <activity android:name=".Activities.StudyTestActivity"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>
