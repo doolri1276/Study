@@ -1,19 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:ads="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.snownaul.study.Activities.StudyStudyActivity"
+
     android:background="@color/colorLighterSkyBlue"
     android:paddingTop="@dimen/bigger_padding"
-    android:paddingBottom="@dimen/bigger_padding">
+    >
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:layout_above="@id/ad">
         <TextView
             android:layout_width="match_parent"
             android:layout_height="0dp"
@@ -38,5 +40,33 @@
             android:layout_margin="@dimen/bigger_padding"
             android:onClick="clickTest"/>
     </LinearLayout>
+
+    <View
+        android:id="@+id/ad"
+        android:layout_width="match_parent"
+        android:layout_height="51dp"
+        android:background="#efefef"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"/>
+
+
+    <View
+        android:id="@+id/adline"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_alignTop="@id/ad"
+        android:background="@color/colorLightGray"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <com.google.android.gms.ads.AdView
+        android:id="@+id/adview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        ads:adSize="BANNER"
+        ads:adUnitId="ca-app-pub-3336869729691375/3894976859"
+        />
 
 </RelativeLayout>

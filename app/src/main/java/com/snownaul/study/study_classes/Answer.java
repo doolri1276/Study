@@ -14,6 +14,7 @@ public class Answer {
     private int sgOrder=-1;
 
     private boolean isChecked;
+    private boolean isTestChecked;
 
     //업데이트 관련 변수들
     private int updateState;
@@ -80,5 +81,13 @@ public class Answer {
 
     public void setUpdateState(int updateState) {
         this.updateState = updateState;
+    }
+
+    public boolean isTestChecked() {
+        return isTestChecked;
+    }
+
+    public void setTestChecked(boolean testChecked) {
+        isTestChecked = testChecked;
     }
 }

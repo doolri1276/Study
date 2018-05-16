@@ -15,6 +15,11 @@
     Admin 키
     56a7e4c2bf261f03f4e22c054e28b638
     -->
+
+    <!--Admob 앱 ID
+    ca-app-pub-3336869729691375~9607711801
+    ca-app-pub-3336869729691375/5578759465
+    -->
     <application
         android:name=".controls.GlobalApplication"
         android:allowBackup="true"
@@ -55,8 +60,11 @@
             android:name=".Activities.StudyStudyingPageActivity"
             android:theme="@style/AppTheme.StudyingPage" />
         <activity android:name=".Activities.UpdateSetActivity" />
-        <activity android:name=".Activities.StudyTestActivity"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity
+            android:name=".Activities.StudyTestActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".Activities.StudyTestingPageActivity"
+            android:theme="@style/AppTheme.StudyingPage" ></activity>
     </application>
 
 </manifest>

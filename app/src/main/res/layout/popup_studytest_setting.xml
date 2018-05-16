@@ -31,7 +31,7 @@
     </LinearLayout>
 
     <LinearLayout
-        android:layout_width="match_parent"
+        android:layout_width="250dp"
         android:layout_height="wrap_content"
         android:padding="@dimen/normal_padding"
         android:orientation="vertical"
@@ -94,6 +94,82 @@
                 android:textColor="@color/colorLightSkyBlue"
                 android:gravity="center_vertical"
                 android:layout_marginTop="@dimen/small_padding"
+                android:visibility="gone"
+                />
+
+
+
+
+        </RadioGroup>
+
+        <SeekBar
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:min="5"
+            android:progress="1"
+            android:visibility="gone"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/colorDeeperSkyBlue"
+            android:text="Time Limits"
+            android:textSize="@dimen/txt_text"
+            android:textStyle="bold"
+            android:layout_marginTop="@dimen/normal_padding"/>
+
+        <RadioGroup
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/normal_padding">
+            <RadioButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:button="@drawable/sel_rb"
+                android:text="  no time limits"
+                android:checked="true"
+                android:textColor="@color/colorDeeperSkyBlue"
+                android:gravity="center_vertical"
+                />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <RadioButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:button="@drawable/sel_rb"
+                    android:text="  default"
+                    android:textColor="@color/colorLightSkyBlue"
+                    android:checked="false"
+                    android:gravity="center_vertical"
+                    android:layout_marginTop="@dimen/small_padding"
+                    />
+
+                <EditText
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="25"
+                    android:background="@color/colorWhite"
+                    android:textSize="@dimen/txt_text"
+                    android:layout_gravity="bottom"
+                    android:layout_marginLeft="@dimen/small_padding"
+                    android:textColor="@color/colorLightSkyBlue"
+                    android:paddingBottom="1dp"
+                    android:textStyle="bold"/>
+            </LinearLayout>
+
+
+            <RadioButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:button="@drawable/sel_rb"
+                android:text="  specific number"
+                android:textColor="@color/colorLightSkyBlue"
+                android:gravity="center_vertical"
+                android:layout_marginTop="@dimen/small_padding"
+                android:visibility="gone"
                 />
 
 

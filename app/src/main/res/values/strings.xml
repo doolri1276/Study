@@ -8,7 +8,7 @@
     <string name="login_lostpsw">Forgot your password?</string>
 
     <string name="login_fail01">An ERROR has occurred.</string>
-    <string name="login_fail02">This user doesn't exist.</string>
+    <string name="login_fail02">This user doesn\'t exist.</string>
     <string name="login_fail03">Failed to connect to the server.</string>
 
     <string name="f1_home">Home</string>

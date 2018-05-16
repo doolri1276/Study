@@ -46,6 +46,7 @@ public class StudyStudyActivity extends AppCompatActivity {
     }
 
     public void clickTest(View v){
+        SwipeBackActivityHelper.startSwipeActivity(this,new Intent(this,StudyTestActivity.class),true,true,true);
 
     }
 }

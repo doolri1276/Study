@@ -48,6 +48,7 @@ dependencies {
     compile "com.daimajia.swipelayout:library:1.2.0@aar"
     //SwipeBackActivity
     compile 'com.github.bluzwong:swipeback:0.2.0@aar'
-
+    //Admob
+    compile 'com.google.firebase:firebase-ads:11.8.0'
 
 }

@@ -30,6 +30,8 @@ public class Question implements Comparable{
     public static final int TYPE_ORDER=3;
     private ArrayList<Answer> answers;
 
+    private  boolean hasTestAnswer;
+
 
 
     //업데이트 관련 변수들
@@ -163,8 +165,13 @@ public class Question implements Comparable{
         this.timeLength = timeLength;
     }
 
+    public boolean isHasTestAnswer() {
+        return hasTestAnswer;
+    }
 
-
+    public void setHasTestAnswer(boolean hasTestAnswer) {
+        this.hasTestAnswer = hasTestAnswer;
+    }
 
     @Override
     public int compareTo(@NonNull Object o) {

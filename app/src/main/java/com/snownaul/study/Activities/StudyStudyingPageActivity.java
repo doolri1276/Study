@@ -21,6 +21,8 @@ import com.android.volley.error.VolleyError;
 import com.android.volley.request.SimpleMultiPartRequest;
 import com.android.volley.toolbox.Volley;
 import com.bumptech.glide.Glide;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
 import com.snownaul.study.G;
 import com.snownaul.study.R;
 import com.snownaul.study.adapters.StoAnswersAdapter;
@@ -29,6 +31,8 @@ import com.snownaul.study.controls.StudyingManager;
 import com.snownaul.study.study_classes.Question;
 
 public class StudyStudyingPageActivity extends AppCompatActivity {
+
+    AdView adView;
 
     Toolbar toolbar;
 
@@ -40,7 +44,7 @@ public class StudyStudyingPageActivity extends AppCompatActivity {
     TextView tvRorW;
     Button btnTest;
 
-    View[] percentage;
+    View[] percentage=new View[30];
     LinearLayout type2;
     ToggleButton tbRorW;
 
@@ -58,6 +62,10 @@ public class StudyStudyingPageActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_study_studying_page);
 
+        adView= findViewById(R.id.adview);
+        AdRequest adRequest = new AdRequest.Builder().build();
+        adView.loadAd(adRequest);
+
         toolbar=findViewById(R.id.toolbar);
         toolbar.setTitle("Studying Page");
 
@@ -70,7 +78,6 @@ public class StudyStudyingPageActivity extends AppCompatActivity {
 
         tvRorW=findViewById(R.id.tv_rorw);
         btnTest=findViewById(R.id.btn_test);
-        percentage=new View[30];
 
         for(int i=0;i<percentage.length;i++){
             percentage[i]=findViewById(R.id.percentage01+i);

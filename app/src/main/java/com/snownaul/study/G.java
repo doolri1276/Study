@@ -38,6 +38,11 @@ public class G {
     public static int USER_AGE;
     public static String USER_PROFILEPIC;
 
+    public static int TEST_RGQ;
+    public static int TEST_RGQ_DEFAULT;
+    public static int TEST_RGT;
+    public static int TEST_RGT_DEFAULT;
+
     public static SharedPreferences PREF;
 
     //Study에 관련
@@ -64,6 +69,12 @@ public class G {
         USER_PROFILEPIC=pref.getString("userProfilePic",null);
 
         studySets=new ArrayList<>();
+
+        TEST_RGQ=pref.getInt("testRgq",0);
+        TEST_RGQ_DEFAULT=pref.getInt("testRgqDefault",25);
+        TEST_RGT=pref.getInt("testRgt",0);
+        TEST_RGT_DEFAULT=pref.getInt("testRgtDefault",25);
+
     }
 
 
@@ -237,6 +248,51 @@ public class G {
         SharedPreferences.Editor editor=PREF.edit();
 
         editor.putString("userProfilePic",USER_PROFILEPIC);
+        editor.commit();
+    }
+
+    public static void setUserSnsid(long userSnsid) {
+        USER_SNSID = userSnsid;
+
+        SharedPreferences.Editor editor=PREF.edit();
+
+        editor.putLong("userSnsId",USER_SNSID);
+        editor.commit();
+    }
+
+    public static void setTestRgq(int testRgq) {
+        TEST_RGQ = testRgq;
+
+        SharedPreferences.Editor editor=PREF.edit();
+
+        editor.putInt("testRgq",TEST_RGQ);
+        editor.commit();
+    }
+
+    public static void setTestRgqDefault(int testRgqDefault) {
+        TEST_RGQ_DEFAULT = testRgqDefault;
+
+        SharedPreferences.Editor editor=PREF.edit();
+
+        editor.putInt("testRgqDefault",TEST_RGQ_DEFAULT);
+        editor.commit();
+    }
+
+    public static void setTestRgt(int testRgt) {
+        TEST_RGT = testRgt;
+
+        SharedPreferences.Editor editor=PREF.edit();
+
+        editor.putInt("testRgt",TEST_RGT);
+        editor.commit();
+    }
+
+    public static void setTestRgtDefault(int testRgtDefault) {
+        TEST_RGT_DEFAULT = testRgtDefault;
+
+        SharedPreferences.Editor editor=PREF.edit();
+
+        editor.putInt("testRgtDefault",TEST_RGT_DEFAULT);
         editor.commit();
     }
 
