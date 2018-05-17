@@ -65,7 +65,8 @@ public class TestAnswersAdapter extends RecyclerView.Adapter {
                 vh.cb.setVisibility(View.GONE);
                 vh.cbRorW.setVisibility(View.VISIBLE);
                 vh.cbRorW.setChecked(true);
-            }else if(t.isChecked()){
+
+            }else if(t.isTestChecked()){
                 vh.tvAnswer.setTextColor(context.getResources().getColor(R.color.colorRed));
 
                 vh.cb.setVisibility(View.GONE);
@@ -109,30 +110,35 @@ public class TestAnswersAdapter extends RecyclerView.Adapter {
                     cb.setVisibility(View.GONE);
                     break;
             }
+            if(studyingMode==StudyingManager.MODE_STUDYING)
+                cb.setEnabled(true);
+            else cb.setEnabled(false);
 
-            cb.setEnabled(true);
 
             cb.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                 @Override
                 public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                     answers.get(getLayoutPosition()).setTestChecked(isChecked);
 
-                    boolean hasAnswer=false;
+                    if(studyingMode==StudyingManager.MODE_STUDYING){
+                        boolean hasAnswer=false;
 
-                    if(isChecked)hasAnswer=true;
-                    else{
-                        hasAnswer=false;
-                        for(int i=0;i<answers.size();i++){
-                            if(answers.get(i).isTestChecked()){
-                                hasAnswer=true;
-                                break;
+                        if(isChecked)hasAnswer=true;
+                        else{
+                            hasAnswer=false;
+                            for(int i=0;i<answers.size();i++){
+                                if(answers.get(i).isTestChecked()){
+                                    hasAnswer=true;
+                                    break;
+                                }
                             }
+
+
                         }
 
-
+                        t.setHasTestAnswer(hasAnswer);
                     }
 
-                    t.setHasTestAnswer(hasAnswer);
                 }
             });
 

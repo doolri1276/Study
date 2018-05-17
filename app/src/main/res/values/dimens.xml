@@ -6,6 +6,7 @@
     <dimen name="big_padding">24dp</dimen>
     <dimen name="bigger_padding">32dp</dimen>
 
+    <dimen name="txt_hugetitle">48sp</dimen>
     <dimen name="txt_bigtitle">30sp</dimen>
     <dimen name="txt_title">24sp</dimen>
     <dimen name="txt_stitle">20sp</dimen>

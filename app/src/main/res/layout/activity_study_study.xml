@@ -8,7 +8,6 @@
     tools:context="com.snownaul.study.Activities.StudyStudyActivity"
 
     android:background="@color/colorLighterSkyBlue"
-    android:paddingTop="@dimen/bigger_padding"
     >
 
     <LinearLayout
@@ -20,31 +19,31 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
-            android:text="Study"
-            android:textSize="@dimen/txt_title"
+            android:text="@string/studystudy_study"
+            android:textSize="@dimen/txt_hugetitle"
             android:gravity="center"
+            android:background="@color/colorWhite"
             android:textColor="@color/colorDeeperSkyBlue"
             android:textStyle="bold"
-            android:layout_margin="@dimen/bigger_padding"
             android:onClick="clickStudy"
             />
         <TextView
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
-            android:text="Test"
-            android:textSize="@dimen/txt_title"
+            android:text="@string/studystudy_test"
+            android:textSize="@dimen/txt_hugetitle"
             android:gravity="center"
-            android:textColor="@color/colorDeeperSkyBlue"
+            android:textColor="@color/colorWhite"
             android:textStyle="bold"
-            android:layout_margin="@dimen/bigger_padding"
+            android:background="@color/colorDeepSkyBlue"
             android:onClick="clickTest"/>
     </LinearLayout>
 
     <View
         android:id="@+id/ad"
         android:layout_width="match_parent"
-        android:layout_height="51dp"
+        android:layout_height="50dp"
         android:background="#efefef"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"/>

@@ -20,6 +20,8 @@ import com.android.volley.request.SimpleMultiPartRequest;
 import com.android.volley.toolbox.Volley;
 import com.bumptech.glide.Glide;
 import com.github.bluzwong.swipeback.SwipeBackActivityHelper;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
 import com.snownaul.study.G;
 import com.snownaul.study.R;
 import com.snownaul.study.adapters.StoQuestionsAdapter;
@@ -32,6 +34,8 @@ import uk.co.imallan.jellyrefresh.JellyRefreshLayout;
 import uk.co.imallan.jellyrefresh.PullToRefreshLayout;
 
 public class StudySetMainActivity extends AppCompatActivity {
+
+    AdView adView;
 
     SwipeBackActivityHelper helper=new SwipeBackActivityHelper();
 
@@ -46,6 +50,10 @@ public class StudySetMainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_study_set_main);
+
+        adView= findViewById(R.id.adview);
+        AdRequest adRequest = new AdRequest.Builder().build();
+        adView.loadAd(adRequest);
 
         jelly=findViewById(R.id.jelly);
         jelly.setPullToRefreshListener(new PullToRefreshLayout.PullToRefreshListener() {
@@ -79,6 +87,7 @@ public class StudySetMainActivity extends AppCompatActivity {
 
         //G.loadCurrentSet(this);
         loadCurrentSet();
+        tvStudiedTotalCnt.setText(G.currentStudySet.getTriedCnt()+"");
 
 
 

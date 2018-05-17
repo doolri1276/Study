@@ -1,7 +1,9 @@
 package com.snownaul.study.fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -12,6 +14,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.snownaul.study.Activities.AddFeedActivity;
 import com.snownaul.study.Activities.MainActivity;
 import com.snownaul.study.R;
 
@@ -27,6 +30,8 @@ public class F2Feed extends Fragment {
     Toolbar toolbar;
 
     JellyRefreshLayout jelly;
+
+    FloatingActionButton fab;
 
     @Nullable
     @Override
@@ -54,6 +59,16 @@ public class F2Feed extends Fragment {
 
         View loadingView=LayoutInflater.from(getContext()).inflate(R.layout.jelly_loading,null);
         jelly.setLoadingView(loadingView);
+
+        fab=view.findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent =new Intent(getContext(), AddFeedActivity.class);
+                startActivity(intent);
+
+            }
+        });
 
         return view;
     }

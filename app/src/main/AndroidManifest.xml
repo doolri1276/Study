@@ -4,6 +4,12 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
 
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+
+    <uses-permission android:name="android.permission.CAMERA"/>
+
+    <uses-feature android:name="android.hardware.camera2" android:required="true"/>
+
     <!--
     카카오톡
     네이티브 앱 키
@@ -15,8 +21,8 @@
     Admin 키
     56a7e4c2bf261f03f4e22c054e28b638
     -->
-
-    <!--Admob 앱 ID
+    <!--
+Admob 앱 ID
     ca-app-pub-3336869729691375~9607711801
     ca-app-pub-3336869729691375/5578759465
     -->
@@ -63,8 +69,10 @@
         <activity
             android:name=".Activities.StudyTestActivity"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".Activities.StudyTestingPageActivity"
-            android:theme="@style/AppTheme.StudyingPage" ></activity>
+        <activity
+            android:name=".Activities.StudyTestingPageActivity"
+            android:theme="@style/AppTheme.StudyingPage" />
+        <activity android:name=".Activities.AddFeedActivity"></activity>
     </application>
 
 </manifest>

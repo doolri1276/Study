@@ -142,24 +142,6 @@
         android:layout_marginLeft="@dimen/normal_padding"
         android:textSize="@dimen/txt_text"/>
 
-    <View
-        android:id="@+id/ad"
-        android:layout_width="match_parent"
-        android:layout_height="51dp"
-        android:background="#efefef"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        />
-
-
-    <View
-        android:id="@+id/adline"
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_alignTop="@id/ad"
-        android:background="@color/colorLightGray"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
 
     <RelativeLayout
         android:id="@+id/dialog"
@@ -391,6 +373,26 @@
 
 
     </RelativeLayout>
+
+    <View
+        android:id="@+id/ad"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="#efefef"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        />
+
+
+    <View
+        android:id="@+id/adline"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_alignTop="@id/ad"
+        android:background="@color/colorLightGray"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
 
     <com.google.android.gms.ads.AdView
         android:id="@+id/adview"

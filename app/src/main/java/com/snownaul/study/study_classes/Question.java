@@ -30,8 +30,10 @@ public class Question implements Comparable{
     public static final int TYPE_ORDER=3;
     private ArrayList<Answer> answers;
 
+    //테스트 관련 변수들
     private  boolean hasTestAnswer;
-
+    private  boolean testCorrection;
+    private  int testTimeLength;
 
 
     //업데이트 관련 변수들
@@ -171,6 +173,22 @@ public class Question implements Comparable{
 
     public void setHasTestAnswer(boolean hasTestAnswer) {
         this.hasTestAnswer = hasTestAnswer;
+    }
+
+    public boolean isTestCorrection() {
+        return testCorrection;
+    }
+
+    public void setTestCorrection(boolean testCorrection) {
+        this.testCorrection = testCorrection;
+    }
+
+    public int getTestTimeLength() {
+        return testTimeLength;
+    }
+
+    public void setTestTimeLength(int testTimeLength) {
+        this.testTimeLength = testTimeLength;
     }
 
     @Override

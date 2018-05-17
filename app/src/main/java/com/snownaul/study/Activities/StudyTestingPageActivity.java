@@ -1,16 +1,27 @@
 package com.snownaul.study.Activities;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.ToggleButton;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.error.VolleyError;
+import com.android.volley.request.SimpleMultiPartRequest;
+import com.android.volley.toolbox.Volley;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 import com.snownaul.study.G;
@@ -18,8 +29,10 @@ import com.snownaul.study.R;
 import com.snownaul.study.adapters.StudyAnswersAdapter;
 import com.snownaul.study.adapters.TestAnswersAdapter;
 import com.snownaul.study.controls.StudyingManager;
+import com.snownaul.study.study_classes.Answer;
 import com.snownaul.study.study_classes.Question;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Queue;
@@ -47,6 +60,8 @@ public class StudyTestingPageActivity extends AppCompatActivity {
     LinearLayout type2;
     ToggleButton tbRorW;
     TextView tvQuestionNo;
+    Button btnTest;
+    TextView tvRorW;
 
     TextView tvQuestion;
     RecyclerView recyclerView;
@@ -64,6 +79,8 @@ public class StudyTestingPageActivity extends AppCompatActivity {
     Question t;
     long startTime;
     long endTime;
+    int correctionCnt;
+    int totalTimeLength;
 
 
     @Override
@@ -89,9 +106,18 @@ public class StudyTestingPageActivity extends AppCompatActivity {
         tvQuestionNo=findViewById(R.id.tv_question_no);
         tvQuestion=findViewById(R.id.tv_question);
         recyclerView=findViewById(R.id.recycler);
+        btnTest=findViewById(R.id.btn_test);
+        tvRorW=findViewById(R.id.tv_rorw);
 
 
         prepareTesting();
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.test_menu,menu);
+
+        return super.onCreateOptionsMenu(menu);
     }
 
     @Override
@@ -101,17 +127,155 @@ public class StudyTestingPageActivity extends AppCompatActivity {
             case android.R.id.home:
                 finish();
                 return true;
+            case R.id.submit:
+                if(studyingMode==StudyingManager.MODE_STUDYING)
+                    showAlertDialog(R.string.test_submit);
+                return true;
         }
 
         return super.onOptionsItemSelected(item);
     }
 
+    public void showAlertDialog(int stringResId){
+        AlertDialog.Builder builder=new AlertDialog.Builder(this);
+        builder.setMessage(stringResId);
+        builder.setPositiveButton(getString(R.string.dialog_positive), new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                submitTest();
+            }
+        });
+
+        builder.setNegativeButton(getString(R.string.dialog_negative),null);
+        AlertDialog dialog=builder.create();
+        dialog.setCanceledOnTouchOutside(true);
+        dialog.show();
+    }
+
+    public void submitTest(){
+        //TODO: 테스트 제출하고 체점하고 그런기능 있어야..
+        studyingMode=StudyingManager.MODE_ANSWER;
+        testAnswersAdapter.setStudyingMode(studyingMode);
+
+        timer.cancel();
+
+        //각각의 정답 체크..
+        checkAnswers();
+
+        submitTestResult();
+
+        position=0;
+        setAnswerPage();
+
+    }
+
+    public void checkAnswers(){
+
+        for(int i=0;i<questionsParts.size();i++){
+            Question q=questionsParts.get(i);
+            ArrayList<Answer> ta=q.getAnswers();
+
+            boolean correct=true;
+            for(int j=0;j<ta.size();j++){
+                Answer t=ta.get(j);
+                if(t.isCorrect()!=t.isTestChecked()){
+                    correct=false;
+                    break;
+                }
+            }
+            q.setTestCorrection(correct);
+            q.setTriedCnt(q.getTriedCnt()+1);
+            if(correct){
+                q.setSolvedCnt(q.getSolvedCnt()+1);
+                qnum[i].setBackgroundColor(getResources().getColor(R.color.colorGreen));
+                percentage[i].setBackgroundColor(getResources().getColor(R.color.colorGreen));
+                correctionCnt++;
+            }else{
+                percentage[i].setVisibility(View.VISIBLE);
+                qnum[i].setBackgroundColor(getResources().getColor(R.color.colorRed));
+                percentage[i].setBackgroundColor(getResources().getColor(R.color.colorRed));
+            }
+            totalTimeLength+=q.getTestTimeLength();
+
+            sendQuestionResultToServer(q);
+
+
+
+        }
+
+        return;
+    }
+
+    public void submitTestResult(){
+        String serverUrl="http://snownaul2.dothome.co.kr/StudyGuide/Study/submitTestResult.php";
+
+        SimpleMultiPartRequest multiPartRequest=new SimpleMultiPartRequest(Request.Method.POST, serverUrl, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                Log.i("MyTag","submit TEST Result MSG : "+response);
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.e("MyTag","submitTest Result ERROR : "+error.getMessage());
+
+            }
+        });
+
+        multiPartRequest.addStringParam("studySetID",G.currentStudySet.getStudySetId()+"");
+        multiPartRequest.addStringParam("questionCnt",questionCnt+"");
+        multiPartRequest.addStringParam("correctionCnt",correctionCnt+"");
+        multiPartRequest.addStringParam("timeLength",totalTimeLength+"");
+
+        RequestQueue requestQueue= Volley.newRequestQueue(this);
+
+        requestQueue.add(multiPartRequest);
+
+    }
+
+    public void sendQuestionResultToServer(Question q){
+        int time=(int)(endTime-startTime);
+
+        String serverUrl="http://snownaul2.dothome.co.kr/StudyGuide/Study/submitQuestionResult.php";
+
+        SimpleMultiPartRequest multiPartRequest=new SimpleMultiPartRequest(Request.Method.POST, serverUrl, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                Log.i("MyTag","submit Question Result MSG : "+response);
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+                Log.e("MyTag","submit Question Result ERROR : "+error.getMessage());
+
+            }
+        });
+
+        multiPartRequest.addStringParam("studySetID",G.currentStudySet.getStudySetId()+"");
+        multiPartRequest.addStringParam("questionID",q.getQuestionID()+"");
+        multiPartRequest.addStringParam("isSolved",(q.isTestCorrection()?1:0)+"");
+        multiPartRequest.addStringParam("timeLength",q.getTestTimeLength()+"");
+
+        RequestQueue requestQueue= Volley.newRequestQueue(this);
+
+        requestQueue.add(multiPartRequest);
+
+    }
+
+
     public void clickBtn(View v){
-        setBar();
+        ;
         switch (studyingMode){
             case StudyingManager.MODE_STUDYING:
+                setBar();
                 position++;
                 setStudyPage();
+                break;
+            case StudyingManager.MODE_ANSWER:
+                position++;
+                setAnswerPage();
                 break;
 
         }
@@ -197,6 +361,8 @@ public class StudyTestingPageActivity extends AppCompatActivity {
                 }
             }
             questionsParts.get(i).setHasTestAnswer(false);
+            questionsParts.get(i).setTestCorrection(false);
+            questionsParts.get(i).setTestTimeLength(0);
 
             percentage[i]=findViewById(R.id.percentage01+i);
             percentage[i].setVisibility(View.INVISIBLE);
@@ -209,7 +375,10 @@ public class StudyTestingPageActivity extends AppCompatActivity {
                 public void onClick(View v) {
                     TextView t=(TextView)v;
                     position=Integer.parseInt(t.getText().toString())-1;
-                    setStudyPage();
+                    if(studyingMode==StudyingManager.MODE_STUDYING)
+                        setStudyPage();
+                    else if(studyingMode==StudyingManager.MODE_ANSWER)
+                        setAnswerPage();
                     qlist.setVisibility(GONE);
                 }
             });
@@ -228,8 +397,14 @@ public class StudyTestingPageActivity extends AppCompatActivity {
 
         if(position>=questionCnt){
             position=questionCnt-1;
+            showAlertDialog(R.string.test_submit);
             return;
         }
+
+        endTime=System.currentTimeMillis()/1000;
+        Log.i("MyTag","시간 적립 : "+(endTime-startTime));
+        if(t!=null)
+            t.setTestTimeLength((int) (t.getTestTimeLength()+endTime-startTime));
 
         tvQuestionNo.setText(position+1+"");
 
@@ -251,6 +426,45 @@ public class StudyTestingPageActivity extends AppCompatActivity {
 
     }
 
+    public void setAnswerPage(){
+        studyingMode=StudyingManager.MODE_ANSWER;
+
+        if(position>=questionCnt){
+            position=questionCnt-1;
+        }
+
+        tvQuestionNo.setText(position+1+"");
+
+        t=questionsParts.get(position);
+
+        //맞았을때 틀렸을때의 설정.... 들어간다!
+        if(t.isTestCorrection()){
+            btnTest.setBackgroundResource(R.drawable.testbtn_r);
+            tvRorW.setText(getString(R.string.study_tvrorw_right));
+            tvRorW.setTextColor(getResources().getColor(R.color.colorGreen));
+        }else{
+            btnTest.setBackgroundResource(R.drawable.testbtn_w);
+            tvRorW.setText(getString(R.string.study_tvrorw_wrong));
+            tvRorW.setTextColor(getResources().getColor(R.color.colorRed));
+        }
+
+
+        tvQuestion.setText(t.getQuestion());
+
+        if(t.getQuestionType()==Question.TYPE_RIGHTORWRONG){
+            type2.setVisibility(View.VISIBLE);
+            tbRorW.setChecked(t.isRightOrWrong());
+        }else{
+            type2.setVisibility(View.GONE);
+        }
+
+        testAnswersAdapter= new TestAnswersAdapter(this,t,t.getQuestionType(),studyingMode);
+        recyclerView.setAdapter(testAnswersAdapter);
+
+        startTime=System.currentTimeMillis()/1000;
+
+    }
+
     public void setBar(){
         for(int i=0;i<questionCnt;i++){
             if(questionsParts.get(i).isHasTestAnswer()){
@@ -268,6 +482,25 @@ public class StudyTestingPageActivity extends AppCompatActivity {
         public void run() {
 
             timeLimit--;
+
+            //TODO:0초가 되었으면 타이머 종료하구 바로 제출기능
+            if(timeLimit<0){
+
+                if(task != null){
+                    task.cancel(); //타이머task를 timer 큐에서 지워버린다
+                    task=null;
+                }
+                timer.cancel(); //스케쥴task과 타이머를 취소한다.
+                timer.purge(); //task큐의 모든 task를 제거한다.
+                timer=null;
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        submitTest();
+                    }
+                });
+
+            }
 
             int tmp=timeLimit;
             Log.i("MyTag","time Limit : "+tmp);
@@ -305,4 +538,24 @@ public class StudyTestingPageActivity extends AppCompatActivity {
 
         }
     };
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        if(task != null){
+            task.cancel(); //타이머task를 timer 큐에서 지워버린다
+            task=null;
+        }
+        timer.cancel(); //스케쥴task과 타이머를 취소한다.
+        timer.purge(); //task큐의 모든 task를 제거한다.
+        timer=null;
+    }
+
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        //timer.cancel();
+
+    }
 }

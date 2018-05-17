@@ -11,6 +11,11 @@
     <string name="login_fail02">This user doesn\'t exist.</string>
     <string name="login_fail03">Failed to connect to the server.</string>
 
+    <string name="dialog_positive">Okay</string>
+    <string name="dialog_negative">Cancel</string>
+
+    <string name="test_submit">Are you sure you want to submit?</string>
+
     <string name="f1_home">Home</string>
     <string name="f2_feed">Feed</string>
     <string name="f3_study">Study</string>
@@ -68,5 +73,20 @@
     <string name="study_tvrorw_right">Right</string>
     <string name="study_tvrorw_wrong">Wrong</string>
 
+    <string name="studystudy_study">Study</string>
+    <string name="studystudy_test">Test</string>
+
+
+
+
+
+
+
+
+
+
+
+
+    <string name="addfeed_hint">What\'s on your mind?</string>
 
 </resources>
