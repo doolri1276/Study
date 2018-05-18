@@ -209,7 +209,9 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="@dimen/bigger_padding"
-                                android:layout_gravity="center_horizontal">
+                                android:layout_gravity="center_horizontal"
+                                android:visibility="gone">
+                                <!--TODO: 이거 정렬 설정하는거 다시 해야함..-->
 
                                 <RelativeLayout
                                     android:layout_width="wrap_content"
@@ -226,7 +228,7 @@
                                     <ImageView
                                         android:layout_width="@dimen/normal_padding"
                                         android:layout_height="@dimen/normal_padding"
-                                        android:src="@drawable/ic_bookmark"
+                                        android:src="@drawable/ic_bookmark_g"
                                         android:tint="@color/colorDeeperSkyBlue"
                                         android:layout_centerInParent="true"/>
                                 </RelativeLayout>
@@ -245,27 +247,7 @@
                                     <ImageView
                                         android:layout_width="@dimen/normal_padding"
                                         android:layout_height="@dimen/normal_padding"
-                                        android:src="@drawable/ic_bookmark"
-                                        android:tint="@color/colorDeeperSkyBlue"
-                                        android:layout_centerInParent="true"/>
-                                </RelativeLayout>
-
-                                <RelativeLayout
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginRight="@dimen/small_padding"
-                                    android:layout_marginLeft="@dimen/small_padding"
-                                    >
-                                    <ImageView
-                                        android:layout_width="@dimen/prof_studyf"
-                                        android:layout_height="@dimen/prof_studyf"
-                                        android:src="@drawable/ic_circle"
-                                        android:tint="@color/colorLighterSkyBlue"/>
-
-                                    <ImageView
-                                        android:layout_width="@dimen/normal_padding"
-                                        android:layout_height="@dimen/normal_padding"
-                                        android:src="@drawable/ic_bookmark"
+                                        android:src="@drawable/ic_bookmark_g"
                                         android:tint="@color/colorDeeperSkyBlue"
                                         android:layout_centerInParent="true"/>
                                 </RelativeLayout>
@@ -285,7 +267,27 @@
                                     <ImageView
                                         android:layout_width="@dimen/normal_padding"
                                         android:layout_height="@dimen/normal_padding"
-                                        android:src="@drawable/ic_bookmark"
+                                        android:src="@drawable/ic_bookmark_g"
+                                        android:tint="@color/colorDeeperSkyBlue"
+                                        android:layout_centerInParent="true"/>
+                                </RelativeLayout>
+
+                                <RelativeLayout
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginRight="@dimen/small_padding"
+                                    android:layout_marginLeft="@dimen/small_padding"
+                                    >
+                                    <ImageView
+                                        android:layout_width="@dimen/prof_studyf"
+                                        android:layout_height="@dimen/prof_studyf"
+                                        android:src="@drawable/ic_circle"
+                                        android:tint="@color/colorLighterSkyBlue"/>
+
+                                    <ImageView
+                                        android:layout_width="@dimen/normal_padding"
+                                        android:layout_height="@dimen/normal_padding"
+                                        android:src="@drawable/ic_bookmark_g"
                                         android:tint="@color/colorDeeperSkyBlue"
                                         android:layout_centerInParent="true"/>
                                 </RelativeLayout>
@@ -322,7 +324,7 @@
         android:layout_marginRight="@dimen/bigger_padding"
         android:layout_marginBottom="@dimen/big_padding"
         android:src="@drawable/ic_add"
-        app:fabSize="auto"
+        app:fabSize="mini"
         app:backgroundTint="@color/colorPink"
         android:layout_alignParentRight="true"
         android:layout_alignParentBottom="true"

@@ -5,6 +5,7 @@
     <dimen name="normal_padding">16dp</dimen>
     <dimen name="big_padding">24dp</dimen>
     <dimen name="bigger_padding">32dp</dimen>
+    <dimen name="huge_padding">48dp</dimen>
 
     <dimen name="txt_hugetitle">48sp</dimen>
     <dimen name="txt_bigtitle">30sp</dimen>
@@ -21,5 +22,7 @@
 
     <dimen name="big_icon">48dp</dimen>
     <dimen name="bigger_icon">56dp</dimen>
+
+    <dimen name="feed_prof">28dp</dimen>
 
 </resources>

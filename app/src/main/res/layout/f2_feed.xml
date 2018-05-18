@@ -27,7 +27,7 @@
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/ic_bookmark"
+                android:src="@drawable/ic_bookmark_g"
                 android:layout_alignParentRight="true"
                 />
         </RelativeLayout>
@@ -55,14 +55,26 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical">
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                >
 
+                <!--<include layout="@layout/feed_main"/>-->
+                <!--<include layout="@layout/feed_main"/>-->
+                <!--<include layout="@layout/feed_main"/>-->
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/recycler"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    app:layoutManager="android.support.v7.widget.LinearLayoutManager">
 
-
+                </android.support.v7.widget.RecyclerView>
             </LinearLayout>
-
         </ScrollView>
+
+
+
+
 
 
     </uk.co.imallan.jellyrefresh.JellyRefreshLayout>
@@ -73,7 +85,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/bigger_padding"
         android:src="@drawable/ic_add"
-        app:fabSize="auto"
+        app:fabSize="mini"
         app:backgroundTint="@color/colorPink"
         android:layout_alignParentRight="true"
         android:layout_alignParentBottom="true"

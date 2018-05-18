@@ -11,13 +11,15 @@
     <color name="colorLighterSkyBlue">#d3f2f4</color>
     <color name="colorLightestSkyBlue">#effeff</color>
     <color name="colorWhite">#ffffff</color>
+    <color name="colorBlack">#000000</color>
     <color name="colorDeepGray">#4B4B4B</color>
+    <color name="colorBlueGray">#7b8d93</color>
     <color name="colorGray">#aaaaaa</color>
     <color name="colorLightGray">#efefef</color>
-    <color name="colorBlueGray">#7b8d93</color>
-
-
     <color name="colorBase">#FAFAFA</color>
+
+
+
 
     <color name="colorGreen">#31e042</color>
     <color name="colorRed">#f43737</color>

@@ -13,6 +13,7 @@ import com.android.volley.Response;
 import com.android.volley.error.VolleyError;
 import com.android.volley.request.SimpleMultiPartRequest;
 import com.android.volley.toolbox.Volley;
+import com.snownaul.study.feed_classes.Feed;
 import com.snownaul.study.study_classes.Answer;
 import com.snownaul.study.study_classes.Question;
 import com.snownaul.study.study_classes.SgSet;
@@ -56,6 +57,9 @@ public class G {
     public static ArrayList<Question> deletedQuestions;
     public static ArrayList<Answer> deletedAnswers;
 
+    //Feed관련...
+    public static ArrayList<Feed> currentFeeds;
+
 
     public static void openG(SharedPreferences pref){
 
@@ -74,6 +78,8 @@ public class G {
         TEST_RGQ_DEFAULT=pref.getInt("testRgqDefault",25);
         TEST_RGT=pref.getInt("testRgt",0);
         TEST_RGT_DEFAULT=pref.getInt("testRgtDefault",25);
+
+        currentFeeds=new ArrayList<>();
 
     }
 

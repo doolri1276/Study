@@ -48,6 +48,7 @@ public class AddFeedActivity extends AppCompatActivity {
     LinearLayout pictures;
     ImageView iv;
     EditText etContents;
+    boolean isSubmitable=true;
 
 
     String imgPath;
@@ -116,7 +117,8 @@ public class AddFeedActivity extends AppCompatActivity {
                 finish();
                 return true;
             case R.id.submit:
-                uploadNewFeed();
+                if(isSubmitable)
+                    uploadNewFeed();
                 break;
         }
 
@@ -256,11 +258,13 @@ public class AddFeedActivity extends AppCompatActivity {
             @Override
             public void onResponse(String response) {
                 Log.i("MyTag","upload New Feed : "+response);
+                finish();
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
                 Log.e("MyTag","upload New Feed ERROR : "+error.getMessage());
+                finish();
 
             }
         });
@@ -274,6 +278,7 @@ public class AddFeedActivity extends AppCompatActivity {
         RequestQueue requestQueue= Volley.newRequestQueue(this);
 
         requestQueue.add(multiPartRequest);
+        isSubmitable=false;
 
     }
 
