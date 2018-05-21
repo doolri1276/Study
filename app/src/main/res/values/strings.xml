@@ -79,14 +79,10 @@
 
 
 
-
-
-
-
-
-
-
+    <!-- FEED -->
 
     <string name="addfeed_hint">What\'s on your mind?</string>
+    <string name="comment_hint">Add a Comment</string>
+    <string name="comment_btn">Send</string>
 
 </resources>

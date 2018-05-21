@@ -1,6 +1,7 @@
 package com.snownaul.study.adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -11,6 +12,10 @@ import android.widget.TextView;
 import android.widget.ToggleButton;
 
 import com.bumptech.glide.Glide;
+import com.github.bluzwong.swipeback.SwipeBackActivityHelper;
+import com.snownaul.study.Activities.FeedDetailActivity;
+import com.snownaul.study.Activities.MainActivity;
+import com.snownaul.study.Activities.StudySetMainActivity;
 import com.snownaul.study.G;
 import com.snownaul.study.R;
 import com.snownaul.study.feed_classes.Feed;
@@ -42,7 +47,7 @@ public class FeedFragAdapter extends RecyclerView.Adapter {
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         VH vh=(VH) holder;
-        Feed t= G.currentFeeds.get(position);
+        Feed t= G.feeds.get(position);
         Log.i("MyTag","지금 "+position+"번째꺼 만들었당 : "+t.getContents());
 
         isEditable=false;
@@ -73,7 +78,7 @@ public class FeedFragAdapter extends RecyclerView.Adapter {
 
     @Override
     public int getItemCount() {
-        return G.currentFeeds.size();
+        return G.feeds.size();
     }
 
     public class VH extends RecyclerView.ViewHolder{
@@ -103,6 +108,15 @@ public class FeedFragAdapter extends RecyclerView.Adapter {
             tvCommentCnt=itemView.findViewById(R.id.tv_comment_cnt);
             tbBookMark=itemView.findViewById(R.id.tb_bookmark);
 
+            tvContents.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                    G.currentFeed=G.feeds.get(getLayoutPosition());
+                    SwipeBackActivityHelper.startSwipeActivity((MainActivity)context,new Intent(context,FeedDetailActivity.class),true,true,true);
+
+                }
+            });
 
 
 

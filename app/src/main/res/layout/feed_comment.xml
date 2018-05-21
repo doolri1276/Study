@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    android:orientation="vertical"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingTop="@dimen/normal_padding"
+    android:paddingRight="@dimen/normal_padding"
+    android:paddingLeft="@dimen/normal_padding">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/civ_prof"
+            android:layout_width="@dimen/big_padding"
+            android:layout_height="@dimen/big_padding"
+            android:src="@drawable/rumy"
+            android:layout_gravity="center_vertical"
+            />
+        
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginLeft="@dimen/small_padding">
+
+            <TextView
+                android:id="@+id/tv_nickname"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Nickname"
+                android:textStyle="bold"
+                android:textSize="@dimen/txt_stext"
+                android:textColor="@color/colorDeepGray"/>
+
+            <TextView
+                android:id="@+id/tv_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Nickname"
+                android:textStyle="bold"
+                android:textSize="@dimen/txt_tiny"
+                android:textColor="@color/colorGray"/>
+            
+        </LinearLayout>
+        
+        <ImageView
+            android:id="@+id/iv_menu"
+            android:layout_width="@dimen/big_padding"
+            android:layout_height="@dimen/big_padding"
+            android:src="@drawable/ic_menu_v"
+            android:tint="@color/colorGray"/>
+        
+    </LinearLayout>
+    
+    <TextView
+        android:id="@+id/tv_comment"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="@dimen/small_padding"
+        android:paddingBottom="@dimen/small_padding"
+        android:text="jfeojfwojfoeiwjfiowejf"
+        android:textColor="@color/colorDeepGray"
+        android:layout_marginLeft="@dimen/big_padding"
+        android:paddingLeft="@dimen/small_padding"
+        android:paddingRight="@dimen/small_padding"
+
+        android:textSize="@dimen/txt_text"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/big_padding"
+        android:paddingRight="@dimen/small_padding"
+        android:paddingLeft="@dimen/small_padding"
+        >
+        <ToggleButton
+            android:id="@+id/tb_favor"
+            android:layout_width="@dimen/normal_padding"
+            android:layout_height="@dimen/normal_padding"
+            android:background="@drawable/sel_feed_favor"
+            android:textOn=""
+            android:textOff=""
+
+            />
+
+        <TextView
+            android:id="@+id/tv_liked_cnt"
+            android:layout_width="@dimen/huge_padding"
+            android:layout_height="wrap_content"
+            android:text="23"
+            android:textSize="@dimen/txt_stext"
+            android:textColor="@color/colorGray"
+            android:textStyle="bold"
+            android:layout_gravity="center_vertical"
+            android:layout_marginBottom="3dp"
+            android:layout_marginLeft="@dimen/small_padding"/>
+
+        <ToggleButton
+            android:id="@+id/tb_comment"
+            android:layout_width="14dp"
+            android:layout_height="14dp"
+            android:background="@drawable/sel_feed_comment"
+            android:textOn=""
+            android:textOff=""
+
+            />
+
+        <TextView
+            android:id="@+id/tv_comment_cnt"
+            android:layout_width="@dimen/huge_padding"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="23"
+            android:textSize="@dimen/txt_stext"
+            android:textColor="@color/colorGray"
+            android:textStyle="bold"
+            android:layout_gravity="center_vertical"
+            android:layout_marginBottom="3dp"
+            android:layout_marginLeft="9dp"/>
+
+
+
+
+    </LinearLayout>
+
+
+</LinearLayout>

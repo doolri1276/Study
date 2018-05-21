@@ -58,7 +58,8 @@ public class G {
     public static ArrayList<Answer> deletedAnswers;
 
     //Feed관련...
-    public static ArrayList<Feed> currentFeeds;
+    public static ArrayList<Feed> feeds;
+    public static Feed currentFeed;
 
 
     public static void openG(SharedPreferences pref){
@@ -79,7 +80,7 @@ public class G {
         TEST_RGT=pref.getInt("testRgt",0);
         TEST_RGT_DEFAULT=pref.getInt("testRgtDefault",25);
 
-        currentFeeds=new ArrayList<>();
+        feeds=new ArrayList<>();
 
     }
 
