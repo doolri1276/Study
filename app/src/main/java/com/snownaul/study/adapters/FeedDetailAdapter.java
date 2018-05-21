@@ -22,25 +22,25 @@ import com.bumptech.glide.Glide;
 import com.github.bluzwong.swipeback.SwipeBackActivityHelper;
 import com.snownaul.study.Activities.FeedCommentActivity;
 import com.snownaul.study.Activities.FeedDetailActivity;
+import com.snownaul.study.Activities.MainActivity;
+import com.snownaul.study.Activities.StudyStudyActivity;
 import com.snownaul.study.G;
 import com.snownaul.study.R;
 import com.snownaul.study.feed_classes.Comment;
-import com.snownaul.study.feed_classes.SubComment;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
-
 /**
- * Created by macbookair on 2018. 5. 19..
+ * Created by alfo6-11 on 2018-05-21.
  */
 
-public class FeedCommentAdapter extends RecyclerView.Adapter {
+public class FeedDetailAdapter extends RecyclerView.Adapter{
 
     Context context;
 
     boolean isEditable;
 
-    public FeedCommentAdapter(Context context) {
+    public FeedDetailAdapter(Context context) {
         this.context = context;
     }
 
@@ -55,7 +55,7 @@ public class FeedCommentAdapter extends RecyclerView.Adapter {
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         isEditable=false;
         VH vh=(VH) holder;
-        SubComment t=G.currentComment.getSubComments().get(position);
+        Comment t=G.currentFeed.getComments().get(position);
 
         Glide.with(context).load(t.getImgPath()).thumbnail(0.1f).into(vh.civProf);
 
@@ -64,13 +64,20 @@ public class FeedCommentAdapter extends RecyclerView.Adapter {
         vh.tvComment.setText(t.getContents());
         vh.tbFavor.setChecked(t.isLiked());
         vh.tvLikedCnt.setText(t.getLikeCnt()+"");
+        vh.tbSubComment.setChecked(t.isSubCommented());
+        vh.tvSubCommentCnt.setText(t.getSubCommentCnt()+"");
+
+
+
+
+
 
         isEditable=true;
     }
 
     @Override
     public int getItemCount() {
-        return G.currentComment.getSubComments().size();
+        return G.currentFeed.getComments().size();
     }
 
     class VH extends RecyclerView.ViewHolder{
@@ -98,44 +105,59 @@ public class FeedCommentAdapter extends RecyclerView.Adapter {
             tbSubComment=itemView.findViewById(R.id.tb_sub_comment);
             tvSubCommentCnt=itemView.findViewById(R.id.tv_sub_comment_cnt);
 
-            tbSubComment.setVisibility(View.GONE);
-            tvSubCommentCnt.setVisibility(View.GONE);
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if(!isEditable) return;
+
+                    G.currentComment=G.currentFeed.getComments().get(getLayoutPosition());
+                    SwipeBackActivityHelper.startSwipeActivity((FeedDetailActivity)context,new Intent(context,FeedCommentActivity.class),true,true,true);
+
+
+                }
+            });
 
             tbFavor.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                 @Override
                 public void onCheckedChanged(CompoundButton buttonView, final boolean isChecked) {
                     if(!isEditable) return;
 
-                    final SubComment t=G.currentComment.getSubComments().get(getLayoutPosition());
+                    final Comment t=G.currentFeed.getComments().get(getLayoutPosition());
 
-                    String serverUrl="http://snownaul2.dothome.co.kr/StudyGuide/Feed/subCommentFavorChanged.php";
+                    String serverUrl="http://snownaul2.dothome.co.kr/StudyGuide/Feed/commentFavorChanged.php";
 
-                    SimpleMultiPartRequest multiPartRequest=new SimpleMultiPartRequest(Request.Method.POST, serverUrl, new Response.Listener<String>() {
-                        @Override
-                        public void onResponse(String response) {
-                            Log.i("MyTag","comment likeeeee checkkkkk : "+response);
-                            t.setLiked(isChecked);
-                            if(isChecked){
-                                t.setLikeCnt(t.getLikeCnt()+1);
-                            }else {
-                                t.setLikeCnt(t.getLikeCnt()-1);
+                    try{
+                        SimpleMultiPartRequest multiPartRequest=new SimpleMultiPartRequest(Request.Method.POST, serverUrl, new Response.Listener<String>() {
+                            @Override
+                            public void onResponse(String response) {
+                                Log.i("MyTag","comment likeeeee checkkkkk : "+response);
+                                t.setLiked(isChecked);
+                                if(isChecked){
+                                    t.setLikeCnt(t.getLikeCnt()+1);
+                                }else {
+                                    t.setLikeCnt(t.getLikeCnt()-1);
+                                }
+
+                                tvLikedCnt.setText(t.getLikeCnt()+"");
                             }
+                        }, new Response.ErrorListener() {
+                            @Override
+                            public void onErrorResponse(VolleyError error) {
+                                tbFavor.setChecked(!isChecked);
 
-                            tvLikedCnt.setText(t.getLikeCnt()+"");
-                        }
-                    }, new Response.ErrorListener() {
-                        @Override
-                        public void onErrorResponse(VolleyError error) {
-                            tbFavor.setChecked(!isChecked);
+                            }
+                        });
 
-                        }
-                    });
+                        multiPartRequest.addStringParam("userID",G.getUserId()+"");
+                        multiPartRequest.addStringParam("commentID",t.getCommentID()+"");
 
-                    multiPartRequest.addStringParam("userID",G.getUserId()+"");
-                    multiPartRequest.addStringParam("subCommentID",t.getSubCommentID()+"");
+                        RequestQueue requestQueue= Volley.newRequestQueue(context);
+                        requestQueue.add(multiPartRequest);
+                    }catch (Exception e){
+                        e.printStackTrace();
+                    }
 
-                    RequestQueue requestQueue= Volley.newRequestQueue(context);
-                    requestQueue.add(multiPartRequest);
+
 
                 }
             });

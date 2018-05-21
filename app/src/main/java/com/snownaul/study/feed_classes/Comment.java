@@ -10,18 +10,35 @@ public class Comment {
 
     //DB
     private int commentID;
-    private int feedID;
+    //private int feedID;
     private int userID;
     private String contents;
     private String date;
 
     private String imgPath;
+    private String nickname;
     private boolean isLiked;
     private int likeCnt;
     private boolean isSubCommented;
     private int SubCommentCnt;
 
     private ArrayList<SubComment> subComments;
+
+
+    public Comment(int commentID, int userID, String contents, String date, String imgPath, String nickname, boolean isLiked, int likeCnt, boolean isSubCommented, int subCommentCnt) {
+        this.commentID = commentID;
+        this.userID = userID;
+        this.contents = contents;
+        this.date = date;
+        this.imgPath = imgPath;
+        this.nickname = nickname;
+        this.isLiked = isLiked;
+        this.likeCnt = likeCnt;
+        this.isSubCommented = isSubCommented;
+        SubCommentCnt = subCommentCnt;
+
+        subComments=new ArrayList<>();
+    }
 
     public int getCommentID() {
         return commentID;
@@ -31,13 +48,13 @@ public class Comment {
         this.commentID = commentID;
     }
 
-    public int getFeedID() {
-        return feedID;
-    }
-
-    public void setFeedID(int feedID) {
-        this.feedID = feedID;
-    }
+//    public int getFeedID() {
+//        return feedID;
+//    }
+//
+//    public void setFeedID(int feedID) {
+//        this.feedID = feedID;
+//    }
 
     public int getUserID() {
         return userID;
@@ -109,5 +126,13 @@ public class Comment {
 
     public void setSubComments(ArrayList<SubComment> subComments) {
         this.subComments = subComments;
+    }
+
+    public String getNickname() {
+        return nickname;
+    }
+
+    public void setNickname(String nickname) {
+        this.nickname = nickname;
     }
 }

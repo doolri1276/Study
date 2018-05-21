@@ -13,6 +13,7 @@ public class SgSet {
     private int userID;//유저의 아이디를 불러올 필요가 있는가?
     private String title;
     private String info;
+    private int privacy;
 
     private String user_nickname;
     private int likeCnt;
@@ -101,5 +102,13 @@ public class SgSet {
 
     public void setStudiedTotalCnt(int studiedTotalCnt) {
         this.studiedTotalCnt = studiedTotalCnt;
+    }
+
+    public int getPrivacy() {
+        return privacy;
+    }
+
+    public void setPrivacy(int privacy) {
+        this.privacy = privacy;
     }
 }

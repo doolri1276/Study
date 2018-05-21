@@ -2,6 +2,8 @@
     <string name="app_name">STUDY GUIDE</string>
     <string name="intro_madeby">made by Naul Snow</string>
 
+    <string name="coming_soon">Coming soon..</string>
+
     <string name="login_id">ID</string>
     <string name="login_psw">Password</string>
     <string name="login_continue">CONTINUE</string>
@@ -44,6 +46,8 @@
     <string name="addset_info">Info</string>
     <string name="addset_area">Area</string>
     <string name="addset_submit">Submit</string>
+    <string name="addset_hint_title">what is the title of this set?</string>
+    <string name="addset_hint_info">What is this set about?</string>
 
     <string name="addset_submit_fail01">Title is missing.</string>
     <string name="addset_submit_fail02">Question is missing.</string>
@@ -75,8 +79,6 @@
 
     <string name="studystudy_study">Study</string>
     <string name="studystudy_test">Test</string>
-
-
 
 
     <!-- FEED -->

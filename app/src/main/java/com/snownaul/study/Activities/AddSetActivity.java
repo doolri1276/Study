@@ -5,15 +5,20 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
+import android.text.InputFilter;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -30,6 +35,7 @@ import com.github.bluzwong.swipeback.SwipeBackActivityHelper;
 import com.snownaul.study.G;
 import com.snownaul.study.R;
 import com.snownaul.study.adapters.NewQuestionsAdapter;
+import com.snownaul.study.controls.AmpersandInputFilter;
 import com.snownaul.study.study_classes.Answer;
 import com.snownaul.study.study_classes.Question;
 import com.snownaul.study.study_classes.SgSet;
@@ -57,6 +63,10 @@ public class AddSetActivity extends AppCompatActivity {
 
     String title,info;
 
+    RadioGroup rgPrivacy;
+    ImageView btnClear;
+    int privacyNum=0;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -81,68 +91,74 @@ public class AddSetActivity extends AppCompatActivity {
         newQuestionsAdapter=new NewQuestionsAdapter(this);
         recyclerView.setAdapter(newQuestionsAdapter);
 
-        addQuestion.setOnLongClickListener(new View.OnLongClickListener() {
+        etTitle.setFilters(new InputFilter[]{new AmpersandInputFilter()});
+        etInfo.setFilters(new InputFilter[]{new AmpersandInputFilter()});
 
-            TextView t1,t2,t3,t4;
+        //TODO:시험이라던지 이런게 설정이 덜됬기 때문에 일단 접어둔다..
+//        addQuestion.setOnLongClickListener(new View.OnLongClickListener() {
+//
+//            TextView t1,t2,t3,t4;
+//
+//
+//            @Override
+//            public boolean onLongClick(View v) {
+//                AlertDialog.Builder builder=new AlertDialog.Builder(AddSetActivity.this);
+//
+//                LayoutInflater inf=getLayoutInflater();
+//                View view=inf.inflate(R.layout.dialog_selecttype,null);
+//                builder.setView(view);
+//                final AlertDialog dialog=builder.create();
+//                dialog.setCanceledOnTouchOutside(false);
+//
+//                t1=view.findViewById(R.id.type1);
+//                t2=view.findViewById(R.id.type2);
+//                t3=view.findViewById(R.id.type3);
+//                t4=view.findViewById(R.id.type4);
+//
+//                t1.setOnClickListener(new View.OnClickListener() {
+//                    @Override
+//                    public void onClick(View v) {
+//                        setDefaultQuestionType(Question.TYPE_BASIC);
+//                        dialog.dismiss();
+//
+//                    }
+//                });
+//
+//                t2.setOnClickListener(new View.OnClickListener() {
+//                    @Override
+//                    public void onClick(View v) {
+//                        setDefaultQuestionType(Question.TYPE_RIGHTORWRONG);
+//                        dialog.dismiss();
+//                    }
+//                });
+//
+//                t3.setOnClickListener(new View.OnClickListener() {
+//                    @Override
+//                    public void onClick(View v) {
+//                        setDefaultQuestionType(Question.TYPE_ONEANSWER);
+//                        dialog.dismiss();
+//                    }
+//                });
+//
+//                t4.setOnClickListener(new View.OnClickListener() {
+//                    @Override
+//                    public void onClick(View v) {
+//                        setDefaultQuestionType(Question.TYPE_ORDER);
+//                        dialog.dismiss();
+//                    }
+//                });
+//
+//                dialog.show();
+//
+//
+//
+//
+//
+//                return false;
+//            }
+//        });
 
 
-            @Override
-            public boolean onLongClick(View v) {
-                AlertDialog.Builder builder=new AlertDialog.Builder(AddSetActivity.this);
-
-                LayoutInflater inf=getLayoutInflater();
-                View view=inf.inflate(R.layout.dialog_selecttype,null);
-                builder.setView(view);
-                final AlertDialog dialog=builder.create();
-                dialog.setCanceledOnTouchOutside(false);
-
-                t1=view.findViewById(R.id.type1);
-                t2=view.findViewById(R.id.type2);
-                t3=view.findViewById(R.id.type3);
-                t4=view.findViewById(R.id.type4);
-
-                t1.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        setDefaultQuestionType(Question.TYPE_BASIC);
-                        dialog.dismiss();
-
-                    }
-                });
-
-                t2.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        setDefaultQuestionType(Question.TYPE_RIGHTORWRONG);
-                        dialog.dismiss();
-                    }
-                });
-
-                t3.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        setDefaultQuestionType(Question.TYPE_ONEANSWER);
-                        dialog.dismiss();
-                    }
-                });
-
-                t4.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        setDefaultQuestionType(Question.TYPE_ORDER);
-                        dialog.dismiss();
-                    }
-                });
-
-                dialog.show();
-
-
-
-
-
-                return false;
-            }
-        });
 
         G.hideKeyboard(this);
 
@@ -298,6 +314,7 @@ public class AddSetActivity extends AppCompatActivity {
         multiPartRequest.addStringParam("userID",G.getUserId()+"");
         multiPartRequest.addStringParam("title",title);
         multiPartRequest.addStringParam("info",info);
+        multiPartRequest.addStringParam("privacy",privacyNum+"");
 
         StringBuffer buffer=new StringBuffer();
         String qDivider="&Q&";
@@ -339,4 +356,50 @@ public class AddSetActivity extends AppCompatActivity {
 
 
     }
+
+    public void clickSetting(View v){
+
+        AlertDialog.Builder builder=new AlertDialog.Builder(this);
+        View view=getLayoutInflater().inflate(R.layout.dialog_add_set,null);
+        builder.setView(view);
+
+
+        final AlertDialog dialog=builder.create();
+        rgPrivacy=view.findViewById(R.id.rg_privacy);
+
+        rgPrivacy.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                switch (checkedId){
+                    case R.id.rg_privacy_public:
+                        privacyNum=0;
+                        break;
+                    case R.id.rg_privacy_private:
+                        privacyNum=1;
+                        break;
+                }
+            }
+        });
+        btnClear=view.findViewById(R.id.btn_clear);
+        btnClear.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+
+        dialog.show();
+
+
+
+
+
+
+
+
+
+
+    }
+
+
 }

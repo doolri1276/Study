@@ -21,6 +21,7 @@ import android.widget.ToggleButton;
 
 import com.snownaul.study.G;
 import com.snownaul.study.R;
+import com.snownaul.study.controls.AmpersandInputFilter;
 import com.snownaul.study.study_classes.Answer;
 import com.snownaul.study.study_classes.Question;
 
@@ -109,6 +110,9 @@ public class NewQuestionsAdapter extends RecyclerView.Adapter {
             recyclerView=itemView.findViewById(R.id.recycler);
             addAnswer=itemView.findViewById(R.id.add_answer);
             etExplanation=itemView.findViewById(R.id.et_explanation);
+
+            etQuestion.setFilters(new InputFilter[]{new AmpersandInputFilter()});
+            etExplanation.setFilters(new InputFilter[]{new AmpersandInputFilter()});
 
             if(G.newQuestions.size()>1)
                 etQuestion.requestFocus();

@@ -1,15 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:ads="http://schemas.android.com/apk/res-auto"
     tools:context="com.snownaul.study.Activities.FeedDetailActivity">
 
-    <uk.co.imallan.jellyrefresh.JellyRefreshLayout
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="?attr/actionBarSize"
+        android:theme="@style/AppTheme.Toolbar"
+        >
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:layout_marginRight="@dimen/normal_padding">
+
+        </RelativeLayout>
+
+
+
+    </android.support.v7.widget.Toolbar>
+
+    <uk.co.imallan.jellyrefresh.JellyRefreshLayout
+        android:id="@+id/jelly"
+        android:layout_above="@id/new_comment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:jellyColor="@color/colorDeepSkyBlue"
+        app:pullHeight="128dp"
+        app:triggerHeight="96dp"
+        android:layout_below="@id/toolbar"
+        app:headerHeight="48dp">
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -70,15 +95,17 @@
                     android:id="@+id/iv_img"
                     android:layout_width="match_parent"
                     android:layout_height="320dp"
-                    android:src="@drawable/rumy"
                     android:scaleType="centerCrop"
+                    android:layout_marginBottom="@dimen/normal_padding"
                     />
 
                 <TextView
                     android:id="@+id/tv_contents"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:padding="@dimen/normal_padding"
+                    android:paddingBottom="@dimen/normal_padding"
+                    android:paddingRight="@dimen/normal_padding"
+                    android:paddingLeft="@dimen/normal_padding"
                     android:textColor="@color/colorDeepGray"
                     android:textSize="@dimen/txt_text"
 
@@ -150,6 +177,7 @@
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/small_padding"
                     >
                     <View
                         android:layout_width="match_parent"
@@ -158,9 +186,12 @@
                         />
 
                     <com.google.android.gms.ads.AdView
+                        android:id="@+id/adview"
                         android:layout_width="wrap_content"
                         android:layout_height="?attr/actionBarSize"
                         android:layout_centerInParent="true"
+                        ads:adSize="BANNER"
+                        ads:adUnitId="ca-app-pub-3336869729691375/6378815171"
                         >
 
                     </com.google.android.gms.ads.AdView>
@@ -174,34 +205,7 @@
 
                 </android.support.v7.widget.RecyclerView>
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
 
-                    <EditText
-                        android:id="@+id/et_comment"
-                        android:layout_width="0dp"
-                        android:layout_weight="1"
-                        android:layout_height="wrap_content"
-                        android:padding="@dimen/normal_padding"
-                        android:textColor="@color/colorDeepGray"
-                        android:textSize="@dimen/txt_text"
-                        android:hint="@string/comment_hint"
-                        android:background="@color/colorLightGray"
-                        />
-
-                    <TextView
-                        android:id="@+id/tv_comment"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:padding="@dimen/normal_padding"
-                        android:textColor="@color/colorDeepGray"
-                        android:textSize="@dimen/txt_text"
-                        android:text="@string/comment_btn"
-                        android:background="@color/colorLightGray"
-                        />
-
-                </LinearLayout>
 
 
 
@@ -209,6 +213,38 @@
 
         </ScrollView>
     </uk.co.imallan.jellyrefresh.JellyRefreshLayout>
+
+    <LinearLayout
+        android:id="@+id/new_comment"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true">
+
+        <EditText
+            android:id="@+id/et_comment"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/normal_padding"
+            android:textColor="@color/colorDeepGray"
+            android:textSize="@dimen/txt_text"
+            android:hint="@string/comment_hint"
+            android:background="@color/colorLightGray"
+            />
+
+        <TextView
+            android:id="@+id/tv_comment"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:padding="@dimen/normal_padding"
+            android:textColor="@color/colorDeepGray"
+            android:textSize="@dimen/txt_text"
+            android:text="@string/comment_btn"
+            android:background="@color/colorLightGray"
+            android:onClick="clickSend"
+            />
+
+    </LinearLayout>
 
 
 

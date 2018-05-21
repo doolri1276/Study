@@ -65,7 +65,9 @@ public class StudyFragAdapter extends RecyclerView.Adapter {
 
     @Override
     public int getItemCount() {
-        return G.studySets.size();
+        if(G.studySets!=null)
+            return G.studySets.size();
+        else return 0;
     }
 
     class VH extends RecyclerView.ViewHolder{

@@ -3,6 +3,7 @@ package com.snownaul.study.adapters;
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
+import android.text.InputFilter;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -18,6 +19,7 @@ import android.widget.ToggleButton;
 
 import com.snownaul.study.G;
 import com.snownaul.study.R;
+import com.snownaul.study.controls.AmpersandInputFilter;
 import com.snownaul.study.study_classes.Answer;
 import com.snownaul.study.study_classes.Question;
 
@@ -112,6 +114,9 @@ public class UpdateQuestionsAdapter extends RecyclerView.Adapter {
             recyclerView=itemView.findViewById(R.id.recycler);
             addAnswer=itemView.findViewById(R.id.add_answer);
             etExplanation=itemView.findViewById(R.id.et_explanation);
+
+            etQuestion.setFilters(new InputFilter[]{new AmpersandInputFilter()});
+            etExplanation.setFilters(new InputFilter[]{new AmpersandInputFilter()});
 
             if(G.updateSgSet.getQuestions().size()>1)
                 etQuestion.requestFocus();

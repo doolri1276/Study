@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 import android.widget.ToggleButton;
 
 
@@ -244,10 +245,11 @@ public class StudySetMainActivity extends AppCompatActivity {
     }
 
     public void clickPlay(View v){
+        Toast.makeText(this, getString(R.string.coming_soon), Toast.LENGTH_SHORT).show();
 
     }
 
     public void clickReport(View v){
-
+        Toast.makeText(this, getString(R.string.coming_soon), Toast.LENGTH_SHORT).show();
     }
 }

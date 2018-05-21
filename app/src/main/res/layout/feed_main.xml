@@ -58,15 +58,17 @@
             android:id="@+id/iv_img"
             android:layout_width="match_parent"
             android:layout_height="320dp"
-            android:src="@drawable/rumy"
             android:scaleType="centerCrop"
+            android:layout_marginBottom="@dimen/normal_padding"
             />
 
         <TextView
             android:id="@+id/tv_contents"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="@dimen/normal_padding"
+            android:paddingLeft="@dimen/normal_padding"
+            android:paddingBottom="@dimen/normal_padding"
+            android:paddingRight="@dimen/normal_padding"
             android:text="jeofjw ofjew ofje eiof jewo fjew feji ofje ofw jeofjw ofjew ofje eiof jewo fjew feji ofje ofw jeofjw ofjew ofje eiof jewo fjew feji ofje ofw jeofjw ofjew ofje eiof jewo fjew feji ofje ofw jeofjw ofjew ofje eiof jewo fjew feji ofje ofw jeofjw ofjew ofje eiof jewo fjew feji ofje ofw jeofjw ofjew ofje eiof jewo fjew feji ofje ofw jeofjw ofjew ofje eiof jewo fjew feji ofje ofw jeofjw ofjew ofje eiof jewo fjew feji ofje ofw"
             android:maxLines="5"
             android:textColor="@color/colorDeepGray"
@@ -109,7 +111,7 @@
                 android:background="@drawable/sel_feed_comment"
                 android:textOn=""
                 android:textOff=""
-
+                android:enabled="false"
                 />
 
             <TextView

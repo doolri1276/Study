@@ -7,10 +7,17 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.ToggleButton;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.error.VolleyError;
+import com.android.volley.request.SimpleMultiPartRequest;
+import com.android.volley.toolbox.Volley;
 import com.bumptech.glide.Glide;
 import com.github.bluzwong.swipeback.SwipeBackActivityHelper;
 import com.snownaul.study.Activities.FeedDetailActivity;
@@ -48,20 +55,20 @@ public class FeedFragAdapter extends RecyclerView.Adapter {
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         VH vh=(VH) holder;
         Feed t= G.feeds.get(position);
-        Log.i("MyTag","지금 "+position+"번째꺼 만들었당 : "+t.getContents());
+        //Log.i("MyTag","지금 "+position+"번째꺼 만들었당 : "+t.getContents());
 
         isEditable=false;
 
         int i=vh.itemView.getVisibility();
-        Log.i("MyTag",("보여지고 있나?"+i));
-        Glide.with(context).load(t.getProfImgPath()).into(vh.civProf);
+        //Log.i("MyTag",("보여지고 있나?"+i));
+        Glide.with(context).load(t.getProfImgPath()).thumbnail(0.1f).into(vh.civProf);
 
         vh.tvNickname.setText(t.getNickname());
         vh.tvDate.setText(t.getDate());
 
-        if(t.getImgPath()!=null||t.getImgPath().length()==0){
+        if(t.getImgPath()!=null&&t.getImgPath().length()!=0){
             vh.ivImg.setVisibility(View.VISIBLE);
-            Glide.with(context).load(t.getImgPath()).into(vh.ivImg);
+            Glide.with(context).load(t.getImgPath()).thumbnail(0.1f).into(vh.ivImg);
         }else
             vh.ivImg.setVisibility(View.GONE);
 
@@ -108,16 +115,110 @@ public class FeedFragAdapter extends RecyclerView.Adapter {
             tvCommentCnt=itemView.findViewById(R.id.tv_comment_cnt);
             tbBookMark=itemView.findViewById(R.id.tb_bookmark);
 
-            tvContents.setOnClickListener(new View.OnClickListener() {
+            itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-
                     G.currentFeed=G.feeds.get(getLayoutPosition());
                     SwipeBackActivityHelper.startSwipeActivity((MainActivity)context,new Intent(context,FeedDetailActivity.class),true,true,true);
 
                 }
             });
 
+//            tvContents.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View v) {
+//
+//                    G.currentFeed=G.feeds.get(getLayoutPosition());
+//                    SwipeBackActivityHelper.startSwipeActivity((MainActivity)context,new Intent(context,FeedDetailActivity.class),true,true,true);
+//
+//                }
+//            });
+//
+//            ivImg.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View v) {
+//                    G.currentFeed=G.feeds.get(getLayoutPosition());
+//                    SwipeBackActivityHelper.startSwipeActivity((MainActivity)context,new Intent(context,FeedDetailActivity.class),true,true,true);
+//
+//                }
+//            });
+//
+//            tbComment.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View v) {
+//
+//                }
+//            });
+
+            tbFavor.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(CompoundButton buttonView, final boolean isChecked) {
+                    if(!isEditable) return;
+
+                    final Feed t=G.feeds.get(getLayoutPosition());
+
+                    String serverUrl="http://snownaul2.dothome.co.kr/StudyGuide/Feed/feedFavorChanged.php";
+
+                    SimpleMultiPartRequest multiPartRequest=new SimpleMultiPartRequest(Request.Method.POST, serverUrl, new Response.Listener<String>() {
+                        @Override
+                        public void onResponse(String response) {
+                            Log.i("MyTag","feed likeeeee checkkkkk : "+response);
+                            t.setLiked(isChecked);
+                            if(isChecked){
+                                t.setLikeCnt(t.getLikeCnt()+1);
+                            }else {
+                                t.setLikeCnt(t.getLikeCnt()-1);
+                            }
+
+                            tvLikedCnt.setText(t.getLikeCnt()+"");
+                        }
+                    }, new Response.ErrorListener() {
+                        @Override
+                        public void onErrorResponse(VolleyError error) {
+                            tbFavor.setChecked(!isChecked);
+
+                        }
+                    });
+
+                    multiPartRequest.addStringParam("userID",G.getUserId()+"");
+                    multiPartRequest.addStringParam("feedID",t.getFeedID()+"");
+
+                    RequestQueue requestQueue= Volley.newRequestQueue(context);
+                    requestQueue.add(multiPartRequest);
+                }
+            });
+
+            tbBookMark.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(CompoundButton buttonView, final boolean isChecked) {
+                    if(!isEditable) return;
+
+                    final Feed t=G.feeds.get(getLayoutPosition());
+
+                    String serverUrl="http://snownaul2.dothome.co.kr/StudyGuide/Feed/feedMarkChanged.php";
+
+                    SimpleMultiPartRequest multiPartRequest=new SimpleMultiPartRequest(Request.Method.POST, serverUrl, new Response.Listener<String>() {
+                        @Override
+                        public void onResponse(String response) {
+                            Log.i("MyTag","feedMark checkkkkk : "+response);
+                            t.setFeedMarked(isChecked);
+
+                        }
+                    }, new Response.ErrorListener() {
+                        @Override
+                        public void onErrorResponse(VolleyError error) {
+                           tbBookMark.setChecked(!isChecked);
+
+                        }
+                    });
+
+                    multiPartRequest.addStringParam("userID",G.getUserId()+"");
+                    multiPartRequest.addStringParam("feedID",t.getFeedID()+"");
+
+                    RequestQueue requestQueue= Volley.newRequestQueue(context);
+                    requestQueue.add(multiPartRequest);
+                }
+            });
 
 
 

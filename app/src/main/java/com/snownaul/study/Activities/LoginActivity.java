@@ -113,6 +113,7 @@ public class LoginActivity extends AppCompatActivity {
 
                 G.setUserSns(sns);
                 G.setUserSnsId(result.getId());
+                G.setUserProfilepic(result.getThumbnailImagePath());
 
 
                 SimpleMultiPartRequest multiPartRequest=new SimpleMultiPartRequest(Request.Method.POST, serverUrl, new Response.Listener<String>() {

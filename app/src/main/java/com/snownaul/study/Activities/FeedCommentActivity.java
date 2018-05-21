@@ -27,16 +27,16 @@ import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 import com.snownaul.study.G;
 import com.snownaul.study.R;
-import com.snownaul.study.adapters.FeedDetailAdapter;
+import com.snownaul.study.adapters.FeedCommentAdapter;
 import com.snownaul.study.controls.AmpersandInputFilter;
 import com.snownaul.study.feed_classes.Comment;
-import com.snownaul.study.feed_classes.Feed;
+import com.snownaul.study.feed_classes.SubComment;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 import uk.co.imallan.jellyrefresh.JellyRefreshLayout;
 import uk.co.imallan.jellyrefresh.PullToRefreshLayout;
 
-public class FeedDetailActivity extends AppCompatActivity {
+public class FeedCommentActivity extends AppCompatActivity {
 
     AdView adView;
 
@@ -44,31 +44,30 @@ public class FeedDetailActivity extends AppCompatActivity {
 
     JellyRefreshLayout jelly;
 
-    //View들.
-
     Toolbar toolbar;
+
+    //View들..
     CircleImageView civProf;
     TextView tvNickname, tvDate;
-    ImageView ivMenu, ivImg;
-    TextView tvContents;
+    ImageView ivMenu;
+    TextView tvComment;
     ToggleButton tbFavor;
     TextView tvLikedCnt;
-    ToggleButton tbComment;
-    TextView tvCommentCnt;
-    ToggleButton tbBookMark;
-    EditText etComment;
-    TextView tvComment;
-
+    ToggleButton tbSubComment;
+    TextView tvSubCommentCnt;
+    EditText etSubComment;
     RecyclerView recyclerView;
-    FeedDetailAdapter feedDetailAdapter;
+
+    FeedCommentAdapter feedCommentAdapter;
+
+
 
     boolean isEditable;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_feed_detail);
+        setContentView(R.layout.activity_feed_comment);
 
         adView= findViewById(R.id.adview);
         AdRequest adRequest = new AdRequest.Builder().build();
@@ -85,9 +84,7 @@ public class FeedDetailActivity extends AppCompatActivity {
                     @Override
                     public void run() {
                         Log.i("MyTag","1 REFRESH!!!!!!!!");
-                        //G.loadCurrentSet(StudySetMainActivity.this);
-                        //setView();
-                        loadFeedDetails();
+                        loadSubComments();
                         jelly.setRefreshing(false);
                     }
                 },1500);
@@ -107,40 +104,27 @@ public class FeedDetailActivity extends AppCompatActivity {
         tvNickname=findViewById(R.id.tv_nickname);
         tvDate=findViewById(R.id.tv_date);
         ivMenu=findViewById(R.id.iv_menu);
-        ivImg=findViewById(R.id.iv_img);
-        tvContents=findViewById(R.id.tv_contents);
+        tvComment=findViewById(R.id.tv_comment);
         tbFavor=findViewById(R.id.tb_favor);
         tvLikedCnt=findViewById(R.id.tv_liked_cnt);
-        tbComment=findViewById(R.id.tb_comment);
-        tvCommentCnt=findViewById(R.id.tv_comment_cnt);
-        tbBookMark=findViewById(R.id.tb_bookmark);
+        tbSubComment=findViewById(R.id.tb_sub_comment);
+        tvSubCommentCnt=findViewById(R.id.tv_sub_comment_cnt);
+        etSubComment=findViewById(R.id.et_sub_comment);
         recyclerView=findViewById(R.id.recycler);
-        etComment=findViewById(R.id.et_comment);
-        tvComment=findViewById(R.id.tv_comment);
-
-        feedDetailAdapter=new FeedDetailAdapter(this);
-        recyclerView.setAdapter(feedDetailAdapter);
-
-        setView();
-        loadFeedDetails();
-
-
-
-        etComment.setFilters(new InputFilter[]{new InputFilter.LengthFilter(300),new AmpersandInputFilter()});
 
         tbFavor.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, final boolean isChecked) {
                 if(!isEditable) return;
 
-                final Feed t=G.currentFeed;
+                final Comment t= G.currentComment;
 
-                String serverUrl="http://snownaul2.dothome.co.kr/StudyGuide/Feed/feedFavorChanged.php";
+                String serverUrl="http://snownaul2.dothome.co.kr/StudyGuide/Feed/commentFavorChanged.php";
 
                 SimpleMultiPartRequest multiPartRequest=new SimpleMultiPartRequest(Request.Method.POST, serverUrl, new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
-                        Log.i("MyTag","feed likeeeee checkkkkk : "+response);
+                        Log.i("MyTag","comment likeeeee checkkkkk : "+response);
                         t.setLiked(isChecked);
                         if(isChecked){
                             t.setLikeCnt(t.getLikeCnt()+1);
@@ -159,126 +143,81 @@ public class FeedDetailActivity extends AppCompatActivity {
                 });
 
                 multiPartRequest.addStringParam("userID",G.getUserId()+"");
-                multiPartRequest.addStringParam("feedID",t.getFeedID()+"");
+                multiPartRequest.addStringParam("commentID",t.getCommentID()+"");
 
-                RequestQueue requestQueue= Volley.newRequestQueue(FeedDetailActivity.this);
+                RequestQueue requestQueue= Volley.newRequestQueue(FeedCommentActivity.this);
                 requestQueue.add(multiPartRequest);
+
             }
         });
+        setView();
+        loadSubComments();
 
-        tbBookMark.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, final boolean isChecked) {
-                if(!isEditable) return;
+        etSubComment.setFilters(new InputFilter[]{new AmpersandInputFilter(), new InputFilter.LengthFilter(300)});
 
-                final Feed t=G.currentFeed;
-
-                String serverUrl="http://snownaul2.dothome.co.kr/StudyGuide/Feed/feedMarkChanged.php";
-
-                SimpleMultiPartRequest multiPartRequest=new SimpleMultiPartRequest(Request.Method.POST, serverUrl, new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
-                        Log.i("MyTag","feedMark checkkkkk : "+response);
-                        t.setFeedMarked(isChecked);
-
-                    }
-                }, new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        tbBookMark.setChecked(!isChecked);
-
-                    }
-                });
-
-                multiPartRequest.addStringParam("userID",G.getUserId()+"");
-                multiPartRequest.addStringParam("feedID",t.getFeedID()+"");
-
-                RequestQueue requestQueue= Volley.newRequestQueue(FeedDetailActivity.this);
-                requestQueue.add(multiPartRequest);
-            }
-        });
-
-
-
-
-        G.hideKeyboard(this);
-
-
-        //setView;
+        feedCommentAdapter=new FeedCommentAdapter(this);
+        recyclerView.setAdapter(feedCommentAdapter);
 
     }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-
-    }
-
-    public void loadFeedDetails(){
-        String serverUrl="http://snownaul2.dothome.co.kr/StudyGuide/Feed/loadFeedDetails.php";
+    public void loadSubComments(){
+        String serverUrl="http://snownaul2.dothome.co.kr/StudyGuide/Feed/loadAllSubComments.php";
+        Log.i("MyTag","LoadSubComments 불러졌다!!!!!");
 
         SimpleMultiPartRequest multiPartRequest=new SimpleMultiPartRequest(Request.Method.POST, serverUrl, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-                Log.i("MyTag","FeedDetail : "+response);
+                Log.i("MyTag","load SubComments : "+response);
 
-                String[] com=response.split("&C&");
-                Log.i("MyTag","길이 : "+com.length);
+                String[] sub=response.split("&S&");
+                Log.i("MyTag","길이 : "+sub.length);
 
-                G.currentFeed.getComments().clear();
+                G.currentComment.getSubComments().clear();
 
-                for(int i=0;i<com.length;i++){
-                    Log.i("MyTag","각각 코멘트 : "+com[i]);
-                    String[] c=com[i].split("&");
-                    if(c.length<9)break;
+                for(int i=0;i<sub.length;i++){
+                    String[] s=sub[i].split("&");
 
-                    Comment t=new Comment(Integer.parseInt(c[0]),Integer.parseInt(c[1]),c[2],G.convertUTCToLocalTime(c[3]),c[4],c[5],(c[6].equals("1")?true:false),Integer.parseInt(c[7]),(c[8].equals("1")?true:false),Integer.parseInt(c[9]));
+                    if(s.length<7)break;
 
-                    G.currentFeed.getComments().add(t);
+                    SubComment t=new SubComment(Integer.parseInt(s[0]),G.currentComment.getCommentID(),Integer.parseInt(s[1]),s[2],G.convertUTCToLocalTime(s[3]),s[4],s[5],(s[6].equals("1")),Integer.parseInt(s[7]));
+                    G.currentComment.getSubComments().add(t);
                 }
 
-
-                feedDetailAdapter.notifyDataSetChanged();
-
-
+                feedCommentAdapter.notifyDataSetChanged();
                 setView();
 
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Log.e("MyTag","FeedDetail Error : "+error);
+                Log.e("MyTag","썹댓 볼라구우 근데 에러남 : "+error.getMessage());
 
             }
         });
 
-        multiPartRequest.addStringParam("feedID",G.currentFeed.getFeedID()+"");
+        multiPartRequest.addStringParam("commentID",G.currentComment.getCommentID()+"");
         multiPartRequest.addStringParam("userID",G.getUserId()+"");
 
         RequestQueue requestQueue=Volley.newRequestQueue(this);
 
         requestQueue.add(multiPartRequest);
+        Log.i("MyTag","썹댓 달라고 메세지 보냈다!!");
     }
 
     public void setView(){
         isEditable=false;
 
-        if(civProf!=null&&G.currentFeed.getProfImgPath()!=null&&G.currentFeed.getProfImgPath().length()>0)
-            Glide.with(this).load(G.currentFeed.getProfImgPath()).into(civProf);
-        tvNickname.setText(G.currentFeed.getNickname());
-        tvDate.setText(G.currentFeed.getDate());
+        Comment t=G.currentComment;
 
-        if(G.currentFeed.getImgPath()!=null&&G.currentFeed.getImgPath().toString().length()!=0)
-            Glide.with(this).load(G.currentFeed.getImgPath()).into(ivImg);
-        else
-            ivImg.setVisibility(View.GONE);
+        Glide.with(this).load(t.getImgPath()).thumbnail(0.1f).into(civProf);
 
-        tvContents.setText(G.currentFeed.getContents()+"");
-        tbFavor.setChecked(G.currentFeed.isLiked());
-        tvLikedCnt.setText(G.currentFeed.getLikeCnt()+"");
-        tbComment.setChecked(G.currentFeed.isCommented());
-        tvCommentCnt.setText(G.currentFeed.getCommentCnt()+"");
-        tbBookMark.setChecked(G.currentFeed.isFeedMarked());
+        tvNickname.setText(t.getNickname());
+        tvDate.setText(t.getDate());
+        tvComment.setText(t.getContents());
+        tbFavor.setChecked(t.isLiked());
+        tvLikedCnt.setText(t.getLikeCnt()+"");
+        tbSubComment.setChecked(t.isSubCommented());
+        tvSubCommentCnt.setText(t.getSubCommentCnt()+"");
 
         isEditable=true;
     }
@@ -318,25 +257,26 @@ public class FeedDetailActivity extends AppCompatActivity {
     }
 
     public void clickSend(View v){
-
-        final String comment=etComment.getText().toString();
-        if(comment==null||comment.length()==0)
+        final String subComment=etSubComment.getText().toString();
+        if(subComment==null||subComment.length()==0)
             return;
 
-        etComment.setText("");
-        String serverUrl="http://snownaul2.dothome.co.kr/StudyGuide/Feed/uploadNewComment.php";
+        etSubComment.setText("");
+        String serverUrl="http://snownaul2.dothome.co.kr/StudyGuide/Feed/uploadNewSubComment.php";
 
         SimpleMultiPartRequest multiPartRequest=new SimpleMultiPartRequest(Request.Method.POST, serverUrl, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-                Log.i("MyTag","FeedDetail : "+response);
+                Log.i("MyTag","CommentDetail : "+response);
 
                 String[] c=response.split("&");
 
-                Comment t=new Comment(Integer.parseInt(c[0]),G.getUserId(),comment,G.convertUTCToLocalTime(c[1]),G.getUserProfilepic(),G.getUserNickname(),false,0,false,0);
-                G.currentFeed.getComments().add(t);
+                SubComment t=new SubComment(Integer.parseInt(c[0]),G.currentComment.getCommentID(),G.getUserId(),subComment,G.convertUTCToLocalTime(c[1]),G.getUserProfilepic(),false,0);
+                G.currentComment.getSubComments().add(t);
+                feedCommentAdapter.notifyItemInserted(G.currentComment.getSubComments().size()-1);
 
-                feedDetailAdapter.notifyItemInserted(G.currentFeed.getComments().size()-1);
+                G.currentComment.setSubCommented(true);
+                G.currentComment.setSubCommentCnt(G.currentComment.getSubCommentCnt()+1);
 
 
 
@@ -344,23 +284,17 @@ public class FeedDetailActivity extends AppCompatActivity {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Log.e("MyTag","FeedDetail Error : "+error);
+                Log.e("MyTag","CommentDetail Error : "+error);
 
             }
         });
 
-        multiPartRequest.addStringParam("feedID",G.currentFeed.getFeedID()+"");
+        multiPartRequest.addStringParam("commentID",G.currentComment.getCommentID()+"");
         multiPartRequest.addStringParam("userID",G.getUserId()+"");
-        multiPartRequest.addStringParam("contents",comment);
+        multiPartRequest.addStringParam("contents",subComment);
 
         RequestQueue requestQueue=Volley.newRequestQueue(this);
 
         requestQueue.add(multiPartRequest);
-
-
-
-
-
     }
-
 }

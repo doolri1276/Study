@@ -112,7 +112,7 @@ public class F2Feed extends Fragment {
                 Log.i("MyTag","Feed 받아온다아아아아아아아아\n\n"+response);
 
                 String[] feeds=response.split("&F&");
-                Log.i("MyTag","길이 : "+feeds.length);
+                //Log.i("MyTag","길이 : "+feeds.length);
 
 
                 G.feeds.clear();
@@ -123,7 +123,7 @@ public class F2Feed extends Fragment {
                     if(f.length<11)break;
                     //Log.i("MyTag", "array화 : "+Arrays.toString(f));
 
-                    Feed t=new Feed(Integer.parseInt(f[0]),Integer.parseInt(f[1]),f[2],f[3],G.convertUTCToLocalTime(f[4]),
+                    Feed t=new Feed(Integer.parseInt(f[0]),Integer.parseInt(f[1]),f[2],(f[3].equals("0")?null:f[3]),G.convertUTCToLocalTime(f[4]),
                             f[5],f[6],(f[7].equals("1"))?true:false, Integer.parseInt(f[8]), (f[9].equals("1"))?true:false, Integer.parseInt(f[10]),(f[11].equals("1"))?true:false);
 
                     G.feeds.add(t);
@@ -131,7 +131,7 @@ public class F2Feed extends Fragment {
                 }
 
                 feedFragAdapter.notifyDataSetChanged();
-                Log.i("MyTag","몇개더냐아 : "+feedFragAdapter.getItemCount());
+                //Log.i("MyTag","몇개더냐아 : "+feedFragAdapter.getItemCount());
 
             }
         }, new Response.ErrorListener() {

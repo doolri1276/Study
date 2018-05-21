@@ -3,8 +3,10 @@ package com.snownaul.study;
 import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 
 import com.android.volley.Request;
@@ -13,6 +15,7 @@ import com.android.volley.Response;
 import com.android.volley.error.VolleyError;
 import com.android.volley.request.SimpleMultiPartRequest;
 import com.android.volley.toolbox.Volley;
+import com.snownaul.study.feed_classes.Comment;
 import com.snownaul.study.feed_classes.Feed;
 import com.snownaul.study.study_classes.Answer;
 import com.snownaul.study.study_classes.Question;
@@ -60,6 +63,7 @@ public class G {
     //Feed관련...
     public static ArrayList<Feed> feeds;
     public static Feed currentFeed;
+    public static Comment currentComment;
 
 
     public static void openG(SharedPreferences pref){
@@ -203,6 +207,8 @@ public class G {
         Log.i("MyTag","보냈습니다.");
 
     }
+
+
 
     public static void setUserId(int USER_ID){
         G.USER_ID=USER_ID;

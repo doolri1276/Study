@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "578347160270",
+    "firebase_url": "https://study-eb9cd.firebaseio.com",
+    "project_id": "study-eb9cd",
+    "storage_bucket": "study-eb9cd.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:578347160270:android:9d7429fe1f2aad2e",
+        "android_client_info": {
+          "package_name": "com.snownaul.study"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "578347160270-il6r7ps1k9lue9odpljqr1cetv1di14d.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.snownaul.study",
+            "certificate_hash": "f6f362a12505ac13a5d995e5348ff9195055e3b8"
+          }
+        },
+        {
+          "client_id": "578347160270-10563s46tv4sjp9al5emh7m6tsms2921.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB6FVtFjJeflm155JZ4Qe0OvuccFXkkwZA"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "578347160270-10563s46tv4sjp9al5emh7m6tsms2921.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

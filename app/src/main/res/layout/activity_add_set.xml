@@ -49,9 +49,8 @@
                     android:paddingLeft="@dimen/normal_padding"
                     android:paddingTop="@dimen/small_padding"
                     android:paddingBottom="@dimen/small_padding"
-                    android:text="Which if"
                     android:textSize="@dimen/txt_text"
-                    android:hint="what is the title of this set?"
+                    android:hint="@string/addset_hint_title"
                     android:textColor="@color/colorDeepGray"
                     android:background="@color/colorWhite"
                     />
@@ -77,7 +76,7 @@
                     android:paddingBottom="@dimen/small_padding"
                     android:textSize="@dimen/txt_text"
                     android:textColor="@color/colorDeepGray"
-                    android:hint="What is this set about?"
+                    android:hint="@string/addset_hint_info"
                     android:background="@color/colorWhite" />
 
                 <TextView
@@ -88,6 +87,7 @@
                     android:textColor="@color/colorDeepGray"
                     android:textStyle="bold"
                     android:textSize="@dimen/txt_text"
+                    android:visibility="gone"
                     />
 
                 <EditText
@@ -102,12 +102,14 @@
                     android:textColor="@color/colorDeepGray"
                     android:hint="What is this set about?"
                     android:background="@color/colorWhite"
+                    android:visibility="gone"
                     />
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/normal_padding">
+                    android:layout_marginTop="@dimen/normal_padding"
+                    android:onClick="clickSetting">
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -134,7 +136,8 @@
                 android:id="@+id/recycler"
                 app:layoutManager="android.support.v7.widget.LinearLayoutManager"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                >
 
             </android.support.v7.widget.RecyclerView>
 
@@ -202,6 +205,8 @@
         android:layout_alignParentBottom="true"
         android:onClick="clickFab"
         />
+
+
 
 
 </RelativeLayout>

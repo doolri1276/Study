@@ -47,17 +47,17 @@
         app:headerHeight="48dp"
         >
 
-        <ScrollView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
+        <!--<ScrollView-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="match_parent"-->
 
-            >
+            <!--&gt;-->
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                >
+            <!--<LinearLayout-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:orientation="vertical"-->
+                <!--&gt;-->
 
                 <!--<include layout="@layout/feed_main"/>-->
                 <!--<include layout="@layout/feed_main"/>-->
@@ -69,8 +69,8 @@
                     app:layoutManager="android.support.v7.widget.LinearLayoutManager">
 
                 </android.support.v7.widget.RecyclerView>
-            </LinearLayout>
-        </ScrollView>
+            <!--</LinearLayout>-->
+        <!--</ScrollView>-->
 
 
 

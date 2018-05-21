@@ -17,6 +17,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.snownaul.study.R;
+import com.snownaul.study.controls.AmpersandInputFilter;
 import com.snownaul.study.study_classes.Answer;
 import com.snownaul.study.study_classes.Question;
 
@@ -90,6 +91,8 @@ public class NewAnswersAdapter extends RecyclerView.Adapter {
             tvNum=itemView.findViewById(R.id.tv_num);
             answer=itemView.findViewById(R.id.et_answer);
             btnClear=itemView.findViewById(R.id.btn_clear);
+
+            answer.setFilters(new InputFilter[]{new AmpersandInputFilter()});
 
 
             if(answers.size()>1){
