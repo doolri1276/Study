@@ -139,7 +139,7 @@
                                         android:id="@+id/tv_questions_sets"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
-                                        android:text="14"
+                                        android:text="0"
                                         android:textStyle="bold"
                                         android:textSize="@dimen/txt_text"
                                         android:textColor="@color/colorDeeperSkyBlue"/>
@@ -166,7 +166,7 @@
                                         android:id="@+id/tv_studied_times"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
-                                        android:text="14"
+                                        android:text="0"
                                         android:textStyle="bold"
                                         android:textSize="@dimen/txt_text"
                                         android:textColor="@color/colorDeeperSkyBlue"/>
@@ -193,7 +193,7 @@
                                         android:id="@+id/tv_studied_hours"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
-                                        android:text="14"
+                                        android:text="0"
                                         android:textStyle="bold"
                                         android:textSize="@dimen/txt_text"
                                         android:textColor="@color/colorDeeperSkyBlue"/>

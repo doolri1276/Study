@@ -59,6 +59,7 @@ public class StudyStorageActivity extends AppCompatActivity {
 
         helper.setEdgeMode(true).setParallaxMode(true).setParallaxRatio(3).setNeedBackgroundShadow(true).init(this);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setTitle("");
 
         recyclerView=findViewById(R.id.recycler);
         stoQuestionsAdapter=new StoQuestionsAdapter(this);

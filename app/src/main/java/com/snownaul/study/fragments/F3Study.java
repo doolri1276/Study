@@ -123,7 +123,9 @@ public class F3Study extends Fragment {
             Glide.with(getContext()).load(G.getUserProfilepic()).into(profile);
         nickname.setText(G.getUserNickname());
 
-        if(G.studySets.size()>0){
+        if(G.studySets==null) G.studySets=new ArrayList<>();
+
+        if(G.studySets!=null&&G.studySets.size()>0){
             tvQuestionsSets.setText(G.studySets.size()+"");
 
             int times=0, hours=0;
@@ -195,6 +197,13 @@ public class F3Study extends Fragment {
                 if(G.studySets!=null)
                     G.studySets.clear();
                 else G.studySets=new ArrayList<>();
+
+                if(studySets[0].equals("0")){
+                    tvQuestionsSets.setText("0");
+                    tvStudiedTimes.setText("0");
+                    tvStudiedHours.setText("0");
+                    return;
+                }
 
                 for(int i=1;i<studySets.length;i++){
                     StudySet st=new StudySet();
