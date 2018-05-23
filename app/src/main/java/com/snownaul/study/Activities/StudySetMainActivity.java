@@ -1,11 +1,14 @@
 package com.snownaul.study.Activities;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.CompoundButton;
@@ -145,7 +148,14 @@ public class StudySetMainActivity extends AppCompatActivity {
 
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setTitle("");
 
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        //getMenuInflater().inflate(R.menu.study_set_main_menu,menu);
+        return super.onCreateOptionsMenu(menu);
     }
 
     public void loadCurrentSet(){
@@ -278,13 +288,51 @@ public class StudySetMainActivity extends AppCompatActivity {
                             Log.i("MyTag","3 REFRESH!!!!!!!!");
                         }
                     },1500);
-                    return true;
+                    break;
+            case R.id.delete:
+                AlertDialog.Builder builder=new AlertDialog.Builder(this);
+                builder.setMessage(getString(R.string.delete_studyset_msg)).setPositiveButton(getString(R.string.dialog_positive), new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        deleteStudySet();
+                    }
+                }).setNegativeButton(getString(R.string.dialog_negative), null).create().show();
+                break;
 
         }
 
 
 
         return super.onOptionsItemSelected(item);
+    }
+
+    public void deleteStudySet(){
+        String serverUrl="http://snownaul2.dothome.co.kr/StudyGuide/Set/deleteStudySet.php";
+
+        SimpleMultiPartRequest multiPartRequest=new SimpleMultiPartRequest(Request.Method.POST, serverUrl, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+
+                Log.i("MyTag","Delete StudySet : "+response);
+
+                G.studySets.remove(G.currentStudySet);
+                G.currentStudySet=null;
+                helper.finish();
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.e("MyTag","Delete StudySet : "+error.getMessage());
+            }
+        });
+
+        multiPartRequest.addStringParam("studySetID",G.currentStudySet.getStudySetId()+"");
+
+        RequestQueue requestQueue=Volley.newRequestQueue(this);
+
+        requestQueue.add(multiPartRequest);
+
     }
 
     @Override

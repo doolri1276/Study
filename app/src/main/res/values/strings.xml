@@ -24,6 +24,9 @@
     <string name="f4_report">Report</string>
     <string name="f5_setting">Setting</string>
 
+    <string name="menu_delete">Delete</string>
+    <string name="delete_studyset_msg">Are you sure you want to delete this study set?\nAll your records will be deleted.</string>
+
 
     <string name="first_info01">Nickname</string>
     <string name="first_info02">Age</string>
