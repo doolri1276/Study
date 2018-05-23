@@ -63,7 +63,7 @@ public class StudyTestingPageActivity extends AppCompatActivity {
     Button btnTest;
     TextView tvRorW;
 
-    TextView tvQuestion, tvScore;
+    TextView tvQuestion, tvScore, tvExplanation;
     RecyclerView recyclerView;
     TestAnswersAdapter testAnswersAdapter;
 
@@ -111,6 +111,7 @@ public class StudyTestingPageActivity extends AppCompatActivity {
         btnTest=findViewById(R.id.btn_test);
         tvRorW=findViewById(R.id.tv_rorw);
         tvScore=findViewById(R.id.tv_score);
+        tvExplanation=findViewById(R.id.tv_explanation);
 
 
         prepareTesting();
@@ -242,6 +243,7 @@ public class StudyTestingPageActivity extends AppCompatActivity {
 
         int score=(correctionCnt*100/questionCnt);
         tvScore.setText(score+"");
+        tvExplanation.setVisibility(View.VISIBLE);
 
     }
 
@@ -457,6 +459,7 @@ public class StudyTestingPageActivity extends AppCompatActivity {
         }
 
         tvQuestionNo.setText(position+1+"");
+        tvExplanation.setText(t.getExplanation());
 
         t=questionsParts.get(position);
 
