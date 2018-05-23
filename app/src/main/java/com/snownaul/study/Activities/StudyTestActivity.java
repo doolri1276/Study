@@ -1,5 +1,6 @@
 package com.snownaul.study.Activities;
 
+import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -12,6 +13,7 @@ import android.text.TextWatcher;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.NumberPicker;
 import android.widget.RadioButton;
@@ -41,6 +43,8 @@ public class StudyTestActivity extends AppCompatActivity {
     EditText etQ02,etT02;
 
     TextView tvQuestionCnt,tvTimeLimits;
+
+    boolean isSetting;
 
 
     @Override
@@ -231,11 +235,13 @@ public class StudyTestActivity extends AppCompatActivity {
 
         switch (item.getItemId()) {
             case android.R.id.home:
+                if(isSetting)return true;
                 finish();
                 return true;
 
             case R.id.setting:
                 dialog.setVisibility(View.VISIBLE);
+                isSetting=true;
                 return true;
         }
 
@@ -244,6 +250,7 @@ public class StudyTestActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
+
         if(dialog.getVisibility()==View.VISIBLE){
             dialog.setVisibility(View.GONE);
             setView();
@@ -255,12 +262,21 @@ public class StudyTestActivity extends AppCompatActivity {
 
 
     public void clickBtn(View v){
+        if(isSetting) return;
         Intent intent=new Intent(this,StudyTestingPageActivity.class);
         startActivity(intent);
     }
 
     public void clickClear(View v){
         dialog.setVisibility(View.GONE);
+        isSetting=false;
+
+        View view = this.getCurrentFocus();
+        if (view != null) {
+            InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+        }
+
         setView();
     }
 }

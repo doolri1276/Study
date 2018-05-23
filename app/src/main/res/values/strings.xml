@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">STUDY GUIDE</string>
-    <string name="intro_madeby">made by Naul Snow</string>
+    <string name="intro_madeby" translatable="false">made by Naul Snow</string>
 
     <string name="coming_soon">Coming soon..</string>
 
@@ -16,7 +16,7 @@
     <string name="dialog_positive">Okay</string>
     <string name="dialog_negative">Cancel</string>
 
-    <string name="test_submit">Are you sure you want to submit?</string>
+    <string name="test_submit">Are you sure you want to submit?\\nYou cannot change your answers anymore.</string>
 
     <string name="f1_home">Home</string>
     <string name="f2_feed">Feed</string>
@@ -42,12 +42,24 @@
     <string name="action_refresh">Refresh</string>
     <!--<string name="loading">Loading</string>-->
 
+    <string name="f3_questions_sets">Questions Sets</string>
+    <string name="f3_studied_times">Studied Times</string>
+    <string name="f3_studied_hours">Studied Mins</string>
+
+    <string name="addset_actitle">Add a Set</string>
+
+    <string name="addset_setting_setting">Setting</string>
+    <string name="addset_setting_privacy">Privacy</string>
+    <string name="addset_setting_public">\tpublic</string>
+    <string name="addset_setting_private">\tprivate</string>
+
     <string name="addset_title">Title*</string>
     <string name="addset_info">Info</string>
     <string name="addset_area">Area</string>
     <string name="addset_submit">Submit</string>
     <string name="addset_hint_title">what is the title of this set?</string>
     <string name="addset_hint_info">What is this set about?</string>
+    <string name="addset_setting">Detailed Settings</string>
 
     <string name="addset_submit_fail01">Title is missing.</string>
     <string name="addset_submit_fail02">Question is missing.</string>
@@ -57,6 +69,15 @@
 
     <string name="addset_addstart">Add a new</string>
     <string name="addset_addend">question</string>
+
+    <string name="studymain_storage">Storage</string>
+    <string name="studymain_study">Study</string>
+    <string name="studymain_play">Play</string>
+    <string name="studymain_report">Report</string>
+
+    <string name="studymain_overall01">Questions</string>
+    <string name="studymain_overall02">Studied Times</string>
+    <string name="studymain_overall03">Studied Hours</string>
 
     <string name="q_basic_question">Question </string>
     <string name="q_basic_quesitonhint">Question goes here.</string>
@@ -80,6 +101,14 @@
     <string name="studystudy_study">Study</string>
     <string name="studystudy_test">Test</string>
 
+    <string name="test_welcome" translatable="false">WELCOME</string>
+
+    <string name="testsetting_setting">Setting</string>
+    <string name="testsetting_questions">Questions</string>
+    <string name="testsetting_studyall">\tstudy all</string>
+    <string name="testsetting_default">\tdefault</string>
+    <string name="testsetting_timelimits">Time Limits</string>
+    <string name="testsetting_nolimits">\tno limits</string>
 
     <!-- FEED -->
 

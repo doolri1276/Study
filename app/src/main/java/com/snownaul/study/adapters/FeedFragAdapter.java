@@ -85,6 +85,8 @@ public class FeedFragAdapter extends RecyclerView.Adapter {
 
     @Override
     public int getItemCount() {
+        if(G.feeds==null) return 0;
+        else
         return G.feeds.size();
     }
 

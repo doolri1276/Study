@@ -149,8 +149,9 @@ public class G {
                 G.currentStudySet.getSgSet().setLikeCnt(Integer.parseInt(setInfos[3]));
                 G.currentStudySet.setLiked(Boolean.parseBoolean(setInfos[4]));
                 G.currentStudySet.setTriedCnt(Integer.parseInt(setInfos[5]));
-                G.currentStudySet.setRecentDate(G.convertUTCToLocalTime(setInfos[6]));
-                G.currentStudySet.setKeptCorrectionCnt(Integer.parseInt(setInfos[7]));
+                G.currentStudySet.setTimeLength(Integer.parseInt(setInfos[6]));
+                G.currentStudySet.setRecentDate(G.convertUTCToLocalTime(setInfos[7]));
+                G.currentStudySet.setKeptCorrectionCnt(Integer.parseInt(setInfos[8]));
 
                 G.currentStudySet.getSgSet().getQuestions().clear();
 

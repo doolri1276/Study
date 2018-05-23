@@ -48,7 +48,7 @@ public class StudyStudyingPageActivity extends AppCompatActivity {
     LinearLayout type2;
     ToggleButton tbRorW;
 
-    TextView tvQuestion;
+    TextView tvQuestion, tvExplanation;
     RecyclerView recyclerView;
     StudyAnswersAdapter studyAnswersAdapter;
 
@@ -87,6 +87,7 @@ public class StudyStudyingPageActivity extends AppCompatActivity {
         tbRorW=findViewById(R.id.tb_rorw);
         tvQuestion=findViewById(R.id.tv_question);
         recyclerView=findViewById(R.id.recycler);
+        tvExplanation=findViewById(R.id.tv_explanation);
 
 
 
@@ -136,6 +137,7 @@ public class StudyStudyingPageActivity extends AppCompatActivity {
         studyingMode=StudyingManager.MODE_STUDYING;
 
         tvRorW.setVisibility(View.GONE);
+        tvExplanation.setVisibility(View.GONE);
         btnTest.setBackgroundResource(R.drawable.testbtn_n);
         for(int i=0;i<percentage.length;i++){
             percentage[i].setBackgroundColor(getResources().getColor(R.color.colorDeepSkyBlue));
@@ -187,7 +189,8 @@ public class StudyStudyingPageActivity extends AppCompatActivity {
 
         studyAnswersAdapter.setStudyingMode(studyingMode);
 
-
+        tvExplanation.setText(t.getExplanation()+"");
+        tvExplanation.setVisibility(View.VISIBLE);
 
         //맞췄는지 틀렸는지 확인..
         correction=manager.checkCorrection(t);
@@ -267,7 +270,9 @@ public class StudyStudyingPageActivity extends AppCompatActivity {
         multiPartRequest.addStringParam("studySetID",G.currentStudySet.getStudySetId()+"");
         multiPartRequest.addStringParam("questionID",t.getQuestionID()+"");
         multiPartRequest.addStringParam("isSolved",(correction?1:0)+"");
-        multiPartRequest.addStringParam("timeLength",time+"");
+        multiPartRequest.addStringParam("timeLength",time+" min");
+
+        G.currentStudySet.setTimeLength(G.currentStudySet.getTimeLength()+time);
 
         RequestQueue requestQueue= Volley.newRequestQueue(this);
 

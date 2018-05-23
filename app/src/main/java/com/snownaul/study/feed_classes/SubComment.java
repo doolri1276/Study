@@ -30,16 +30,7 @@ public class SubComment {
         this.likeCnt = likeCnt;
     }
 
-    public SubComment(int subCommentID, int commentID, int userID, String contents, String date, String imgPath, boolean isLiked, int likeCnt) {
-        this.subCommentID = subCommentID;
-        this.commentID = commentID;
-        this.userID = userID;
-        this.contents = contents;
-        this.date = date;
-        this.imgPath = imgPath;
-        this.isLiked = isLiked;
-        this.likeCnt = likeCnt;
-    }
+
 
     public int getSubCommentID() {
         return subCommentID;

@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.CompoundButton;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ToggleButton;
@@ -28,6 +29,7 @@ import com.snownaul.study.R;
 import com.snownaul.study.adapters.StoQuestionsAdapter;
 import com.snownaul.study.study_classes.Answer;
 import com.snownaul.study.study_classes.Question;
+import com.snownaul.study.study_classes.StudySet;
 
 import java.util.Arrays;
 
@@ -43,8 +45,11 @@ public class StudySetMainActivity extends AppCompatActivity {
     TextView tvTitle,tvInfo;
     ToggleButton tbFavor;
     TextView tvFavorCnt, tvStudiedTotalCnt, tvQuestionCnt;
+    TextView tvSolvedCnt, tvTimeLength;
 
     JellyRefreshLayout jelly;
+
+    boolean isSetting;
 
 
     @Override
@@ -85,6 +90,53 @@ public class StudySetMainActivity extends AppCompatActivity {
         tvFavorCnt=findViewById(R.id.tv_favor_cnt);
         tvStudiedTotalCnt=findViewById(R.id.tv_studied_totalcnt);
         tvQuestionCnt=findViewById(R.id.tv_question_cnt);
+        tvSolvedCnt=findViewById(R.id.tv_solved_cnt);
+        tvTimeLength=findViewById(R.id.tv_time_length);
+
+        tbFavor.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, final boolean isChecked) {
+
+                final StudySet t=G.currentStudySet;
+                if(t.isSetting()) return;
+                String serverUrl="http://snownaul2.dothome.co.kr/StudyGuide/Set/studySetFavorChanged.php";
+
+                SimpleMultiPartRequest multiPartRequest=new SimpleMultiPartRequest(Request.Method.POST, serverUrl, new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        Log.i("MyTag","likeeeee checkkkkk : "+response);
+                        t.setLiked(isChecked);
+                        if(isChecked){
+                            t.getSgSet().setLikeCnt(t.getSgSet().getLikeCnt()+1);
+                        }else {
+                            t.getSgSet().setLikeCnt(t.getSgSet().getLikeCnt()-1);
+                        }
+
+                        tvFavorCnt.setText(t.getSgSet().getLikeCnt()+"");
+                    }
+                }, new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        tbFavor.setChecked(!isChecked);
+
+                    }
+                });
+
+                if(isChecked){
+                    multiPartRequest.addStringParam("sgSetLike",isChecked+"");
+                }else{
+                    multiPartRequest.addStringParam("sgSetLike","");
+                }
+
+                //multiPartRequest.addStringParam("sgSetLike",isChecked+"");
+                multiPartRequest.addStringParam("userID",G.getUserId()+"");
+                multiPartRequest.addStringParam("sgSetID",t.getSgSet().getSgSetID()+"");
+
+                RequestQueue requestQueue= Volley.newRequestQueue(StudySetMainActivity.this);
+                requestQueue.add(multiPartRequest);
+            }
+        });
+        setView();
 
         //G.loadCurrentSet(this);
         loadCurrentSet();
@@ -117,8 +169,9 @@ public class StudySetMainActivity extends AppCompatActivity {
                 G.currentStudySet.getSgSet().setLikeCnt(Integer.parseInt(setInfos[3]));
                 G.currentStudySet.setLiked(Boolean.parseBoolean(setInfos[4]));
                 G.currentStudySet.setTriedCnt(Integer.parseInt(setInfos[5]));
-                G.currentStudySet.setRecentDate(G.convertUTCToLocalTime(setInfos[6]));
-                G.currentStudySet.setKeptCorrectionCnt(Integer.parseInt(setInfos[7]));
+                G.currentStudySet.setTimeLength(Integer.parseInt(setInfos[6]));
+                G.currentStudySet.setRecentDate(G.convertUTCToLocalTime(setInfos[7]));
+                G.currentStudySet.setKeptCorrectionCnt(Integer.parseInt(setInfos[8]));
 
                 G.currentStudySet.getSgSet().getQuestions().clear();
 
@@ -187,14 +240,18 @@ public class StudySetMainActivity extends AppCompatActivity {
     }
 
     public void setView(){
+        isSetting=true;
         tvTitle.setText(G.currentStudySet.getSgSet().getTitle());
         tvInfo.setText(G.currentStudySet.getSgSet().getInfo());
         tbFavor.setChecked(G.currentStudySet.isLiked());
         tvFavorCnt.setText(G.currentStudySet.getSgSet().getLikeCnt()+"");
         tvStudiedTotalCnt.setText(G.currentStudySet.getTriedCnt()+"");
         tvQuestionCnt.setText(G.currentStudySet.getSgSet().getQuestions().size()+"");
+        tvSolvedCnt.setText(G.currentStudySet.getTriedCnt()+"");
+        tvTimeLength.setText(G.currentStudySet.getTimeLength()/60+"");
 
 
+        isSetting=false;
         Log.i("MyTag","setView()를 했다..");
     }
 

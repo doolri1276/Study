@@ -20,6 +20,7 @@ public class StudySet implements Comparable{
     private SgSet sgSet;
     private boolean isLiked;
     private int triedCnt;
+    private int timeLength;
     private boolean isSetting;
     private boolean isEditable;
     private boolean isEditMode;
@@ -112,6 +113,14 @@ public class StudySet implements Comparable{
 
     public void setKeptCorrectionCnt(int keptCorrectionCnt) {
         this.keptCorrectionCnt = keptCorrectionCnt;
+    }
+
+    public int getTimeLength() {
+        return timeLength;
+    }
+
+    public void setTimeLength(int timeLength) {
+        this.timeLength = timeLength;
     }
 
     @Override

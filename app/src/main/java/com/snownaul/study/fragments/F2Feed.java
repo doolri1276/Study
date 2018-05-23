@@ -28,6 +28,7 @@ import com.snownaul.study.R;
 import com.snownaul.study.adapters.FeedFragAdapter;
 import com.snownaul.study.feed_classes.Feed;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 
 import uk.co.imallan.jellyrefresh.JellyRefreshLayout;
@@ -86,7 +87,7 @@ public class F2Feed extends Fragment {
             }
         });
 
-        loadAllFeeds();
+        //loadAllFeeds();
 
         recyclerView=view.findViewById(R.id.recycler);
         feedFragAdapter=new FeedFragAdapter(getContext());
@@ -115,7 +116,9 @@ public class F2Feed extends Fragment {
                 //Log.i("MyTag","길이 : "+feeds.length);
 
 
-                G.feeds.clear();
+                if(G.feeds!=null)
+                    G.feeds.clear();
+                else G.feeds=new ArrayList<>();
 
                 for(int i=0;i<feeds.length;i++){
                     //Log.i("MyTag","Feed 1문장씩 : "+ feeds[i]);

@@ -29,6 +29,7 @@
                 android:layout_height="wrap_content"
                 android:src="@drawable/ic_bookmark_g"
                 android:layout_alignParentRight="true"
+                android:visibility="invisible"
                 />
         </RelativeLayout>
 

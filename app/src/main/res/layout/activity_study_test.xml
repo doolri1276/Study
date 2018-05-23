@@ -44,7 +44,7 @@
             android:layout_width="200dp"
             android:layout_height="200dp"
             android:layout_centerHorizontal="true"
-            android:text="WELCOME"
+            android:text="@string/test_welcome"
             android:gravity="center"
             android:textSize="@dimen/txt_title"
             android:textStyle="bold"
@@ -78,7 +78,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Questions"
+                    android:text="@string/testsetting_questions"
                     android:textStyle="bold"
                     android:textSize="@dimen/txt_text"
                     android:textColor="@color/colorWhite"/>
@@ -105,7 +105,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Time Limits"
+                    android:text="@string/testsetting_timelimits"
                     android:textStyle="bold"
                     android:textSize="@dimen/txt_text"
                     android:textColor="@color/colorWhite"/>
@@ -149,7 +149,7 @@
         android:layout_height="match_parent"
         android:background="#99000000"
         android:gravity="center"
-        android:visibility="visible"
+        android:visibility="gone"
         >
 
         <LinearLayout
@@ -166,7 +166,7 @@
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:text="Setting"
+                    android:text="@string/testsetting_setting"
                     android:layout_weight="1"
                     android:textStyle="bold"
                     android:textColor="@color/colorWhite"
@@ -195,7 +195,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="@color/colorDeeperSkyBlue"
-                    android:text="Questions"
+                    android:text="@string/testsetting_questions"
                     android:textSize="@dimen/txt_text"
                     android:textStyle="bold"/>
 
@@ -215,7 +215,7 @@
                             android:layout_height="wrap_content"
                             android:button="@drawable/sel_rb"
                             android:gravity="center_vertical"
-                            android:text="  study all"
+                            android:text="@string/testsetting_studyall"
                             android:textColor="@color/colorLightSkyBlue" />
 
                         <!--<LinearLayout-->
@@ -229,7 +229,7 @@
                             android:button="@drawable/sel_rb"
                             android:checked="true"
                             android:gravity="center_vertical"
-                            android:text="  default"
+                            android:text="@string/testsetting_default"
                             android:textColor="@color/colorDeeperSkyBlue" />
 
 
@@ -270,21 +270,11 @@
                 </RelativeLayout>
 
 
-
-
-                <SeekBar
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:min="5"
-                    android:progress="1"
-                    android:visibility="gone"
-                    />
-
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="@color/colorDeeperSkyBlue"
-                    android:text="Time Limits"
+                    android:text="@string/testsetting_timelimits"
                     android:textSize="@dimen/txt_text"
                     android:textStyle="bold"
                     android:layout_marginTop="@dimen/normal_padding"/>
@@ -303,7 +293,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:button="@drawable/sel_rb"
-                            android:text="  no limits"
+                            android:text="@string/testsetting_nolimits"
                             android:textColor="@color/colorLightSkyBlue"
                             android:gravity="center_vertical"
                             />
@@ -316,7 +306,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:button="@drawable/sel_rb"
-                            android:text="  default"
+                            android:text="@string/testsetting_default"
                             android:textColor="@color/colorDeeperSkyBlue"
                             android:checked="true"
                             android:gravity="center_vertical"

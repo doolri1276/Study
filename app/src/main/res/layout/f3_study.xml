@@ -30,6 +30,7 @@
                 android:layout_height="wrap_content"
                 android:src="@drawable/ic_search"
                 android:layout_alignParentRight="true"
+                android:visibility="invisible"
                 />
         </RelativeLayout>
 
@@ -135,6 +136,7 @@
                                     android:paddingLeft="@dimen/small_padding">
 
                                     <TextView
+                                        android:id="@+id/tv_questions_sets"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
                                         android:text="14"
@@ -145,7 +147,7 @@
                                     <TextView
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
-                                        android:text="Questions Sets"
+                                        android:text="@string/f3_questions_sets"
                                         android:textSize="@dimen/txt_text"
                                         android:textColor="@color/colorDeepGray"/>
 
@@ -161,6 +163,7 @@
                                     android:paddingLeft="@dimen/small_padding">
 
                                     <TextView
+                                        android:id="@+id/tv_studied_times"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
                                         android:text="14"
@@ -171,7 +174,7 @@
                                     <TextView
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
-                                        android:text="Studied Times"
+                                        android:text="@string/f3_studied_times"
                                         android:textSize="@dimen/txt_text"
                                         android:textColor="@color/colorDeepGray"/>
 
@@ -187,6 +190,7 @@
                                     android:paddingLeft="@dimen/small_padding">
 
                                     <TextView
+                                        android:id="@+id/tv_studied_hours"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
                                         android:text="14"
@@ -197,7 +201,7 @@
                                     <TextView
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
-                                        android:text="Studied Hours"
+                                        android:text="@string/f3_studied_hours"
                                         android:textSize="@dimen/txt_text"
                                         android:textColor="@color/colorDeepGray"/>
 

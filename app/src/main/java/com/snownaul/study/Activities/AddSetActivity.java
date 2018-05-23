@@ -73,6 +73,7 @@ public class AddSetActivity extends AppCompatActivity {
         setContentView(R.layout.activity_add_set);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setTitle(getString(R.string.addset_actitle));
 
         scroll=findViewById(R.id.scroll);
         etTitle=findViewById(R.id.et_title);

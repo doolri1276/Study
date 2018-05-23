@@ -31,6 +31,7 @@ import com.snownaul.study.adapters.StudyFragAdapter;
 import com.snownaul.study.study_classes.SgSet;
 import com.snownaul.study.study_classes.StudySet;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 
@@ -51,6 +52,7 @@ public class F3Study extends Fragment {
     CircleImageView profile;
     TextView nickname;
     TextView date;
+    TextView tvQuestionsSets, tvStudiedTimes, tvStudiedHours;
 
     FloatingActionButton fab;
 
@@ -89,10 +91,11 @@ public class F3Study extends Fragment {
         profile=view.findViewById(R.id.profile);
         nickname=view.findViewById(R.id.nickname);
         date=view.findViewById(R.id.date);
+        tvQuestionsSets=view.findViewById(R.id.tv_questions_sets);
+        tvStudiedTimes=view.findViewById(R.id.tv_studied_times);
+        tvStudiedHours=view.findViewById(R.id.tv_studied_hours);
 
-        if(profile!=null)
-            Glide.with(getContext()).load(G.getUserProfilepic()).into(profile);
-        nickname.setText(G.getUserNickname());
+
 
         fab=view.findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -102,7 +105,7 @@ public class F3Study extends Fragment {
                 startActivity(intent);
             }
         });
-
+        setView();
 
         recyclerView=view.findViewById(R.id.recycler);
         studyFragAdapter=new StudyFragAdapter(getContext());
@@ -113,6 +116,27 @@ public class F3Study extends Fragment {
 
 
         return view;
+    }
+
+    public void setView(){
+        if(profile!=null)
+            Glide.with(getContext()).load(G.getUserProfilepic()).into(profile);
+        nickname.setText(G.getUserNickname());
+
+        if(G.studySets.size()>0){
+            tvQuestionsSets.setText(G.studySets.size()+"");
+
+            int times=0, hours=0;
+            for(int i=0;i<G.studySets.size();i++){
+                times+=G.studySets.get(i).getTriedCnt();
+                hours+=G.studySets.get(i).getTimeLength();
+            }
+
+            tvStudiedTimes.setText(times+"");
+            tvStudiedHours.setText(hours/60+"");
+        }
+
+
     }
 
     @Override
@@ -168,7 +192,9 @@ public class F3Study extends Fragment {
                 Log.i("MyTag","RESPONSE : "+response);
                 String[] studySets=response.split("&S&");
 
-                G.studySets.clear();
+                if(G.studySets!=null)
+                    G.studySets.clear();
+                else G.studySets=new ArrayList<>();
 
                 for(int i=1;i<studySets.length;i++){
                     StudySet st=new StudySet();
@@ -183,6 +209,7 @@ public class F3Study extends Fragment {
                     st.getSgSet().setLikeCnt(Integer.parseInt(studySetDetail[5]));
                     st.setLiked(Boolean.parseBoolean(studySetDetail[6]));
                     st.setTriedCnt(Integer.parseInt(studySetDetail[7]));
+                    st.setTimeLength(Integer.parseInt(studySetDetail[8]));
 
                     G.studySets.add(st);
 
@@ -190,6 +217,8 @@ public class F3Study extends Fragment {
                 }
                 Collections.sort(G.studySets);
                 studyFragAdapter.notifyDataSetChanged();
+
+                setView();
 
             }
         }, new Response.ErrorListener() {

@@ -63,7 +63,7 @@ public class StudyTestingPageActivity extends AppCompatActivity {
     Button btnTest;
     TextView tvRorW;
 
-    TextView tvQuestion;
+    TextView tvQuestion, tvScore;
     RecyclerView recyclerView;
     TestAnswersAdapter testAnswersAdapter;
 
@@ -81,6 +81,8 @@ public class StudyTestingPageActivity extends AppCompatActivity {
     long endTime;
     int correctionCnt;
     int totalTimeLength;
+
+    boolean isSetting;
 
 
     @Override
@@ -108,6 +110,7 @@ public class StudyTestingPageActivity extends AppCompatActivity {
         recyclerView=findViewById(R.id.recycler);
         btnTest=findViewById(R.id.btn_test);
         tvRorW=findViewById(R.id.tv_rorw);
+        tvScore=findViewById(R.id.tv_score);
 
 
         prepareTesting();
@@ -122,6 +125,7 @@ public class StudyTestingPageActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+        if(isSetting)return true;
 
         switch (item.getItemId()) {
             case android.R.id.home:
@@ -157,7 +161,8 @@ public class StudyTestingPageActivity extends AppCompatActivity {
         studyingMode=StudyingManager.MODE_ANSWER;
         testAnswersAdapter.setStudyingMode(studyingMode);
 
-        timer.cancel();
+        if(timer!=null)
+            timer.cancel();
 
         //각각의 정답 체크..
         checkAnswers();
@@ -207,6 +212,10 @@ public class StudyTestingPageActivity extends AppCompatActivity {
     }
 
     public void submitTestResult(){
+
+        tvTimeLimits.setVisibility(GONE);
+        tvScore.setVisibility(View.VISIBLE);
+
         String serverUrl="http://snownaul2.dothome.co.kr/StudyGuide/Study/submitTestResult.php";
 
         SimpleMultiPartRequest multiPartRequest=new SimpleMultiPartRequest(Request.Method.POST, serverUrl, new Response.Listener<String>() {
@@ -230,6 +239,9 @@ public class StudyTestingPageActivity extends AppCompatActivity {
         RequestQueue requestQueue= Volley.newRequestQueue(this);
 
         requestQueue.add(multiPartRequest);
+
+        int score=(correctionCnt/questionCnt*100);
+        tvScore.setText(score+"");
 
     }
 
@@ -266,7 +278,8 @@ public class StudyTestingPageActivity extends AppCompatActivity {
 
 
     public void clickBtn(View v){
-        ;
+
+        if(isSetting)return;
         switch (studyingMode){
             case StudyingManager.MODE_STUDYING:
                 setBar();
@@ -283,11 +296,13 @@ public class StudyTestingPageActivity extends AppCompatActivity {
     }
 
     public void clickBar(View v){
+        isSetting=true;
         qlist.setVisibility(View.VISIBLE);
         setBar();
     }
 
     public void clickClear(View v){
+        isSetting=false;
         qlist.setVisibility(GONE);
 
     }
@@ -384,8 +399,11 @@ public class StudyTestingPageActivity extends AppCompatActivity {
             });
         }
 
-        timer=new Timer();
-        timer.schedule(task,1000,1000);
+        if(timeLimit!=-99){
+            timer=new Timer();
+            timer.schedule(task,1000,1000);
+        }
+
 
         position=0;
         setStudyPage();
@@ -428,6 +446,8 @@ public class StudyTestingPageActivity extends AppCompatActivity {
 
     public void setAnswerPage(){
         studyingMode=StudyingManager.MODE_ANSWER;
+
+
 
         if(position>=questionCnt){
             position=questionCnt-1;
@@ -546,9 +566,13 @@ public class StudyTestingPageActivity extends AppCompatActivity {
             task.cancel(); //타이머task를 timer 큐에서 지워버린다
             task=null;
         }
-        timer.cancel(); //스케쥴task과 타이머를 취소한다.
-        timer.purge(); //task큐의 모든 task를 제거한다.
-        timer=null;
+
+        if(timer!=null){
+            timer.cancel(); //스케쥴task과 타이머를 취소한다.
+            timer.purge(); //task큐의 모든 task를 제거한다.
+            timer=null;
+        }
+
     }
 
 

@@ -2,7 +2,7 @@
 <resources>
 
     <!-- 카카오 로그인 -->
-    <string name="kakao_app_key">625539f964cefd6cea24924ee86f767c</string>
+    <string name="kakao_app_key" translatable="false">625539f964cefd6cea24924ee86f767c</string>
 
     <!-- 구글 로그인 -->
     <!--<string name="default_web_client_id">1007396589166-3hrj2fjs932gn58k7tg445799lssrfh5.apps.googleusercontent.com</string>-->

@@ -88,6 +88,7 @@
                     android:textColor="@color/colorDeepGray"
                     android:textStyle="bold"
                     android:textSize="@dimen/txt_text"
+                    android:visibility="gone"
                     />
 
                 <EditText
@@ -102,6 +103,7 @@
                     android:textColor="@color/colorDeepGray"
                     android:hint="What is this set about?"
                     android:background="@color/colorWhite"
+                    android:visibility="gone"
                     />
 
                 <LinearLayout
@@ -112,7 +114,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Detailed Settings"
+                        android:text="@string/addset_setting"
                         android:textColor="@color/colorDeeperSkyBlue"
                         android:textSize="@dimen/txt_text"
                         android:textStyle="bold"

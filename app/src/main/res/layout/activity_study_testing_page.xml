@@ -25,6 +25,20 @@
             android:textColor="@color/colorDeepGray"
             android:textStyle="bold"
             android:paddingTop="@dimen/normal_padding"
+            android:visibility="visible"
+            />
+
+        <TextView
+            android:id="@+id/tv_score"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="12"
+            android:textSize="@dimen/txt_stitle"
+            android:textColor="@color/colorDeepGray"
+            android:textStyle="bold"
+            android:paddingTop="@dimen/normal_padding"
+            android:visibility="gone"
             />
 
 
@@ -384,7 +398,7 @@
 
     <LinearLayout
         android:id="@+id/qlist"
-        android:layout_width="314dp"
+        android:layout_width="match_parent"
         android:layout_centerHorizontal="true"
         android:layout_height="wrap_content"
         android:layout_below="@id/toolbar"
@@ -413,12 +427,14 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/normal_padding"
+            android:weightSum="5"
         >
             <TextView
                 android:id="@+id/qnum01"
-                android:layout_width="50dp"
+                android:layout_width="0dp"
                 android:layout_height="50dp"
                 android:text="1"
+                android:layout_weight="1"
                 android:background="@color/colorWhite"
                 android:textStyle="bold"
                 android:textColor="@color/colorDeepGray"
@@ -427,8 +443,9 @@
                 />
             <TextView
                 android:id="@+id/qnum02"
-                android:layout_width="50dp"
+                android:layout_width="0dp"
                 android:layout_height="50dp"
+                android:layout_weight="1"
                 android:text="2"
                 android:background="@color/colorWhite"
                 android:textStyle="bold"
@@ -439,8 +456,9 @@
                 android:visibility="gone"/>
             <TextView
                 android:id="@+id/qnum03"
-                android:layout_width="50dp"
+                android:layout_width="0dp"
                 android:layout_height="50dp"
+                android:layout_weight="1"
                 android:text="3"
                 android:background="@color/colorWhite"
                 android:textStyle="bold"
@@ -451,8 +469,9 @@
                 android:visibility="gone"/>
             <TextView
                 android:id="@+id/qnum04"
-                android:layout_width="50dp"
+                android:layout_width="0dp"
                 android:layout_height="50dp"
+                android:layout_weight="1"
                 android:text="4"
                 android:background="@color/colorWhite"
                 android:textStyle="bold"
@@ -463,8 +482,9 @@
                 android:visibility="gone"/>
             <TextView
                 android:id="@+id/qnum05"
-                android:layout_width="50dp"
+                android:layout_width="0dp"
                 android:layout_height="50dp"
+                android:layout_weight="1"
                 android:text="5"
                 android:background="@color/colorWhite"
                 android:textStyle="bold"
@@ -479,12 +499,13 @@
             android:id="@+id/line2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-
+            android:weightSum="5"
             >
             <TextView
                 android:id="@+id/qnum06"
-                android:layout_width="50dp"
+                android:layout_width="0dp"
                 android:layout_height="50dp"
+                android:layout_weight="1"
                 android:text="1"
                 android:background="@color/colorWhite"
                 android:textStyle="bold"
@@ -496,8 +517,9 @@
                 />
             <TextView
                 android:id="@+id/qnum07"
-                android:layout_width="50dp"
+                android:layout_width="0dp"
                 android:layout_height="50dp"
+                android:layout_weight="1"
                 android:text="2"
                 android:background="@color/colorWhite"
                 android:textStyle="bold"
@@ -509,8 +531,9 @@
                 android:visibility="gone"/>
             <TextView
                 android:id="@+id/qnum08"
-                android:layout_width="50dp"
+                android:layout_width="0dp"
                 android:layout_height="50dp"
+                android:layout_weight="1"
                 android:text="3"
                 android:background="@color/colorWhite"
                 android:textStyle="bold"
@@ -522,8 +545,9 @@
                 android:visibility="gone"/>
             <TextView
                 android:id="@+id/qnum09"
-                android:layout_width="50dp"
+                android:layout_width="0dp"
                 android:layout_height="50dp"
+                android:layout_weight="1"
                 android:text="4"
                 android:background="@color/colorWhite"
                 android:textStyle="bold"
@@ -535,8 +559,9 @@
                 android:visibility="gone"/>
             <TextView
                 android:id="@+id/qnum10"
-                android:layout_width="50dp"
+                android:layout_width="0dp"
                 android:layout_height="50dp"
+                android:layout_weight="1"
                 android:text="5"
                 android:background="@color/colorWhite"
                 android:textStyle="bold"
@@ -553,11 +578,13 @@
             android:id="@+id/line3"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:weightSum="5"
             >
             <TextView
                 android:id="@+id/qnum11"
-                android:layout_width="50dp"
+                android:layout_width="0dp"
                 android:layout_height="50dp"
+                android:layout_weight="1"
                 android:text="1"
                 android:background="@color/colorWhite"
                 android:textStyle="bold"
@@ -569,8 +596,9 @@
                 />
             <TextView
                 android:id="@+id/qnum12"
-                android:layout_width="50dp"
+                android:layout_width="0dp"
                 android:layout_height="50dp"
+                android:layout_weight="1"
                 android:text="2"
                 android:background="@color/colorWhite"
                 android:textStyle="bold"
@@ -582,8 +610,9 @@
                 android:visibility="gone"/>
             <TextView
                 android:id="@+id/qnum13"
-                android:layout_width="50dp"
+                android:layout_width="0dp"
                 android:layout_height="50dp"
+                android:layout_weight="1"
                 android:text="3"
                 android:background="@color/colorWhite"
                 android:textStyle="bold"
@@ -595,8 +624,9 @@
                 android:visibility="gone"/>
             <TextView
                 android:id="@+id/qnum14"
-                android:layout_width="50dp"
+                android:layout_width="0dp"
                 android:layout_height="50dp"
+                android:layout_weight="1"
                 android:text="4"
                 android:background="@color/colorWhite"
                 android:textStyle="bold"
@@ -608,8 +638,9 @@
                 android:visibility="gone"/>
             <TextView
                 android:id="@+id/qnum15"
-                android:layout_width="50dp"
+                android:layout_width="0dp"
                 android:layout_height="50dp"
+                android:layout_weight="1"
                 android:text="5"
                 android:background="@color/colorWhite"
                 android:textStyle="bold"
@@ -626,11 +657,13 @@
             android:id="@+id/line4"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:weightSum="5"
             >
             <TextView
                 android:id="@+id/qnum16"
-                android:layout_width="50dp"
+                android:layout_width="0dp"
                 android:layout_height="50dp"
+                android:layout_weight="1"
                 android:text="1"
                 android:background="@color/colorWhite"
                 android:textStyle="bold"
@@ -642,8 +675,9 @@
                 />
             <TextView
                 android:id="@+id/qnum17"
-                android:layout_width="50dp"
+                android:layout_width="0dp"
                 android:layout_height="50dp"
+                android:layout_weight="1"
                 android:text="2"
                 android:background="@color/colorWhite"
                 android:textStyle="bold"
@@ -655,8 +689,9 @@
                 android:visibility="gone"/>
             <TextView
                 android:id="@+id/qnum18"
-                android:layout_width="50dp"
+                android:layout_width="0dp"
                 android:layout_height="50dp"
+                android:layout_weight="1"
                 android:text="3"
                 android:background="@color/colorWhite"
                 android:textStyle="bold"
@@ -668,8 +703,9 @@
                 android:visibility="gone"/>
             <TextView
                 android:id="@+id/qnum19"
-                android:layout_width="50dp"
+                android:layout_width="0dp"
                 android:layout_height="50dp"
+                android:layout_weight="1"
                 android:text="4"
                 android:background="@color/colorWhite"
                 android:textStyle="bold"
@@ -681,8 +717,9 @@
                 android:visibility="gone"/>
             <TextView
                 android:id="@+id/qnum20"
-                android:layout_width="50dp"
+                android:layout_width="0dp"
                 android:layout_height="50dp"
+                android:layout_weight="1"
                 android:text="5"
                 android:background="@color/colorWhite"
                 android:textStyle="bold"
@@ -699,11 +736,13 @@
             android:id="@+id/line5"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:weightSum="5"
             >
             <TextView
                 android:id="@+id/qnum21"
-                android:layout_width="50dp"
+                android:layout_width="0dp"
                 android:layout_height="50dp"
+                android:layout_weight="1"
                 android:text="1"
                 android:background="@color/colorWhite"
                 android:textStyle="bold"
@@ -715,8 +754,9 @@
                 />
             <TextView
                 android:id="@+id/qnum22"
-                android:layout_width="50dp"
+                android:layout_width="0dp"
                 android:layout_height="50dp"
+                android:layout_weight="1"
                 android:text="2"
                 android:background="@color/colorWhite"
                 android:textStyle="bold"
@@ -728,8 +768,9 @@
                 android:visibility="gone"/>
             <TextView
                 android:id="@+id/qnum23"
-                android:layout_width="50dp"
+                android:layout_width="0dp"
                 android:layout_height="50dp"
+                android:layout_weight="1"
                 android:text="3"
                 android:background="@color/colorWhite"
                 android:textStyle="bold"
@@ -741,8 +782,9 @@
                 android:visibility="gone"/>
             <TextView
                 android:id="@+id/qnum24"
-                android:layout_width="50dp"
+                android:layout_width="0dp"
                 android:layout_height="50dp"
+                android:layout_weight="1"
                 android:text="4"
                 android:background="@color/colorWhite"
                 android:textStyle="bold"
@@ -754,8 +796,9 @@
                 android:visibility="gone"/>
             <TextView
                 android:id="@+id/qnum25"
-                android:layout_width="50dp"
+                android:layout_width="0dp"
                 android:layout_height="50dp"
+                android:layout_weight="1"
                 android:text="5"
                 android:background="@color/colorWhite"
                 android:textStyle="bold"
@@ -775,8 +818,9 @@
             >
             <TextView
                 android:id="@+id/qnum26"
-                android:layout_width="50dp"
+                android:layout_width="0dp"
                 android:layout_height="50dp"
+                android:layout_weight="1"
                 android:text="1"
                 android:background="@color/colorWhite"
                 android:textStyle="bold"
@@ -788,8 +832,9 @@
                 />
             <TextView
                 android:id="@+id/qnum27"
-                android:layout_width="50dp"
+                android:layout_width="0dp"
                 android:layout_height="50dp"
+                android:layout_weight="1"
                 android:text="2"
                 android:background="@color/colorWhite"
                 android:textStyle="bold"
@@ -801,8 +846,9 @@
                 android:visibility="gone"/>
             <TextView
                 android:id="@+id/qnum28"
-                android:layout_width="50dp"
+                android:layout_width="0dp"
                 android:layout_height="50dp"
+                android:layout_weight="1"
                 android:text="3"
                 android:background="@color/colorWhite"
                 android:textStyle="bold"
@@ -814,8 +860,9 @@
                 android:visibility="gone"/>
             <TextView
                 android:id="@+id/qnum29"
-                android:layout_width="50dp"
+                android:layout_width="0dp"
                 android:layout_height="50dp"
+                android:layout_weight="1"
                 android:text="4"
                 android:background="@color/colorWhite"
                 android:textStyle="bold"
@@ -827,8 +874,9 @@
                 android:visibility="gone"/>
             <TextView
                 android:id="@+id/qnum30"
-                android:layout_width="50dp"
+                android:layout_width="0dp"
                 android:layout_height="50dp"
+                android:layout_weight="1"
                 android:text="5"
                 android:background="@color/colorWhite"
                 android:textStyle="bold"

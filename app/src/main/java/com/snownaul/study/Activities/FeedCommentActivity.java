@@ -1,5 +1,6 @@
 package com.snownaul.study.Activities;
 
+import android.content.Context;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
@@ -9,6 +10,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -160,6 +162,16 @@ public class FeedCommentActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        View view = this.getCurrentFocus();
+        if (view != null) {
+            InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+        }
+    }
+
     public void loadSubComments(){
         String serverUrl="http://snownaul2.dothome.co.kr/StudyGuide/Feed/loadAllSubComments.php";
         Log.i("MyTag","LoadSubComments 불러졌다!!!!!");
@@ -271,7 +283,7 @@ public class FeedCommentActivity extends AppCompatActivity {
 
                 String[] c=response.split("&");
 
-                SubComment t=new SubComment(Integer.parseInt(c[0]),G.currentComment.getCommentID(),G.getUserId(),subComment,G.convertUTCToLocalTime(c[1]),G.getUserProfilepic(),false,0);
+                SubComment t=new SubComment(Integer.parseInt(c[0]),G.currentComment.getCommentID(),G.getUserId(),subComment,G.convertUTCToLocalTime(c[1]),G.getUserProfilepic(),G.getUserNickname(),false,0);
                 G.currentComment.getSubComments().add(t);
                 feedCommentAdapter.notifyItemInserted(G.currentComment.getSubComments().size()-1);
 

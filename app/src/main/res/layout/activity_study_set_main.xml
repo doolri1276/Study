@@ -74,7 +74,7 @@
                             android:layout_width="55dp"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="@dimen/small_padding"
-                            android:text="32"
+                            android:text="0"
                             android:textSize="@dimen/txt_text"
                             android:textColor="@color/colorDeepGray"
                             android:textStyle="bold"/>
@@ -90,7 +90,7 @@
                             android:layout_width="55dp"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="@dimen/small_padding"
-                            android:text="32"
+                            android:text="0"
                             android:textSize="@dimen/txt_text"
                             android:textColor="@color/colorDeepGray"
                             android:textStyle="bold"/>
@@ -124,7 +124,7 @@
                             android:id="@+id/tv_question_cnt"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="14"
+                            android:text="0"
                             android:textStyle="bold"
                             android:textSize="@dimen/txt_text"
                             android:textColor="@color/colorDeeperSkyBlue"/>
@@ -132,7 +132,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Questions"
+                            android:text="@string/studymain_overall01"
                             android:textSize="@dimen/txt_text"
                             android:textColor="@color/colorDeepGray"/>
 
@@ -151,7 +151,7 @@
                             android:id="@+id/tv_solved_cnt"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="14"
+                            android:text="0"
                             android:textStyle="bold"
                             android:textSize="@dimen/txt_text"
                             android:textColor="@color/colorDeeperSkyBlue"/>
@@ -159,7 +159,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Studied Times"
+                            android:text="@string/studymain_overall02"
                             android:textSize="@dimen/txt_text"
                             android:textColor="@color/colorDeepGray"/>
 
@@ -178,7 +178,7 @@
                             android:id="@+id/tv_time_length"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="14"
+                            android:text="0"
                             android:textStyle="bold"
                             android:textSize="@dimen/txt_text"
                             android:textColor="@color/colorDeeperSkyBlue"/>
@@ -186,7 +186,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Studied Hours"
+                            android:text="@string/studymain_overall03"
                             android:textSize="@dimen/txt_text"
                             android:textColor="@color/colorDeepGray"/>
 
@@ -221,7 +221,7 @@
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="Storage"
+                                android:text="@string/studymain_storage"
                                 android:textColor="@color/colorDeepGray"
                                 android:textSize="@dimen/txt_text"
                                 android:textStyle="bold"
@@ -249,7 +249,7 @@
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="Study"
+                                android:text="@string/studymain_study"
                                 android:textColor="@color/colorDeepGray"
                                 android:textSize="@dimen/txt_text"
                                 android:textStyle="bold"
@@ -280,7 +280,7 @@
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="Play"
+                                android:text="@string/studymain_play"
                                 android:textColor="@color/colorWhite"
                                 android:textSize="@dimen/txt_text"
                                 android:textStyle="bold"
@@ -308,7 +308,7 @@
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="Report"
+                                android:text="@string/studymain_report"
                                 android:textColor="@color/colorWhite"
                                 android:textSize="@dimen/txt_text"
                                 android:textStyle="bold"

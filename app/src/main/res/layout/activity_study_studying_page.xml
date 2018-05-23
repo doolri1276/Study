@@ -360,7 +360,10 @@
                     <TextView
                         android:id="@+id/tv_explanation"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content" />
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/normal_padding"
+                        android:textSize="@dimen/txt_text"
+                        android:visibility="gone"/>
 
 
 

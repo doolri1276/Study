@@ -75,7 +75,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     public void clickFB(View v){
-
+        Toast.makeText(this, getString(R.string.coming_soon), Toast.LENGTH_SHORT).show();
     }
 
     public void clickKakao(View v){
@@ -83,6 +83,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     public void clickGoogle(View v){
+        Toast.makeText(this, getString(R.string.coming_soon), Toast.LENGTH_SHORT).show();
 
     }
 

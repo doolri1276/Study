@@ -52,7 +52,6 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:textColor="@color/colorBlueGray"
-                        android:text="This is explalalalalal"
                         android:textSize="@dimen/txt_text"
                         android:layout_marginTop="@dimen/small_padding"
                         />
