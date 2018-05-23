@@ -195,7 +195,7 @@ public class StudyTestActivity extends AppCompatActivity {
     public void setView(){
         switch (G.TEST_RGQ){
             case 0:
-                tvQuestionCnt.setText("study all");
+                tvQuestionCnt.setText(getResources().getString(R.string.testsetting_studyall));
                 break;
             case 1:
                 if(G.TEST_RGQ_DEFAULT!=-99)
@@ -208,7 +208,7 @@ public class StudyTestActivity extends AppCompatActivity {
 
         switch (G.TEST_RGT){
             case 0:
-                tvTimeLimits.setText("no limits");
+                tvTimeLimits.setText(getString(R.string.testsetting_nolimits));
                 break;
             case 1:
                 if(G.TEST_RGT_DEFAULT!=-99)
