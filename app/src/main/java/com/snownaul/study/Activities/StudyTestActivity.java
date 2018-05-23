@@ -212,7 +212,7 @@ public class StudyTestActivity extends AppCompatActivity {
                 break;
             case 1:
                 if(G.TEST_RGT_DEFAULT!=-99)
-                    tvTimeLimits.setText(G.TEST_RGT_DEFAULT+"min");
+                    tvTimeLimits.setText(G.TEST_RGT_DEFAULT+" "+getString(R.string.testsetting_min));
                 break;
             default:
 

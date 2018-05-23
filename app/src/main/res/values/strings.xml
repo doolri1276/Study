@@ -112,6 +112,7 @@
     <string name="testsetting_default">\tdefault</string>
     <string name="testsetting_timelimits">Time Limits</string>
     <string name="testsetting_nolimits">\tno limits</string>
+    <string name="testsetting_min">min</string>
 
     <!-- FEED -->
 

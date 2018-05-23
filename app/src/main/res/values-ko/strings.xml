@@ -90,6 +90,9 @@
     <string name="testsetting_default">\t직접 설정</string>
     <string name="testsetting_timelimits">시간 제한</string>
     <string name="testsetting_nolimits">\t시간 제한 없음</string>
+    <string name="testsetting_min">분</string>
+
+
     <string name="addfeed_hint">하고 싶은 말이 있나요?</string>
     <string name="comment_hint">댓글을 이 곳에 적어주세요.</string>
     <string name="comment_btn">보내기</string>
