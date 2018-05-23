@@ -240,7 +240,7 @@ public class StudyTestingPageActivity extends AppCompatActivity {
 
         requestQueue.add(multiPartRequest);
 
-        int score=(correctionCnt/questionCnt*100);
+        int score=(correctionCnt*100/questionCnt);
         tvScore.setText(score+"");
 
     }
@@ -278,6 +278,8 @@ public class StudyTestingPageActivity extends AppCompatActivity {
 
 
     public void clickBtn(View v){
+
+        Log.i("MyTag","clickBtnㅎㅐㅆ는데 isSetting 상태 : "+isSetting);
 
         if(isSetting)return;
         switch (studyingMode){
@@ -388,6 +390,7 @@ public class StudyTestingPageActivity extends AppCompatActivity {
             qnum[i].setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    isSetting=false;
                     TextView t=(TextView)v;
                     position=Integer.parseInt(t.getText().toString())-1;
                     if(studyingMode==StudyingManager.MODE_STUDYING)
