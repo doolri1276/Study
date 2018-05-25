@@ -79,8 +79,8 @@ public class StudyAnswersAdapter extends RecyclerView.Adapter {
 
         }
 
-        if(questionType==Question.TYPE_ONEANSWER) vh.cb.setVisibility(GONE);
-        else vh.cb.setVisibility(View.VISIBLE);
+        if(questionType==Question.TYPE_ONEANSWER) vh.cbRorW.setVisibility(GONE);
+        else vh.cbRorW.setVisibility(View.VISIBLE);
 
 //        if(questionType==Question.TYPE_ORDER){
 //            vh.tvNum.setText(t.getSgOrder()+"");

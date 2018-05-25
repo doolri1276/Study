@@ -128,15 +128,6 @@ public class FeedFragAdapter extends RecyclerView.Adapter {
             tvCommentCnt=itemView.findViewById(R.id.tv_comment_cnt);
             tbBookMark=itemView.findViewById(R.id.tb_bookmark);
 
-//            itemView.setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View v) {
-//                    G.currentFeed=G.feeds.get(getLayoutPosition());
-//                    SwipeBackActivityHelper.startSwipeActivity((MainActivity)context,new Intent(context,FeedDetailActivity.class),true,true,true);
-//
-//                }
-//            });
-
             tvContents.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
