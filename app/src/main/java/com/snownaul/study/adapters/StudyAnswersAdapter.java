@@ -75,12 +75,12 @@ public class StudyAnswersAdapter extends RecyclerView.Adapter {
                 vh.cbRorW.setVisibility(View.VISIBLE);
 
             }
-
+            if(questionType==Question.TYPE_ONEANSWER) vh.cbRorW.setVisibility(GONE);
 
         }
 
-        if(questionType==Question.TYPE_ONEANSWER) vh.cbRorW.setVisibility(GONE);
-        else vh.cbRorW.setVisibility(View.VISIBLE);
+
+        //else vh.cbRorW.setVisibility(View.VISIBLE);
 
 //        if(questionType==Question.TYPE_ORDER){
 //            vh.tvNum.setText(t.getSgOrder()+"");
