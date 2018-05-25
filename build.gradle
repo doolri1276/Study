@@ -36,6 +36,11 @@ allprojects {
             url "https://jitpack.io"
         }
 
+        //AndroidSweetSheet
+        maven {
+            url "https://jitpack.io"
+        }
+
 
     }
 }

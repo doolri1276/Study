@@ -14,7 +14,10 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.PopupMenu;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 import android.widget.ToggleButton;
 
 import com.android.volley.Request;
@@ -27,12 +30,20 @@ import com.bumptech.glide.Glide;
 import com.github.bluzwong.swipeback.SwipeBackActivityHelper;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
+import com.mingle.entity.MenuEntity;
+import com.mingle.sweetpick.BlurEffect;
+import com.mingle.sweetpick.CustomDelegate;
+import com.mingle.sweetpick.DimEffect;
+import com.mingle.sweetpick.RecyclerViewDelegate;
+import com.mingle.sweetpick.SweetSheet;
 import com.snownaul.study.G;
 import com.snownaul.study.R;
 import com.snownaul.study.adapters.FeedDetailAdapter;
 import com.snownaul.study.controls.AmpersandInputFilter;
 import com.snownaul.study.feed_classes.Comment;
 import com.snownaul.study.feed_classes.Feed;
+
+import java.util.ArrayList;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 import uk.co.imallan.jellyrefresh.JellyRefreshLayout;
@@ -48,6 +59,7 @@ public class FeedDetailActivity extends AppCompatActivity {
 
     //View들.
 
+    RelativeLayout rl;
     Toolbar toolbar;
     CircleImageView civProf;
     TextView tvNickname, tvDate;
@@ -105,6 +117,7 @@ public class FeedDetailActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         //View들..
+        rl=findViewById(R.id.rl);
         civProf=findViewById(R.id.civ_prof);
         tvNickname=findViewById(R.id.tv_nickname);
         tvDate=findViewById(R.id.tv_date);
@@ -200,6 +213,72 @@ public class FeedDetailActivity extends AppCompatActivity {
             }
         });
 
+        ivMenu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(FeedDetailActivity.this, "눌렸다.", Toast.LENGTH_SHORT).show();
+
+                final SweetSheet sweetSheet=new SweetSheet(rl);
+
+                //sweetSheet.setMenuList(R.menu.feed_menu);
+
+                CustomDelegate customDelegate=new CustomDelegate(true, CustomDelegate.AnimationType.DuangLayoutAnimation);
+                View view=LayoutInflater.from(FeedDetailActivity.this).inflate(R.layout.feed_menu, null, false);
+                customDelegate.setCustomView(view);
+
+                //sweetSheet.setDelegate(new RecyclerViewDelegate(true));
+                sweetSheet.setDelegate(customDelegate);
+
+//                sweetSheet.setOnMenuItemClickListener(new SweetSheet.OnMenuItemClickListener() {
+//                    @Override
+//                    public boolean onItemClick(int position, MenuEntity menuEntity) {
+//
+//                        switch (position){
+//                            case 0:
+//                                Toast.makeText(FeedDetailActivity.this, "Edit", Toast.LENGTH_SHORT).show();
+//                                break;
+//                            case 1:
+//                                Toast.makeText(FeedDetailActivity.this, "Delete", Toast.LENGTH_SHORT).show();
+//                                break;
+//                        }
+//
+//
+//                        return false;
+//                    }
+//                });
+
+
+
+                G.hideKeyboard(FeedDetailActivity.this);
+                sweetSheet.toggle();
+//                final PopupMenu popup=new PopupMenu(FeedDetailActivity.this, v);
+//                popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+//                    @Override
+//                    public boolean onMenuItemClick(MenuItem item) {
+//
+//                        switch (item.getItemId()){
+//                            case R.id.menu_edit:
+//                                Toast.makeText(FeedDetailActivity.this, "Edit 눌렀다.", Toast.LENGTH_SHORT).show();
+//                                break;
+//                            case R.id.menu_delete:
+//                                Toast.makeText(FeedDetailActivity.this, "Delete 눌렀다.", Toast.LENGTH_SHORT).show();
+//                                break;
+//                        }
+//
+//
+//
+//
+//                        return false;
+//                    }
+//                });
+//
+//                popup.getMenuInflater().inflate(R.menu.feed_menu, popup.getMenu());
+//
+//                popup.show();
+
+            }
+        });
+
 
 
 
@@ -219,6 +298,8 @@ public class FeedDetailActivity extends AppCompatActivity {
             InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
             imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
         }
+
+        G.hideKeyboard(FeedDetailActivity.this);
 
     }
 

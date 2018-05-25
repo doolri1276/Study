@@ -36,6 +36,7 @@ import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Queue;
+import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -382,6 +383,19 @@ public class StudyTestingPageActivity extends AppCompatActivity {
             questionsParts.get(i).setHasTestAnswer(false);
             questionsParts.get(i).setTestCorrection(false);
             questionsParts.get(i).setTestTimeLength(0);
+
+            switch (questionsParts.get(i).getQuestionType()){
+                case Question.TYPE_RIGHTORWRONG:
+                    if(new Random().nextInt(10)<5){
+                        questionsParts.get(i).setRightOrWrong(!questionsParts.get(i).isRightOrWrong());
+
+                        ArrayList<Answer> ta=questionsParts.get(i).getAnswers();
+                        for(int j=0;j<ta.size();j++){
+                            ta.get(j).setCorrect(!ta.get(j).isCorrect());
+                        }
+                    }
+                    break;
+            }
 
             percentage[i]=findViewById(R.id.percentage01+i);
             percentage[i].setVisibility(View.INVISIBLE);

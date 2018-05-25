@@ -96,68 +96,68 @@ public class AddSetActivity extends AppCompatActivity {
         etInfo.setFilters(new InputFilter[]{new AmpersandInputFilter()});
 
         //TODO:시험이라던지 이런게 설정이 덜됬기 때문에 일단 접어둔다..
-//        addQuestion.setOnLongClickListener(new View.OnLongClickListener() {
-//
-//            TextView t1,t2,t3,t4;
-//
-//
-//            @Override
-//            public boolean onLongClick(View v) {
-//                AlertDialog.Builder builder=new AlertDialog.Builder(AddSetActivity.this);
-//
-//                LayoutInflater inf=getLayoutInflater();
-//                View view=inf.inflate(R.layout.dialog_selecttype,null);
-//                builder.setView(view);
-//                final AlertDialog dialog=builder.create();
-//                dialog.setCanceledOnTouchOutside(false);
-//
-//                t1=view.findViewById(R.id.type1);
-//                t2=view.findViewById(R.id.type2);
-//                t3=view.findViewById(R.id.type3);
-//                t4=view.findViewById(R.id.type4);
-//
-//                t1.setOnClickListener(new View.OnClickListener() {
-//                    @Override
-//                    public void onClick(View v) {
-//                        setDefaultQuestionType(Question.TYPE_BASIC);
-//                        dialog.dismiss();
-//
-//                    }
-//                });
-//
-//                t2.setOnClickListener(new View.OnClickListener() {
-//                    @Override
-//                    public void onClick(View v) {
-//                        setDefaultQuestionType(Question.TYPE_RIGHTORWRONG);
-//                        dialog.dismiss();
-//                    }
-//                });
-//
-//                t3.setOnClickListener(new View.OnClickListener() {
-//                    @Override
-//                    public void onClick(View v) {
-//                        setDefaultQuestionType(Question.TYPE_ONEANSWER);
-//                        dialog.dismiss();
-//                    }
-//                });
-//
-//                t4.setOnClickListener(new View.OnClickListener() {
-//                    @Override
-//                    public void onClick(View v) {
-//                        setDefaultQuestionType(Question.TYPE_ORDER);
-//                        dialog.dismiss();
-//                    }
-//                });
-//
-//                dialog.show();
-//
-//
-//
-//
-//
-//                return false;
-//            }
-//        });
+        addQuestion.setOnLongClickListener(new View.OnLongClickListener() {
+
+            TextView t1,t2,t3,t4;
+
+
+            @Override
+            public boolean onLongClick(View v) {
+                AlertDialog.Builder builder=new AlertDialog.Builder(AddSetActivity.this);
+
+                LayoutInflater inf=getLayoutInflater();
+                View view=inf.inflate(R.layout.dialog_selecttype,null);
+                builder.setView(view);
+                final AlertDialog dialog=builder.create();
+                dialog.setCanceledOnTouchOutside(false);
+
+                t1=view.findViewById(R.id.type1);
+                t2=view.findViewById(R.id.type2);
+                t3=view.findViewById(R.id.type3);
+                t4=view.findViewById(R.id.type4);
+
+                t1.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        setDefaultQuestionType(Question.TYPE_BASIC);
+                        dialog.dismiss();
+
+                    }
+                });
+
+                t2.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        setDefaultQuestionType(Question.TYPE_RIGHTORWRONG);
+                        dialog.dismiss();
+                    }
+                });
+
+                t3.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        setDefaultQuestionType(Question.TYPE_ONEANSWER);
+                        dialog.dismiss();
+                    }
+                });
+
+                t4.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        setDefaultQuestionType(Question.TYPE_ORDER);
+                        dialog.dismiss();
+                    }
+                });
+
+                dialog.show();
+
+
+
+
+
+                return false;
+            }
+        });
 
 
 

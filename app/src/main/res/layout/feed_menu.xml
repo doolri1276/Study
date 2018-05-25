@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="@dimen/big_padding">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <ImageView
+                android:layout_width="@dimen/normal_padding"
+                android:layout_height="@dimen/normal_padding"
+                android:src="@drawable/ic_edit"
+                android:tint="@color/colorDeepSkyBlue"
+                android:layout_marginRight="@dimen/normal_padding"
+                android:layout_gravity="center_vertical"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/menu_edit"
+                android:textColor="@color/colorDeepGray"
+                android:textSize="@dimen/txt_text"
+                />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_marginTop="@dimen/normal_padding"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <ImageView
+                android:layout_width="@dimen/normal_padding"
+                android:layout_height="@dimen/normal_padding"
+                android:src="@drawable/ic_delete"
+                android:tint="@color/colorDeepSkyBlue"
+                android:layout_marginRight="@dimen/normal_padding"
+                android:layout_gravity="center_vertical"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/menu_delete"
+                android:textColor="@color/colorDeepGray"
+                android:textSize="@dimen/txt_text"
+                />
+        </LinearLayout>
+
+    </LinearLayout>
+
+</RelativeLayout>

@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -45,16 +46,21 @@ public class StudyStudyingPageActivity extends AppCompatActivity {
     Button btnTest;
 
     View[] percentage=new View[30];
-    LinearLayout type2;
+    LinearLayout type2,type3;
     ToggleButton tbRorW;
 
     TextView tvQuestion, tvExplanation;
     RecyclerView recyclerView;
     StudyAnswersAdapter studyAnswersAdapter;
+    ToggleButton tbIgr,tbIgw;
 
     long startTime;
     long endTime;
     boolean correction;
+
+    Question t;
+
+    boolean isSetting;
 
 
     @Override
@@ -84,11 +90,43 @@ public class StudyStudyingPageActivity extends AppCompatActivity {
         }
 
         type2=findViewById(R.id.type2);
+        type3=findViewById(R.id.type3);
         tbRorW=findViewById(R.id.tb_rorw);
         tvQuestion=findViewById(R.id.tv_question);
         recyclerView=findViewById(R.id.recycler);
         tvExplanation=findViewById(R.id.tv_explanation);
+        tbIgr=findViewById(R.id.tb_igr);
+        tbIgw=findViewById(R.id.tb_igw);
 
+        tbIgr.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(isSetting) return;
+
+                isSetting=true;
+                if(isChecked) {
+                    tbIgw.setChecked(false);
+                    t.setTestCorrection(true);
+                }else{
+                    t.setTestCorrection(false);
+                }
+
+                isSetting=false;
+
+            }
+        });
+
+        tbIgw.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(isSetting) return;
+
+                isSetting=true;
+                if(isChecked) tbIgr.setChecked(false);
+                t.setTestCorrection(false);
+                isSetting=false;
+            }
+        });
 
 
         manager=new StudyingManager();
@@ -123,7 +161,11 @@ public class StudyStudyingPageActivity extends AppCompatActivity {
 
                 break;
             case StudyingManager.MODE_STUDYING:
+
                 setAnswerPage();
+                break;
+            case StudyingManager.MODE_ONEANSWER_CHECK:
+                oneAnswerCheck();
                 break;
             case StudyingManager.MODE_ANSWER:
                 setStudyPage();
@@ -132,7 +174,16 @@ public class StudyStudyingPageActivity extends AppCompatActivity {
 
 
     }
-    Question t;
+
+    public void oneAnswerCheck(){
+        type3.setVisibility(View.VISIBLE);
+        studyingMode=StudyingManager.MODE_STUDYING;
+        recyclerView.setVisibility(View.VISIBLE);
+
+
+
+    }
+
     public void setStudyPage(){
         studyingMode=StudyingManager.MODE_STUDYING;
 
@@ -177,15 +228,30 @@ public class StudyStudyingPageActivity extends AppCompatActivity {
 
         }
 
+
         studyAnswersAdapter= new StudyAnswersAdapter(this,t.getAnswers(),t.getQuestionType(),studyingMode);
         recyclerView.setAdapter(studyAnswersAdapter);
 
+        if(t.getQuestionType()==Question.TYPE_ONEANSWER) {
+            isSetting=true;
+            tbIgr.setChecked(false);
+            tbIgw.setChecked(false);
+            recyclerView.setVisibility(View.GONE);
+            studyingMode=StudyingManager.MODE_ONEANSWER_CHECK;
+            t.setTestCorrection(false);
+            isSetting=false;
+        }
+        else recyclerView.setVisibility(View.VISIBLE);
         startTime=System.currentTimeMillis()/1000;
 
     }
 
     public void setAnswerPage(){
         studyingMode=StudyingManager.MODE_ANSWER;
+
+        if(t.getQuestionType()==Question.TYPE_ONEANSWER){
+            type3.setVisibility(View.GONE);
+        }
 
         studyAnswersAdapter.setStudyingMode(studyingMode);
 
@@ -279,6 +345,7 @@ public class StudyStudyingPageActivity extends AppCompatActivity {
         requestQueue.add(multiPartRequest);
 
     }
+
 
 
 

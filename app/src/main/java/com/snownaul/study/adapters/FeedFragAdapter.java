@@ -5,11 +5,16 @@ import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
+import android.widget.PopupMenu;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 import android.widget.ToggleButton;
 
 import com.android.volley.Request;
@@ -20,6 +25,10 @@ import com.android.volley.request.SimpleMultiPartRequest;
 import com.android.volley.toolbox.Volley;
 import com.bumptech.glide.Glide;
 import com.github.bluzwong.swipeback.SwipeBackActivityHelper;
+import com.mingle.entity.MenuEntity;
+import com.mingle.sweetpick.BlurEffect;
+import com.mingle.sweetpick.RecyclerViewDelegate;
+import com.mingle.sweetpick.SweetSheet;
 import com.snownaul.study.Activities.FeedDetailActivity;
 import com.snownaul.study.Activities.MainActivity;
 import com.snownaul.study.Activities.StudySetMainActivity;
@@ -92,6 +101,7 @@ public class FeedFragAdapter extends RecyclerView.Adapter {
 
     public class VH extends RecyclerView.ViewHolder{
 
+        RelativeLayout rl;
         CircleImageView civProf;
         TextView tvNickname, tvDate;
         ImageView ivMenu, ivImg;
@@ -105,6 +115,7 @@ public class FeedFragAdapter extends RecyclerView.Adapter {
         public VH(View itemView) {
             super(itemView);
 
+            rl=itemView.findViewById(R.id.rl);
             civProf=itemView.findViewById(R.id.civ_prof);
             tvNickname=itemView.findViewById(R.id.tv_nickname);
             tvDate=itemView.findViewById(R.id.tv_date);
@@ -117,7 +128,26 @@ public class FeedFragAdapter extends RecyclerView.Adapter {
             tvCommentCnt=itemView.findViewById(R.id.tv_comment_cnt);
             tbBookMark=itemView.findViewById(R.id.tb_bookmark);
 
-            itemView.setOnClickListener(new View.OnClickListener() {
+//            itemView.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View v) {
+//                    G.currentFeed=G.feeds.get(getLayoutPosition());
+//                    SwipeBackActivityHelper.startSwipeActivity((MainActivity)context,new Intent(context,FeedDetailActivity.class),true,true,true);
+//
+//                }
+//            });
+
+            tvContents.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                    G.currentFeed=G.feeds.get(getLayoutPosition());
+                    SwipeBackActivityHelper.startSwipeActivity((MainActivity)context,new Intent(context,FeedDetailActivity.class),true,true,true);
+
+                }
+            });
+
+            ivImg.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     G.currentFeed=G.feeds.get(getLayoutPosition());
@@ -126,31 +156,71 @@ public class FeedFragAdapter extends RecyclerView.Adapter {
                 }
             });
 
-//            tvContents.setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View v) {
+            tbComment.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    G.currentFeed=G.feeds.get(getLayoutPosition());
+                    SwipeBackActivityHelper.startSwipeActivity((MainActivity)context,new Intent(context,FeedDetailActivity.class),true,true,true);
+
+                }
+            });
+
+            ivMenu.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                    Toast.makeText(context, "눌렸다.", Toast.LENGTH_SHORT).show();
+
+                    final SweetSheet sweetSheet=new SweetSheet(rl);
+                    sweetSheet.setMenuList(R.menu.feed_menu);
+                    sweetSheet.setDelegate(new RecyclerViewDelegate(true));
+                    sweetSheet.setBackgroundEffect(new BlurEffect(8));
+                    sweetSheet.setOnMenuItemClickListener(new SweetSheet.OnMenuItemClickListener() {
+                        @Override
+                        public boolean onItemClick(int position, MenuEntity menuEntity) {
+
+                            switch (position){
+                                case 0:
+                                    Toast.makeText(context, "Edit", Toast.LENGTH_SHORT).show();
+                                    break;
+                                case 1:
+                                    Toast.makeText(context, "Delete", Toast.LENGTH_SHORT).show();
+                                    break;
+                            }
+
+
+                            return false;
+                        }
+                    });
+
+//                    final PopupMenu popup=new PopupMenu(context, v);
 //
-//                    G.currentFeed=G.feeds.get(getLayoutPosition());
-//                    SwipeBackActivityHelper.startSwipeActivity((MainActivity)context,new Intent(context,FeedDetailActivity.class),true,true,true);
+//                    popup.getMenuInflater().inflate(R.menu.feed_menu, popup.getMenu());
 //
-//                }
-//            });
 //
-//            ivImg.setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View v) {
-//                    G.currentFeed=G.feeds.get(getLayoutPosition());
-//                    SwipeBackActivityHelper.startSwipeActivity((MainActivity)context,new Intent(context,FeedDetailActivity.class),true,true,true);
+//                    popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+//                        @Override
+//                        public boolean onMenuItemClick(MenuItem item) {
 //
-//                }
-//            });
+//                            switch (item.getItemId()){
+//                                case R.id.menu_edit:
+//                                    Toast.makeText(context, "Edit 눌렀다.", Toast.LENGTH_SHORT).show();
+//                                    break;
+//                                case R.id.menu_delete:
+//                                    Toast.makeText(context, "Delete 눌렀다.", Toast.LENGTH_SHORT).show();
+//                                    break;
+//                            }
 //
-//            tbComment.setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View v) {
 //
-//                }
-//            });
+//
+//
+//                            return false;
+//                        }
+//                    });
+//
+//                    popup.show();
+                }
+            });
 
             tbFavor.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                 @Override

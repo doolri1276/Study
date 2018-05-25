@@ -195,4 +195,17 @@ public class Question implements Comparable{
     public int compareTo(@NonNull Object o) {
         return solvedCnt-((Question)o).solvedCnt;
     }
+
+    public boolean checkStudyCorrection(){
+        boolean correct=true;
+//        for(int i=0;i<ta.size();i++){
+//            Answer t=ta.get(i);
+//            if(t.isCorrect()!=t.isChecked()){
+//                correct=false;
+//            }
+//        }
+
+        return true;
+
+    }
 }

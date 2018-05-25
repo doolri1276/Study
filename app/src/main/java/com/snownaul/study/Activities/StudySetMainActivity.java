@@ -101,7 +101,7 @@ public class StudySetMainActivity extends AppCompatActivity {
             public void onCheckedChanged(CompoundButton buttonView, final boolean isChecked) {
 
                 final StudySet t=G.currentStudySet;
-                if(t.isSetting()) return;
+                if(isSetting) return;
                 String serverUrl="http://snownaul2.dothome.co.kr/StudyGuide/Set/studySetFavorChanged.php";
 
                 SimpleMultiPartRequest multiPartRequest=new SimpleMultiPartRequest(Request.Method.POST, serverUrl, new Response.Listener<String>() {
@@ -194,7 +194,7 @@ public class StudySetMainActivity extends AppCompatActivity {
                     q.setQuestionID(Integer.parseInt(questionDetailInfos[0]));
                     q.setQuestion(questionDetailInfos[2]);
                     q.setExplanation(questionDetailInfos[3]);
-                    q.setRightOrWrong(Boolean.parseBoolean(questionDetailInfos[4]));
+                    q.setRightOrWrong(questionDetailInfos[4].equals("1"));
 
                     q.setTriedCnt(Integer.parseInt(questionDetailInfos[5]));
                     q.setSolvedCnt(Integer.parseInt(questionDetailInfos[6]));

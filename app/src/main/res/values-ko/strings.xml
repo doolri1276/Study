@@ -22,7 +22,8 @@
     <string name="f4_report">보고서</string>
     <string name="f5_setting">설정</string>
 
-    <string name="menu_delete">삭제하기</string>
+    <string name="menu_edit">수 정</string>
+    <string name="menu_delete">삭 제</string>
     <string name="delete_studyset_msg">정말로 이 공부 세트를 삭제하시겠습니까?\n세트 안의 모든 내용과 기록이 삭제됩니다.</string>
 
 
@@ -84,6 +85,11 @@
     <string name="study_tvrorw_wrong">틀렸다ㅠ</string>
     <string name="studystudy_study">공부</string>
     <string name="studystudy_test">테스트</string>
+
+    <string name="study_igotitright">맞았다</string>
+    <string name="study_igotitwrong">틀렸다</string>
+
+
     <string name="testsetting_setting">설정</string>
     <string name="testsetting_questions">문제 수</string>
     <string name="testsetting_studyall">\t전부 공부하기</string>
