@@ -312,6 +312,20 @@ public class G {
         editor.commit();
     }
 
+    public static void setTestTyping(int testTyping) {
+        TEST_TYPING = testTyping;
+
+        SharedPreferences.Editor editor=PREF.edit();
+
+        editor.putInt("testTyping",TEST_TYPING);
+        editor.commit();
+
+    }
+
+    public static int getTestTyping() {
+        return TEST_TYPING;
+    }
+
     public static int getUserId() {
         return USER_ID;
     }

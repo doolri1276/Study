@@ -104,14 +104,17 @@ public class StudyTestActivity extends AppCompatActivity {
         rgType.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
-                //TODO: 여기 여기!~~~~ 여기 해주세요!~!~~!~
+
                 switch (checkedId){
-                    case R.id.rg_type01:
+                    case R.id.rg_type01://주관식 있음
                         rgType01.setTextColor(getResources().getColor(R.color.colorDeeperSkyBlue));
                         rgType02.setTextColor(getResources().getColor(R.color.colorLightSkyBlue));
-
+                        G.setTestTyping(0);
                         break;
-                    case R.id.rg_type02:
+                    case R.id.rg_type02://주관식 없음
+                        rgType02.setTextColor(getResources().getColor(R.color.colorDeeperSkyBlue));
+                        rgType01.setTextColor(getResources().getColor(R.color.colorLightSkyBlue));
+                        G.setTestTyping(1);
                         break;
                 }
             }

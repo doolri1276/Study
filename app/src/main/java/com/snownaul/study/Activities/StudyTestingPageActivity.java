@@ -56,6 +56,7 @@ public class StudyTestingPageActivity extends AppCompatActivity {
 
     int questionCnt;
     int timeLimit;
+    int oneAnswerCnt;
 
     //화면관련
     TextView tvTimeLimits;
@@ -63,7 +64,7 @@ public class StudyTestingPageActivity extends AppCompatActivity {
 
     LinearLayout type2,type3;
     ToggleButton tbRorW;
-    TextView tvQuestionNo;
+    TextView tvQuestionNo, tvQuestionCnt;
     EditText etTestOneAnswer;
     Button btnTest;
     TextView tvRorW;
@@ -88,6 +89,8 @@ public class StudyTestingPageActivity extends AppCompatActivity {
     int totalTimeLength;
 
     boolean isSetting;
+    AlertDialog dialog;
+
 
 
     @Override
@@ -112,6 +115,7 @@ public class StudyTestingPageActivity extends AppCompatActivity {
         type3=findViewById(R.id.type3);
         tbRorW=findViewById(R.id.tb_rorw);
         tvQuestionNo=findViewById(R.id.tv_question_no);
+        tvQuestionCnt=findViewById(R.id.tv_question_cnt);
         tvQuestion=findViewById(R.id.tv_question);
         recyclerView=findViewById(R.id.recycler);
         btnTest=findViewById(R.id.btn_test);
@@ -155,11 +159,20 @@ public class StudyTestingPageActivity extends AppCompatActivity {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 submitTest();
+                dialog.dismiss();
+                dialog.cancel();
+
             }
         });
 
-        builder.setNegativeButton(getString(R.string.dialog_negative),null);
-        AlertDialog dialog=builder.create();
+        builder.setNegativeButton(getString(R.string.dialog_negative), new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+                dialog.cancel();
+            }
+        });
+        dialog=builder.create();
         dialog.setCanceledOnTouchOutside(true);
         dialog.show();
     }
@@ -174,6 +187,9 @@ public class StudyTestingPageActivity extends AppCompatActivity {
 
         //각각의 정답 체크..
         checkAnswers();
+
+        if(G.TEST_TYPING==0)
+            checkOneAnswers();
 
         submitTestResult();
 
@@ -217,6 +233,10 @@ public class StudyTestingPageActivity extends AppCompatActivity {
         }
 
         return;
+    }
+
+    public void checkOneAnswers(){
+
     }
 
     public void submitTestResult(){
@@ -407,8 +427,19 @@ public class StudyTestingPageActivity extends AppCompatActivity {
         questionsParts=new ArrayList<>();
         percentage=new View[questionCnt];
         qnum=new TextView[questionCnt];
+        oneAnswerCnt=0;
+
+        tvQuestionCnt.setText(questionCnt+"");
 
         for(int i=0;i<questionCnt;i++){
+
+            if(G.TEST_TYPING==1&&studyingQuestions.get(i).getQuestionType()==Question.TYPE_ONEANSWER)
+                continue;
+
+            if(studyingQuestions.get(i).getQuestionType()==Question.TYPE_ONEANSWER)
+                oneAnswerCnt++;
+
+
             questionsParts.add(studyingQuestions.get(i));
             Collections.shuffle(questionsParts.get(i).getAnswers());
 
@@ -664,6 +695,20 @@ public class StudyTestingPageActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
+
+        if(qlist.getVisibility()==View.VISIBLE){
+            qlist.setVisibility(GONE);
+            isSetting=false;
+            return;
+        }
+
+        if(dialog!=null){
+            isSetting=false;
+            dialog.dismiss();
+            dialog.cancel();
+            return;
+        }
+
         super.onBackPressed();
         //timer.cancel();
 

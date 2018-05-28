@@ -121,6 +121,9 @@
     <string name="testsetting_includetypingquestions">\tinclude typing questions</string>
     <string name="testsetting_notypingquestions">\tno typing questions</string>
 
+    <string name="test_myanswer">My Answer</string>
+    <string name="test_properanswer">Proper Answer</string>
+
     <!-- FEED -->
 
     <string name="addfeed_hint">What\'s on your mind?</string>
