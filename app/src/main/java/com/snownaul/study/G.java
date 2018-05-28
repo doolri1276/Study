@@ -46,6 +46,7 @@ public class G {
     public static int TEST_RGQ_DEFAULT;
     public static int TEST_RGT;
     public static int TEST_RGT_DEFAULT;
+    public static int TEST_TYPING;
 
     public static SharedPreferences PREF;
 
@@ -83,6 +84,7 @@ public class G {
         TEST_RGQ_DEFAULT=pref.getInt("testRgqDefault",25);
         TEST_RGT=pref.getInt("testRgt",0);
         TEST_RGT_DEFAULT=pref.getInt("testRgtDefault",25);
+        TEST_TYPING=pref.getInt("testTyping",0);
 
         feeds=new ArrayList<>();
 

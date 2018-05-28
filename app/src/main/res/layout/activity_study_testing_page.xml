@@ -380,6 +380,23 @@
 
                     </android.support.v7.widget.RecyclerView>
 
+                    <LinearLayout
+                        android:id="@+id/type3"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+                        <EditText
+                            android:id="@+id/et_testoneanswer"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@color/white"
+                            android:padding="@dimen/small_padding"
+                            android:textSize="@dimen/txt_text"
+                            android:textColor="@color/colorDeepGray"
+                            android:hint="@string/q_basic_answerhint"/>
+                    </LinearLayout>
+
+
                     <TextView
                         android:id="@+id/tv_explanation"
                         android:layout_width="match_parent"

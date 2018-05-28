@@ -149,7 +149,7 @@
         android:layout_height="match_parent"
         android:background="#99000000"
         android:gravity="center"
-        android:visibility="gone"
+        android:visibility="visible"
         >
 
         <LinearLayout
@@ -353,7 +353,64 @@
 
                 </RelativeLayout>
 
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/colorDeeperSkyBlue"
+                    android:text="@string/testsetting_typingquestions"
+                    android:textSize="@dimen/txt_text"
+                    android:textStyle="bold"
+                    android:layout_marginTop="@dimen/normal_padding"/>
 
+                <RadioGroup
+                    android:id="@+id/rg_type"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/small_padding">
+                    <RadioButton
+                        android:id="@+id/rg_type01"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:button="@drawable/sel_rb"
+                        android:text="@string/testsetting_includetypingquestions"
+                        android:textColor="@color/colorLightSkyBlue"
+                        android:gravity="center_vertical"
+                        />
+
+                    <!--<LinearLayout-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="wrap_content">-->
+                    <RadioButton
+                        android:id="@+id/rg_type02"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:button="@drawable/sel_rb"
+                        android:text="@string/testsetting_notypingquestions"
+                        android:textColor="@color/colorDeeperSkyBlue"
+                        android:checked="true"
+                        android:gravity="center_vertical"
+                        android:layout_marginTop="@dimen/small_padding"
+                        />
+
+
+                    <!--</LinearLayout>-->
+
+
+                    <RadioButton
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:button="@drawable/sel_rb"
+                        android:text="  specific number"
+                        android:textColor="@color/colorLightSkyBlue"
+                        android:gravity="center_vertical"
+                        android:layout_marginTop="@dimen/small_padding"
+                        android:visibility="gone"
+                        />
+
+
+
+
+                </RadioGroup>
 
 
             </LinearLayout>

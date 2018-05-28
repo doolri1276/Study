@@ -6,11 +6,14 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -58,9 +61,10 @@ public class StudyTestingPageActivity extends AppCompatActivity {
     TextView tvTimeLimits;
     LinearLayout bar, qlist;
 
-    LinearLayout type2;
+    LinearLayout type2,type3;
     ToggleButton tbRorW;
     TextView tvQuestionNo;
+    EditText etTestOneAnswer;
     Button btnTest;
     TextView tvRorW;
 
@@ -105,11 +109,13 @@ public class StudyTestingPageActivity extends AppCompatActivity {
         qlist=findViewById(R.id.qlist);
 
         type2=findViewById(R.id.type2);
+        type3=findViewById(R.id.type3);
         tbRorW=findViewById(R.id.tb_rorw);
         tvQuestionNo=findViewById(R.id.tv_question_no);
         tvQuestion=findViewById(R.id.tv_question);
         recyclerView=findViewById(R.id.recycler);
         btnTest=findViewById(R.id.btn_test);
+        etTestOneAnswer=findViewById(R.id.et_testoneanswer);
         tvRorW=findViewById(R.id.tv_rorw);
         tvScore=findViewById(R.id.tv_score);
         tvExplanation=findViewById(R.id.tv_explanation);
@@ -285,6 +291,9 @@ public class StudyTestingPageActivity extends AppCompatActivity {
         Log.i("MyTag","clickBtnㅎㅐㅆ는데 isSetting 상태 : "+isSetting);
 
         if(isSetting)return;
+
+        G.hideKeyboard(StudyTestingPageActivity.this);
+
         switch (studyingMode){
             case StudyingManager.MODE_STUDYING:
                 setBar();
@@ -313,6 +322,34 @@ public class StudyTestingPageActivity extends AppCompatActivity {
     }
 
     public void prepareTesting(){
+
+        etTestOneAnswer.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                if(isSetting)return;
+
+                if(t.getQuestionType()!=Question.TYPE_ONEANSWER) return;
+
+                t.setHasTestAnswer(false);
+                if(s.toString()==null) {
+                    return;
+                }else if(s.toString().length()>0) t.setHasTestAnswer(true);
+
+
+                t.setTestOneAnswer(s.toString());
+
+            }
+        });
 
         switch (G.TEST_RGQ){
             case 0:
@@ -395,6 +432,9 @@ public class StudyTestingPageActivity extends AppCompatActivity {
                         }
                     }
                     break;
+                case Question.TYPE_ONEANSWER:
+                    questionsParts.get(i).setTestOneAnswer("");
+                    break;
             }
 
             percentage[i]=findViewById(R.id.percentage01+i);
@@ -416,6 +456,8 @@ public class StudyTestingPageActivity extends AppCompatActivity {
                     qlist.setVisibility(GONE);
                 }
             });
+
+
         }
 
         if(timeLimit!=-99){
@@ -431,6 +473,8 @@ public class StudyTestingPageActivity extends AppCompatActivity {
 
     public void setStudyPage(){
         studyingMode= StudyingManager.MODE_STUDYING;
+
+        isSetting=true;
 
         if(position>=questionCnt){
             position=questionCnt-1;
@@ -448,6 +492,27 @@ public class StudyTestingPageActivity extends AppCompatActivity {
         t=questionsParts.get(position);
         tvQuestion.setText(t.getQuestion());
 
+        switch (t.getQuestionType()){
+            case Question.TYPE_RIGHTORWRONG:
+                type3.setVisibility(GONE);
+                type2.setVisibility(View.VISIBLE);
+                tbRorW.setChecked(t.isRightOrWrong());
+                recyclerView.setVisibility(View.VISIBLE);
+                break;
+            case Question.TYPE_ONEANSWER:
+                type2.setVisibility(GONE);
+                type3.setVisibility(View.VISIBLE);
+                recyclerView.setVisibility(View.GONE);
+                etTestOneAnswer.setText(t.getTestOneAnswer());
+                break;
+            default:
+                type3.setVisibility(GONE);
+                type2.setVisibility(GONE);
+                recyclerView.setVisibility(View.VISIBLE);
+                break;
+
+        }
+
         if(t.getQuestionType()==Question.TYPE_RIGHTORWRONG){
             type2.setVisibility(View.VISIBLE);
             tbRorW.setChecked(t.isRightOrWrong());
@@ -460,6 +525,7 @@ public class StudyTestingPageActivity extends AppCompatActivity {
 
         startTime=System.currentTimeMillis()/1000;
 
+        isSetting=false;
 
     }
 

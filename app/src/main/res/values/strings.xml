@@ -117,6 +117,9 @@
     <string name="testsetting_timelimits">Time Limits</string>
     <string name="testsetting_nolimits">\tno limits</string>
     <string name="testsetting_min">min</string>
+    <string name="testsetting_typingquestions">Typing Questions</string>
+    <string name="testsetting_includetypingquestions">\tinclude typing questions</string>
+    <string name="testsetting_notypingquestions">\tno typing questions</string>
 
     <!-- FEED -->
 

@@ -34,6 +34,7 @@ public class Question implements Comparable{
     private  boolean hasTestAnswer;
     private  boolean testCorrection;
     private  int testTimeLength;
+    private String testOneAnswer;
 
 
     //업데이트 관련 변수들
@@ -189,6 +190,14 @@ public class Question implements Comparable{
 
     public void setTestTimeLength(int testTimeLength) {
         this.testTimeLength = testTimeLength;
+    }
+
+    public String getTestOneAnswer() {
+        return testOneAnswer;
+    }
+
+    public void setTestOneAnswer(String testOneAnswer) {
+        this.testOneAnswer = testOneAnswer;
     }
 
     @Override
