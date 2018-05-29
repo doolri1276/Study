@@ -15,6 +15,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.ToggleButton;
 
+import com.bumptech.glide.Glide;
 import com.snownaul.study.G;
 import com.snownaul.study.R;
 import com.snownaul.study.study_classes.Answer;
@@ -61,13 +62,21 @@ public class StoQuestionsAdapter extends RecyclerView.Adapter {
             vh.type2.setVisibility(View.GONE);
         }
 
+        if(t.getQuestionPic()==null||t.getQuestionPic().length()==0){
+            vh.questionPic.setVisibility(View.GONE);
+        }else{
+            vh.questionPic.setVisibility(View.VISIBLE);
+            Glide.with(context).load(t.getQuestionPic()).thumbnail(0.1f).into(vh.questionPic);
+        }
+
         vh.etQuestion.setText(t.getQuestion());
 
         stoAnswersAdapter= new StoAnswersAdapter(context,t.getAnswers(),t.getQuestionType(),t.isEditMode());
         vh.recyclerView.setAdapter(stoAnswersAdapter);
 
-        if(t.getExplanation()==null||t.getExplanation().length()==0){
+        if(t.getExplanation()==null||t.getExplanation().length()==0||t.getExplanation().equals("null")){
             //vh.etExplanation.setVisibility(View.GONE);
+            vh.etExplanation.setText("");
         }else{
             //vh.etExplanation.setVisibility(View.VISIBLE);
             vh.etExplanation.setText(t.getExplanation());
@@ -117,6 +126,7 @@ public class StoQuestionsAdapter extends RecyclerView.Adapter {
         RecyclerView recyclerView;
         RelativeLayout addAnswer;
         TextView etExplanation;
+        ImageView questionPic, ivCamera,ivPhoto;
 
 
         public VH(View itemView) {
@@ -134,6 +144,9 @@ public class StoQuestionsAdapter extends RecyclerView.Adapter {
             recyclerView=itemView.findViewById(R.id.recycler);
             addAnswer=itemView.findViewById(R.id.add_answer);
             etExplanation=itemView.findViewById(R.id.et_explanation);
+            questionPic=itemView.findViewById(R.id.iv_questionpic);
+            ivCamera=itemView.findViewById(R.id.iv_camera);
+            ivPhoto=itemView.findViewById(R.id.iv_photo);
 
 //            if(G.currentStudySet.studyingMode()&&G.currentStudySet.getSgSet().getQuestions().size()>1)
 //                etQuestion.requestFocus();

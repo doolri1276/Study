@@ -66,7 +66,7 @@ public class StudyTestingPageActivity extends AppCompatActivity {
     ToggleButton tbRorW;
     TextView tvQuestionNo, tvQuestionCnt;
     EditText etTestOneAnswer;
-    Button btnTest;
+    ImageView btnTest;
     TextView tvRorW;
 
     TextView tvQuestion, tvScore, tvExplanation;
@@ -161,6 +161,7 @@ public class StudyTestingPageActivity extends AppCompatActivity {
                 submitTest();
                 dialog.dismiss();
                 dialog.cancel();
+                isSetting=false;
 
             }
         });
@@ -170,6 +171,7 @@ public class StudyTestingPageActivity extends AppCompatActivity {
             public void onClick(DialogInterface dialog, int which) {
                 dialog.dismiss();
                 dialog.cancel();
+                isSetting=false;
             }
         });
         dialog=builder.create();

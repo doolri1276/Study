@@ -165,13 +165,14 @@ public class G {
                     Question q=new Question(Integer.parseInt(questionDetailInfos[1]));
                     q.setQuestionID(Integer.parseInt(questionDetailInfos[0]));
                     q.setQuestion(questionDetailInfos[2]);
-                    q.setExplanation(questionDetailInfos[3]);
+                    q.setExplanation((questionDetailInfos[3]==null||questionDetailInfos[3].length()==0)?"":questionDetailInfos[3]);
                     q.setRightOrWrong(Boolean.parseBoolean(questionDetailInfos[4]));
+                    q.setQuestionPic(questionDetailInfos[5]);
 
-                    q.setTriedCnt(Integer.parseInt(questionDetailInfos[5]));
-                    q.setSolvedCnt(Integer.parseInt(questionDetailInfos[6]));
-                    q.setKeptCorrection(Integer.parseInt(questionDetailInfos[7]));
-                    q.setTimeLength(Integer.parseInt(questionDetailInfos[8]));
+                    q.setTriedCnt(Integer.parseInt(questionDetailInfos[6]));
+                    q.setSolvedCnt(Integer.parseInt(questionDetailInfos[7]));
+                    q.setKeptCorrection(Integer.parseInt(questionDetailInfos[8]));
+                    q.setTimeLength(Integer.parseInt(questionDetailInfos[9]));
 
                     q.getAnswers().clear();
                     for(int j=1;j<answerInfos.length;j++){

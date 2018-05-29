@@ -403,7 +403,7 @@ public class UpdateSetActivity extends AppCompatActivity {
             }
         });
 
-        multiPartRequest.addStringParam("userID",G.getUserId()+"");
+        multiPartRequest.addStringParam("userID",G.currentStudySet.getUserID()+"");
         multiPartRequest.addStringParam("sgSetID",G.currentStudySet.getSgSetID()+"");
         multiPartRequest.addStringParam("studySetID",G.currentStudySet.getStudySetId()+"");
         multiPartRequest.addStringParam("title",title);

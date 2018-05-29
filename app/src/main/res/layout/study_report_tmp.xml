@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="match_parent"
+    android:paddingTop="@dimen/normal_padding"
+    android:orientation="vertical"
+    >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingRight="@dimen/normal_padding"
+        android:paddingLeft="@dimen/normal_padding"
+        android:paddingBottom="@dimen/normal_padding">
+
+        <TextView
+            android:id="@+id/tv_no"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/txt_text"
+            android:text="1"
+            android:textColor="@color/colorDeepGray"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/txt_text"
+            android:text="."
+            android:textColor="@color/colorDeepGray"
+            android:layout_marginRight="@dimen/normal_padding"/>
+
+        <TextView
+            android:id="@+id/tv_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="2018-28-34 23:43:24"
+            android:textColor="@color/colorDeepGray"
+            android:textSize="@dimen/txt_text"
+            android:layout_weight="1"
+            android:textStyle="bold"
+            />
+
+        <TextView
+            android:id="@+id/tv_grade"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="A+"
+            android:textColor="@color/colorPink"
+            android:textStyle="bold"
+            android:textSize="@dimen/txt_text"
+            android:layout_marginRight="@dimen/normal_padding"/>
+
+        <TextView
+            android:id="@+id/tv_score"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="34"
+            android:textColor="@color/colorDeeperSkyBlue"
+            android:textStyle="bold"
+            android:textSize="@dimen/txt_text"
+            android:layout_marginRight="@dimen/big_padding"/>
+
+    </LinearLayout>
+
+
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/colorLightGray"/>
+</LinearLayout>

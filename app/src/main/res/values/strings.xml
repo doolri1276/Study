@@ -124,6 +124,8 @@
     <string name="test_myanswer">My Answer</string>
     <string name="test_properanswer">Proper Answer</string>
 
+    <string name="report_testscores">Test Scores</string>
+
     <!-- FEED -->
 
     <string name="addfeed_hint">What\'s on your mind?</string>

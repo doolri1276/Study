@@ -108,6 +108,7 @@ public class LoginActivity extends AppCompatActivity {
                 Log.i("Kakao","UserProfile : "+result);
                 Log.i("Kakao",result.getId()+",,,,,"+result.toString());
 
+
                 String serverUrl="http://snownaul2.dothome.co.kr/StudyGuide/User/loginUser.php";
                 String sns="Kakao";
                 int snsID= (int) result.getId();
@@ -191,6 +192,7 @@ public class LoginActivity extends AppCompatActivity {
         public void onSessionOpened() {
             //가입한적 있는지 확인
 
+            Log.i("MyTag","session opened");
             //Toast.makeText(LoginActivity.this, "카카오 세션 오픈!!", Toast.LENGTH_SHORT).show();
             //첫 로그인이면 FirstSettingAc로 가고
 

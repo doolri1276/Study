@@ -4,39 +4,45 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.error.VolleyError;
+import com.android.volley.request.SimpleMultiPartRequest;
+import com.android.volley.toolbox.Volley;
 import com.github.bluzwong.swipeback.SwipeBackActivityHelper;
 import com.snownaul.study.G;
 import com.snownaul.study.R;
-import com.snownaul.study.adapters.StoQuestionsAdapter;
+import com.snownaul.study.adapters.StudyReportTestsAdapter;
+import com.snownaul.study.report_classes.Test;
+
+import java.util.ArrayList;
 
 import uk.co.imallan.jellyrefresh.JellyRefreshLayout;
 import uk.co.imallan.jellyrefresh.PullToRefreshLayout;
 
-import static android.view.View.GONE;
+public class StudyReportActivity extends AppCompatActivity {
 
-public class StudyStorageActivity extends AppCompatActivity {
-
+    Toolbar toolbar;
     SwipeBackActivityHelper helper=new SwipeBackActivityHelper();
     JellyRefreshLayout jelly;
 
     RecyclerView recyclerView;
-    StoQuestionsAdapter stoQuestionsAdapter;
 
-    TextView tvTitle, tvInfo;
-
+    ArrayList<Test> tests;
+    StudyReportTestsAdapter studyReportTestsAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_study_storage);
+        setContentView(R.layout.activity_study_report);
 
         jelly=findViewById(R.id.jelly);
         jelly.setPullToRefreshListener(new PullToRefreshLayout.PullToRefreshListener() {
@@ -46,8 +52,8 @@ public class StudyStorageActivity extends AppCompatActivity {
                     @Override
                     public void run() {
                         Log.i("MyTag","1 REFRESH!!!!!!!!");
-                        G.loadCurrentSet(StudyStorageActivity.this);
-                        setView();
+
+                        loadTestResults();
                         jelly.setRefreshing(false);
                     }
                 },2000);
@@ -57,41 +63,22 @@ public class StudyStorageActivity extends AppCompatActivity {
         View loadingView= LayoutInflater.from(this).inflate(R.layout.jelly_loading,null);
         jelly.setLoadingView(loadingView);
 
+        toolbar=findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
 
         helper.setEdgeMode(true).setParallaxMode(true).setParallaxRatio(3).setNeedBackgroundShadow(true).init(this);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setTitle("");
+        getSupportActionBar().setTitle(getString(R.string.report_testscores));
 
         recyclerView=findViewById(R.id.recycler);
-        stoQuestionsAdapter=new StoQuestionsAdapter(this);
-        recyclerView.setAdapter(stoQuestionsAdapter);
 
-        tvTitle =findViewById(R.id.tv_title);
-        tvInfo=findViewById(R.id.tv_info);
+        tests=new ArrayList<>();
 
-        setView();
+        loadTestResults();
+        studyReportTestsAdapter=new StudyReportTestsAdapter(this,tests);
+        recyclerView.setAdapter(studyReportTestsAdapter);
 
-
-    }
-
-    public void setView(){
-        tvTitle.setText(G.currentStudySet.getSgSet().getTitle());
-        tvInfo.setText(G.currentStudySet.getSgSet().getInfo());
-        if(tvInfo.getText().length()==0) tvInfo.setVisibility(GONE);
-        else tvInfo.setVisibility(View.VISIBLE);
-         stoQuestionsAdapter.notifyDataSetChanged();
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        setView();
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.studystorage_menu,menu);
-        return super.onCreateOptionsMenu(menu);
     }
 
     @Override
@@ -103,25 +90,6 @@ public class StudyStorageActivity extends AppCompatActivity {
                 helper.finish();
                 return true;
 
-            case R.id.edit:
-
-                if(G.getUserId()==2||G.getUserId()==3){
-                    //관리자기 때문에 그냥 넘어감 ㅋ
-
-                }else if(G.currentStudySet.getUserID()!=G.getUserId()){
-                    Toast.makeText(this, "수정할 권한이 없습니다.", Toast.LENGTH_SHORT).show();
-                    return true;
-                }
-
-                Intent intent=new Intent(StudyStorageActivity.this,UpdateSetActivity.class);
-                intent.putExtra("mode","update");
-                View currentFocus = getCurrentFocus();
-                if (currentFocus != null) {
-                    currentFocus.clearFocus();
-                }
-                startActivity(intent);
-
-                return true;
             case R.id.action_refresh:
                 jelly.post(new Runnable() {
                     @Override
@@ -141,8 +109,6 @@ public class StudyStorageActivity extends AppCompatActivity {
 
         }
 
-
-
         return super.onOptionsItemSelected(item);
     }
 
@@ -151,5 +117,40 @@ public class StudyStorageActivity extends AppCompatActivity {
         helper.finish();
     }
 
+    public void loadTestResults(){
+        String serverUrl="http://snownaul2.dothome.co.kr/StudyGuide/Report/loadAllTests.php";
 
+        SimpleMultiPartRequest multiPartRequest=new SimpleMultiPartRequest(Request.Method.POST, serverUrl, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+
+                Log.i("MyTag","loadAllTests : "+response);
+                tests.clear();
+                if(response==null||response.length()==0) return;
+                String[] testsList=response.split("&T&");
+
+                for(int i=0;i<testsList.length;i++){
+                    String[] tt=testsList[i].split("&");
+
+                    if(tt[0]==null||tt[0].length()==0) return;
+                    tests.add(new Test(Integer.parseInt(tt[0]),Integer.parseInt(tt[1]),Integer.parseInt(tt[2]),Integer.parseInt(tt[3]),Integer.parseInt(tt[4]),G.convertUTCToLocalTime(tt[5])));
+
+                }
+
+                studyReportTestsAdapter.notifyDataSetChanged();
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.e("MyTag","loadAllTests : "+error);
+            }
+        });
+
+        multiPartRequest.addStringParam("studySetID",G.currentStudySet.getStudySetId()+"");
+
+        RequestQueue requestQueue= Volley.newRequestQueue(this);
+
+        requestQueue.add(multiPartRequest);
+    }
 }

@@ -18,6 +18,7 @@ public class Question implements Comparable{
     private boolean rightOrWrong;
     private boolean isEditMode;
     private boolean isLiked;
+    private String questionPic;
 
     private int triedCnt;
     private int solvedCnt;
@@ -198,6 +199,14 @@ public class Question implements Comparable{
 
     public void setTestOneAnswer(String testOneAnswer) {
         this.testOneAnswer = testOneAnswer;
+    }
+
+    public String getQuestionPic() {
+        return questionPic;
+    }
+
+    public void setQuestionPic(String questionPic) {
+        this.questionPic = questionPic;
     }
 
     @Override
