@@ -105,6 +105,8 @@
     <string name="test_properanswer">모범 답안</string>
 
     <string name="report_testscores">시험 결과</string>
+    <string name="storage_youcannoteditthis">수정할 권한이 없습니다.</string>
+
 
 
 

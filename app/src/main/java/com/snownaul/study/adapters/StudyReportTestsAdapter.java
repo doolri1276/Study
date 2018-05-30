@@ -2,10 +2,12 @@ package com.snownaul.study.adapters;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.snownaul.study.R;
 import com.snownaul.study.report_classes.Test;
@@ -44,6 +46,8 @@ public class StudyReportTestsAdapter extends RecyclerView.Adapter {
         vh.tvGrade.setText(t.getGrade());
         vh.tvScore.setText(t.getScore()+"");
 
+        Log.i("MyTag","그렸다 : "+position);
+
 
     }
 
@@ -63,6 +67,15 @@ public class StudyReportTestsAdapter extends RecyclerView.Adapter {
             tvDate=itemView.findViewById(R.id.tv_date);
             tvGrade=itemView.findViewById(R.id.tv_grade);
             tvScore=itemView.findViewById(R.id.tv_score);
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Toast.makeText(context, getLayoutPosition()+"번째 눌림", Toast.LENGTH_SHORT).show();
+
+
+                }
+            });
         }
     }
 }

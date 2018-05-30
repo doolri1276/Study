@@ -16,6 +16,7 @@ import android.widget.TextView;
 import android.widget.ToggleButton;
 
 import com.bumptech.glide.Glide;
+import com.snownaul.study.Activities.StudyStorageActivity;
 import com.snownaul.study.G;
 import com.snownaul.study.R;
 import com.snownaul.study.study_classes.Answer;
@@ -30,6 +31,7 @@ import java.util.ArrayList;
 public class StoQuestionsAdapter extends RecyclerView.Adapter {
 
     Context context;
+    StudyStorageActivity studyStorageActivity;
 
     ArrayList<Question> currentQuestions=G.currentStudySet.getSgSet().getQuestions();
 
@@ -37,6 +39,7 @@ public class StoQuestionsAdapter extends RecyclerView.Adapter {
 
     public StoQuestionsAdapter(Context context) {
         this.context = context;
+        this.studyStorageActivity= (StudyStorageActivity) context;
     }
 
     @Override
@@ -150,6 +153,20 @@ public class StoQuestionsAdapter extends RecyclerView.Adapter {
 
 //            if(G.currentStudySet.studyingMode()&&G.currentStudySet.getSgSet().getQuestions().size()>1)
 //                etQuestion.requestFocus();
+
+            ivCamera.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    studyStorageActivity.clickCamera(getLayoutPosition());
+                }
+            });
+
+            ivPhoto.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    studyStorageActivity.clickPhoto(getLayoutPosition());
+                }
+            });
 
             btnEdit.setOnClickListener(new View.OnClickListener() {//EditMode로 전환...
                 @Override

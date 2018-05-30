@@ -24,6 +24,7 @@ import com.snownaul.study.adapters.StudyReportTestsAdapter;
 import com.snownaul.study.report_classes.Test;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import uk.co.imallan.jellyrefresh.JellyRefreshLayout;
 import uk.co.imallan.jellyrefresh.PullToRefreshLayout;
@@ -131,10 +132,11 @@ public class StudyReportActivity extends AppCompatActivity {
 
                 for(int i=0;i<testsList.length;i++){
                     String[] tt=testsList[i].split("&");
+                    Log.i("MyTag","REPORT : "+ Arrays.toString(tt));
 
                     if(tt[0]==null||tt[0].length()==0) return;
                     tests.add(new Test(Integer.parseInt(tt[0]),Integer.parseInt(tt[1]),Integer.parseInt(tt[2]),Integer.parseInt(tt[3]),Integer.parseInt(tt[4]),G.convertUTCToLocalTime(tt[5])));
-
+                    Log.i("MyTag","REPORT : 추가했다. "+tests.size());
                 }
 
                 studyReportTestsAdapter.notifyDataSetChanged();

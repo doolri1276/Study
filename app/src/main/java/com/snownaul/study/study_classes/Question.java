@@ -25,6 +25,8 @@ public class Question implements Comparable{
     private int keptCorrection;
     private int timeLength;
 
+    private String questionUri;
+
     public static final int TYPE_BASIC=0;
     public static final int TYPE_RIGHTORWRONG=1;
     public static final int TYPE_ONEANSWER=2;
@@ -207,6 +209,14 @@ public class Question implements Comparable{
 
     public void setQuestionPic(String questionPic) {
         this.questionPic = questionPic;
+    }
+
+    public String getQuestionUri() {
+        return questionUri;
+    }
+
+    public void setQuestionUri(String questionUri) {
+        this.questionUri = questionUri;
     }
 
     @Override

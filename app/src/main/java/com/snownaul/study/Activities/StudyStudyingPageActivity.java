@@ -10,6 +10,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CompoundButton;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -53,6 +54,7 @@ public class StudyStudyingPageActivity extends AppCompatActivity {
     RecyclerView recyclerView;
     StudyAnswersAdapter studyAnswersAdapter;
     ToggleButton tbIgr,tbIgw;
+    ImageView ivQuestionPic;
 
     long startTime;
     long endTime;
@@ -97,6 +99,7 @@ public class StudyStudyingPageActivity extends AppCompatActivity {
         tvExplanation=findViewById(R.id.tv_explanation);
         tbIgr=findViewById(R.id.tb_igr);
         tbIgw=findViewById(R.id.tb_igw);
+        ivQuestionPic=findViewById(R.id.iv_questionpic);
 
         tbIgr.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -228,6 +231,12 @@ public class StudyStudyingPageActivity extends AppCompatActivity {
 
         }
 
+        if(t.getQuestionPic()==null||t.getQuestionPic().length()==0){
+            ivQuestionPic.setVisibility(View.GONE);
+        }else{
+            ivQuestionPic.setVisibility(View.VISIBLE);
+            Glide.with(this).load(t.getQuestionPic()).thumbnail(0.1f).into(ivQuestionPic);
+        }
 
         studyAnswersAdapter= new StudyAnswersAdapter(this,t.getAnswers(),t.getQuestionType(),studyingMode);
         recyclerView.setAdapter(studyAnswersAdapter);
@@ -240,8 +249,7 @@ public class StudyStudyingPageActivity extends AppCompatActivity {
             studyingMode=StudyingManager.MODE_ONEANSWER_CHECK;
             t.setTestCorrection(false);
             isSetting=false;
-        }
-        else recyclerView.setVisibility(View.VISIBLE);
+        }else recyclerView.setVisibility(View.VISIBLE);
         startTime=System.currentTimeMillis()/1000;
 
     }

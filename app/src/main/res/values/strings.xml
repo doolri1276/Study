@@ -125,6 +125,7 @@
     <string name="test_properanswer">Proper Answer</string>
 
     <string name="report_testscores">Test Scores</string>
+    <string name="storage_youcannoteditthis">You cannot edit this.</string>
 
     <!-- FEED -->
 
