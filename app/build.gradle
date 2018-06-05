@@ -55,6 +55,8 @@ dependencies {
     compile 'com.google.gms:google-services:3.3.1'
     //AndroidSweetSheet
     compile 'com.github.zzz40500:AndroidSweetSheet:1.1.0'
+    //HelloChart
+    compile 'com.github.lecho:hellocharts-library:1.5.8@aar'
 
 }
 

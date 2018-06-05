@@ -25,7 +25,15 @@ import com.snownaul.study.report_classes.Test;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
+import lecho.lib.hellocharts.gesture.ContainerScrollType;
+import lecho.lib.hellocharts.model.Axis;
+import lecho.lib.hellocharts.model.Line;
+import lecho.lib.hellocharts.model.LineChartData;
+import lecho.lib.hellocharts.model.PointValue;
+import lecho.lib.hellocharts.model.ValueShape;
+import lecho.lib.hellocharts.view.LineChartView;
 import uk.co.imallan.jellyrefresh.JellyRefreshLayout;
 import uk.co.imallan.jellyrefresh.PullToRefreshLayout;
 
@@ -39,6 +47,22 @@ public class StudyReportActivity extends AppCompatActivity {
 
     ArrayList<Test> tests;
     StudyReportTestsAdapter studyReportTestsAdapter;
+
+    //차트 관련 것들
+    private LineChartView lcTest;
+    private int numberOfPoints=12;
+
+    private boolean hasAxes = true;
+    private boolean hasAxesNames = true;
+    private boolean hasLines = true;
+    private boolean hasPoints = true;
+    private ValueShape shape = ValueShape.CIRCLE;
+    private boolean isFilled = false;
+    private boolean hasLabels = false;
+    private boolean isCubic = false;
+    private boolean hasLabelForSelected = false;
+    private boolean pointsHaveDifferentColor;
+    private boolean hasGradientToTransparent = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,6 +97,7 @@ public class StudyReportActivity extends AppCompatActivity {
         getSupportActionBar().setTitle(getString(R.string.report_testscores));
 
         recyclerView=findViewById(R.id.recycler);
+        lcTest=findViewById(R.id.lc_test);
 
         tests=new ArrayList<>();
 
@@ -141,6 +166,8 @@ public class StudyReportActivity extends AppCompatActivity {
 
                 studyReportTestsAdapter.notifyDataSetChanged();
 
+                generateLC1Data();
+
             }
         }, new Response.ErrorListener() {
             @Override
@@ -154,5 +181,52 @@ public class StudyReportActivity extends AppCompatActivity {
         RequestQueue requestQueue= Volley.newRequestQueue(this);
 
         requestQueue.add(multiPartRequest);
+    }
+
+    private void generateLC1Data(){
+        List<PointValue> values=new ArrayList<>();
+        for(int i=0;i<tests.size();i++){
+            values.add(new PointValue(i,tests.get(i).getScore()));
+
+        }
+
+        Line line=new Line(values).setColor(getResources().getColor(R.color.colorDeepSkyBlue)).setCubic(isCubic);
+        line.setShape(ValueShape.DIAMOND);
+        line.setHasLabels(hasLabels);
+        line.setHasLabelsOnlyForSelected(hasLabelForSelected);
+        line.setHasLines(hasLines);
+        line.setHasPoints(hasPoints);
+
+
+        List<Line> lines=new ArrayList<>();
+        lines.add(line);
+        LineChartData data=new LineChartData();
+
+        if(hasAxes){
+            Axis axisX=new Axis();
+            Axis axisY=new Axis().setHasLines(true);
+
+
+
+            if(hasAxesNames){
+                axisX.setName("횟수");
+                axisY.setName("점수");
+            }
+
+            data.setAxisXBottom(axisX);
+            data.setAxisYLeft(axisY);
+        }else{
+            data.setAxisXBottom(null);
+            data.setAxisYLeft(null);
+        }
+
+
+        data.setLines(lines);
+
+
+        lcTest.setLineChartData(data);
+        lcTest.setContainerScrollEnabled(true, ContainerScrollType.HORIZONTAL);
+
+
     }
 }

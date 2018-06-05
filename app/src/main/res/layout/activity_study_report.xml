@@ -42,6 +42,13 @@
                 android:orientation="vertical"
                 >
 
+                <lecho.lib.hellocharts.view.LineChartView
+                    android:id="@+id/lc_test"
+                    android:layout_width="match_parent"
+                    android:layout_height="150dp"
+                    android:layout_marginTop="@dimen/normal_padding"
+                    android:layout_marginBottom="@dimen/normal_padding"/>
+
                 <android.support.v7.widget.RecyclerView
                     android:id="@+id/recycler"
                     android:layout_width="match_parent"
