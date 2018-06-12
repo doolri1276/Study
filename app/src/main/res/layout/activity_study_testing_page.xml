@@ -384,11 +384,21 @@
                         android:layout_height="wrap_content"
                         android:background="@color/colorBase"
                         android:enabled="false"
-                        android:paddingBottom="@dimen/normal_padding"
+                        android:paddingBottom="@dimen/small_padding"
                         android:text="Which of the following best explains about this term broid roina?"
                         android:textColor="@color/colorDeepGray"
                         android:textSize="@dimen/txt_text"
                         android:textStyle="bold" />
+
+                    <ImageView
+                        android:id="@+id/iv_questionpic"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:adjustViewBounds="true" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/small_padding" />
 
                     <android.support.v7.widget.RecyclerView
                         android:id="@+id/recycler"

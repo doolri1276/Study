@@ -25,6 +25,7 @@ import com.android.volley.Response;
 import com.android.volley.error.VolleyError;
 import com.android.volley.request.SimpleMultiPartRequest;
 import com.android.volley.toolbox.Volley;
+import com.bumptech.glide.Glide;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 import com.snownaul.study.G;
@@ -68,6 +69,7 @@ public class StudyTestingPageActivity extends AppCompatActivity {
     EditText etTestOneAnswer;
     ImageView btnTest;
     TextView tvRorW;
+    ImageView ivQuestionPic;
 
     TextView tvQuestion, tvScore, tvExplanation;
     RecyclerView recyclerView;
@@ -123,6 +125,7 @@ public class StudyTestingPageActivity extends AppCompatActivity {
         tvRorW=findViewById(R.id.tv_rorw);
         tvScore=findViewById(R.id.tv_score);
         tvExplanation=findViewById(R.id.tv_explanation);
+        ivQuestionPic = findViewById(R.id.iv_questionpic);
 
 
         prepareTesting();
@@ -553,6 +556,13 @@ public class StudyTestingPageActivity extends AppCompatActivity {
             type2.setVisibility(View.GONE);
         }
 
+        if (t.getQuestionPic() == null || t.getQuestionPic().length() == 0) {
+            ivQuestionPic.setVisibility(View.GONE);
+        } else {
+            ivQuestionPic.setVisibility(View.VISIBLE);
+            Glide.with(this).load(t.getQuestionPic()).thumbnail(0.1f).into(ivQuestionPic);
+        }
+
         testAnswersAdapter= new TestAnswersAdapter(this,t,t.getQuestionType(),studyingMode);
         recyclerView.setAdapter(testAnswersAdapter);
 
@@ -595,6 +605,13 @@ public class StudyTestingPageActivity extends AppCompatActivity {
             tbRorW.setChecked(t.isRightOrWrong());
         }else{
             type2.setVisibility(View.GONE);
+        }
+
+        if (t.getQuestionPic() == null || t.getQuestionPic().length() == 0) {
+            ivQuestionPic.setVisibility(View.GONE);
+        } else {
+            ivQuestionPic.setVisibility(View.VISIBLE);
+            Glide.with(this).load(t.getQuestionPic()).thumbnail(0.1f).into(ivQuestionPic);
         }
 
         testAnswersAdapter= new TestAnswersAdapter(this,t,t.getQuestionType(),studyingMode);
