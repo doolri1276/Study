@@ -379,6 +379,7 @@ public class StudyTestingPageActivity extends AppCompatActivity {
         switch (G.TEST_RGQ){
             case 0:
                 questionCnt=G.currentStudySet.getSgSet().getQuestions().size();
+
                 break;
             case 1:
                 int num=G.TEST_RGQ_DEFAULT;
