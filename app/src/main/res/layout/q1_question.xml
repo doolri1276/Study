@@ -48,6 +48,26 @@
                 android:textSize="@dimen/txt_stext"
                 android:text="@string/q_type_1"
                 android:textColor="@color/colorBlueGray"/>
+
+            <!--<ImageView-->
+                <!--android:id="@+id/iv_camera"-->
+                <!--android:layout_width="@dimen/normal_padding"-->
+                <!--android:layout_height="@dimen/normal_padding"-->
+                <!--android:src="@drawable/ic_camera"-->
+                <!--android:tint="@color/colorBlueGray"-->
+                <!--android:layout_gravity="bottom"-->
+                <!--android:layout_marginLeft="@dimen/big_padding"-->
+                <!---->
+                <!--/>-->
+            <!--<ImageView-->
+                <!--android:id="@+id/iv_photo"-->
+                <!--android:layout_width="@dimen/normal_padding"-->
+                <!--android:layout_height="@dimen/normal_padding"-->
+                <!--android:src="@drawable/ic_photo"-->
+                <!--android:tint="@color/colorBlueGray"-->
+                <!--android:layout_gravity="bottom"-->
+                <!--android:layout_marginLeft="@dimen/big_padding"-->
+                <!--/>-->
         </LinearLayout>
 
         <View
@@ -89,6 +109,11 @@
                 android:textSize="@dimen/txt_text"/>
         </LinearLayout>
 
+        <!--<ImageView-->
+            <!--android:id="@+id/iv_questionpic"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:adjustViewBounds="true"/>-->
         <EditText
             android:id="@+id/et_question"
             android:layout_width="match_parent"

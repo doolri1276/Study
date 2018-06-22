@@ -189,7 +189,7 @@
                     android:layout_height="?attr/actionBarSize"
                     android:layout_centerInParent="true"
                     ads:adSize="BANNER"
-                    ads:adUnitId="ca-app-pub-3336869729691375/6378815171"
+                    ads:adUnitId="ca-app-pub-3336869729691375/2430334445"
                     >
 
                 </com.google.android.gms.ads.AdView>

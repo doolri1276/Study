@@ -1,7 +1,9 @@
 package com.snownaul.study.adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.media.Image;
+import android.provider.MediaStore;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.InputFilter;
@@ -19,6 +21,8 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.ToggleButton;
 
+import com.bumptech.glide.Glide;
+import com.snownaul.study.Activities.AddSetActivity;
 import com.snownaul.study.G;
 import com.snownaul.study.R;
 import com.snownaul.study.controls.AmpersandInputFilter;
@@ -32,11 +36,13 @@ import com.snownaul.study.study_classes.Question;
 public class NewQuestionsAdapter extends RecyclerView.Adapter {
 
     Context context;
+    AddSetActivity addSetActivity;
 
     NewAnswersAdapter newAnswersAdapter;
 
     public NewQuestionsAdapter(Context context) {
         this.context = context;
+        addSetActivity=(AddSetActivity)context;
     }
 
     @Override
@@ -65,6 +71,12 @@ public class NewQuestionsAdapter extends RecyclerView.Adapter {
         }else {
             vh.type2.setVisibility(View.GONE);
         }
+
+//        if(G.getUserId()==2||G.getUserId()==3){
+//            if(t.getImgPath()!=null&&t.getImgPath().length()>0){
+//                Glide.with(context).load(t.getImgPath()).thumbnail(0.1f).into(vh.ivQuestionPic);
+//            }
+//        }
 
 
         vh.tvQuestionNo.setText(position+1+"");
@@ -97,6 +109,8 @@ public class NewQuestionsAdapter extends RecyclerView.Adapter {
         RelativeLayout addAnswer;
         EditText etExplanation;
 
+        //ImageView ivCamera,ivPhoto,ivQuestionPic;
+
 
         public VH(View itemView) {
             super(itemView);
@@ -110,6 +124,35 @@ public class NewQuestionsAdapter extends RecyclerView.Adapter {
             recyclerView=itemView.findViewById(R.id.recycler);
             addAnswer=itemView.findViewById(R.id.add_answer);
             etExplanation=itemView.findViewById(R.id.et_explanation);
+
+//            ivCamera=itemView.findViewById(R.id.iv_camera);
+//            ivPhoto=itemView.findViewById(R.id.iv_photo);
+//            ivQuestionPic=itemView.findViewById(R.id.iv_questionpic);
+//
+//            if(G.getUserId()==2||G.getUserId()==3){
+//                ivCamera.setVisibility(View.VISIBLE);
+//                ivPhoto.setVisibility(View.VISIBLE);
+//                ivQuestionPic.setVisibility(View.VISIBLE);
+//
+//                ivCamera.setOnClickListener(new View.OnClickListener() {
+//                    @Override
+//                    public void onClick(View v) {
+//                        addSetActivity.clickCamera(getLayoutPosition());
+//                    }
+//                });
+//
+//                ivPhoto.setOnClickListener(new View.OnClickListener() {
+//                    @Override
+//                    public void onClick(View v) {
+//                        addSetActivity.clickPhoto(getLayoutPosition());
+//                    }
+//                });
+//
+//            }else{
+//                ivCamera.setVisibility(View.GONE);
+//                ivPhoto.setVisibility(View.GONE);
+//                ivQuestionPic.setVisibility(View.GONE);
+//            }
 
             etQuestion.setFilters(new InputFilter[]{new AmpersandInputFilter()});
             etExplanation.setFilters(new InputFilter[]{new AmpersandInputFilter()});

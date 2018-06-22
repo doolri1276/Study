@@ -53,7 +53,7 @@ public class AddFeedActivity extends AppCompatActivity {
 
     String imgPath;
 
-    static final int REQUEST_IMAGE_CAPTURE=1;
+
 
     static final int EXTERNAL_STORAGE_PERMISSION=100;
     static final int CAMERA_PERMISSION=110;
@@ -153,7 +153,7 @@ public class AddFeedActivity extends AppCompatActivity {
 
                     if(uri!=null){
                         Log.i("MyTag","사진 업로드 uri로 나왔습니다. : "+uri.toString());
-                        Toast.makeText(this, uri.toString(),Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(this, uri.toString(),Toast.LENGTH_SHORT).show();
 
                         Glide.with(this).load(uri).into(iv);
                         imgPath=getRealPathFromUri(uri);
@@ -186,7 +186,7 @@ public class AddFeedActivity extends AppCompatActivity {
                     Uri uri=data.getData();
 
                     if(uri!=null){
-                        Toast.makeText(this, uri.toString(),Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(this, uri.toString(),Toast.LENGTH_SHORT).show();
                         Glide.with(this).load(uri).into(iv);
                         imgPath=getRealPathFromUri(uri);
                     }

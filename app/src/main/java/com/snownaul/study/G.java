@@ -46,6 +46,7 @@ public class G {
     public static int TEST_RGQ_DEFAULT;
     public static int TEST_RGT;
     public static int TEST_RGT_DEFAULT;
+    public static int TEST_TYPING;
 
     public static SharedPreferences PREF;
 
@@ -83,6 +84,7 @@ public class G {
         TEST_RGQ_DEFAULT=pref.getInt("testRgqDefault",25);
         TEST_RGT=pref.getInt("testRgt",0);
         TEST_RGT_DEFAULT=pref.getInt("testRgtDefault",25);
+        TEST_TYPING=pref.getInt("testTyping",0);
 
         feeds=new ArrayList<>();
 
@@ -163,13 +165,14 @@ public class G {
                     Question q=new Question(Integer.parseInt(questionDetailInfos[1]));
                     q.setQuestionID(Integer.parseInt(questionDetailInfos[0]));
                     q.setQuestion(questionDetailInfos[2]);
-                    q.setExplanation(questionDetailInfos[3]);
+                    q.setExplanation((questionDetailInfos[3]==null||questionDetailInfos[3].length()==0)?"":questionDetailInfos[3]);
                     q.setRightOrWrong(Boolean.parseBoolean(questionDetailInfos[4]));
+                    q.setQuestionPic(questionDetailInfos[5]);
 
-                    q.setTriedCnt(Integer.parseInt(questionDetailInfos[5]));
-                    q.setSolvedCnt(Integer.parseInt(questionDetailInfos[6]));
-                    q.setKeptCorrection(Integer.parseInt(questionDetailInfos[7]));
-                    q.setTimeLength(Integer.parseInt(questionDetailInfos[8]));
+                    q.setTriedCnt(Integer.parseInt(questionDetailInfos[6]));
+                    q.setSolvedCnt(Integer.parseInt(questionDetailInfos[7]));
+                    q.setKeptCorrection(Integer.parseInt(questionDetailInfos[8]));
+                    q.setTimeLength(Integer.parseInt(questionDetailInfos[9]));
 
                     q.getAnswers().clear();
                     for(int j=1;j<answerInfos.length;j++){
@@ -308,6 +311,20 @@ public class G {
 
         editor.putInt("testRgtDefault",TEST_RGT_DEFAULT);
         editor.commit();
+    }
+
+    public static void setTestTyping(int testTyping) {
+        TEST_TYPING = testTyping;
+
+        SharedPreferences.Editor editor=PREF.edit();
+
+        editor.putInt("testTyping",TEST_TYPING);
+        editor.commit();
+
+    }
+
+    public static int getTestTyping() {
+        return TEST_TYPING;
     }
 
     public static int getUserId() {

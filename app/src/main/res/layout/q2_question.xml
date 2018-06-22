@@ -55,6 +55,25 @@
                 android:text="@string/q_type_2"
                 android:layout_gravity="bottom"
                 android:textColor="@color/colorBlueGray"/>
+
+            <ImageView
+            android:id="@+id/iv_camera"
+            android:layout_width="@dimen/normal_padding"
+            android:layout_height="@dimen/normal_padding"
+            android:src="@drawable/ic_camera"
+            android:tint="@color/colorGray"
+            android:layout_gravity="bottom"
+            android:layout_marginLeft="@dimen/big_padding"
+            />
+            <ImageView
+            android:id="@+id/iv_photo"
+            android:layout_width="@dimen/normal_padding"
+            android:layout_height="@dimen/normal_padding"
+            android:src="@drawable/ic_photo"
+            android:tint="@color/colorGray"
+            android:layout_gravity="bottom"
+            android:layout_marginLeft="@dimen/big_padding"
+            />
         </LinearLayout>
 
         <View
@@ -106,6 +125,14 @@
 
             android:textColor="@color/colorDeepGray"
             android:hint="@string/q_basic_quesitonhint"/>
+
+        <ImageView
+            android:id="@+id/iv_questionpic"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:adjustViewBounds="true"
+            android:layout_marginBottom="@dimen/small_padding"
+            />
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/recycler"

@@ -38,8 +38,8 @@ public class StudyTestActivity extends AppCompatActivity {
 
     RelativeLayout dialog;
 
-    RadioButton rgQ01,rgQ02,rgT01,rgT02;
-    RadioGroup rgQ,rgT;
+    RadioButton rgQ01,rgQ02,rgT01,rgT02,rgType01,rgType02;
+    RadioGroup rgQ,rgT,rgType;
     EditText etQ02,etT02;
 
     TextView tvQuestionCnt,tvTimeLimits;
@@ -73,6 +73,11 @@ public class StudyTestActivity extends AppCompatActivity {
         rgQ01=findViewById(R.id.rg_q01);
         rgQ02=findViewById(R.id.rg_q02);
         etQ02=findViewById(R.id.et_q02);
+
+        rgType=findViewById(R.id.rg_type);
+        rgType01=findViewById(R.id.rg_type01);
+        rgType02=findViewById(R.id.rg_type02);
+
         rgQ.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
@@ -91,6 +96,25 @@ public class StudyTestActivity extends AppCompatActivity {
                         etQ02.setEnabled(true);
                         etQ02.setTextColor(getResources().getColor(R.color.colorDeeperSkyBlue));
                         G.setTestRgq(1);
+                        break;
+                }
+            }
+        });
+
+        rgType.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+
+                switch (checkedId){
+                    case R.id.rg_type01://주관식 있음
+                        rgType01.setTextColor(getResources().getColor(R.color.colorDeeperSkyBlue));
+                        rgType02.setTextColor(getResources().getColor(R.color.colorLightSkyBlue));
+                        G.setTestTyping(0);
+                        break;
+                    case R.id.rg_type02://주관식 없음
+                        rgType02.setTextColor(getResources().getColor(R.color.colorDeeperSkyBlue));
+                        rgType01.setTextColor(getResources().getColor(R.color.colorLightSkyBlue));
+                        G.setTestTyping(1);
                         break;
                 }
             }
@@ -218,6 +242,8 @@ public class StudyTestActivity extends AppCompatActivity {
 
                 break;
         }
+
+
 
 
     }

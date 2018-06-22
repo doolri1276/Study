@@ -18,11 +18,14 @@ public class Question implements Comparable{
     private boolean rightOrWrong;
     private boolean isEditMode;
     private boolean isLiked;
+    private String questionPic;
 
     private int triedCnt;
     private int solvedCnt;
     private int keptCorrection;
     private int timeLength;
+
+    private String questionUri;
 
     public static final int TYPE_BASIC=0;
     public static final int TYPE_RIGHTORWRONG=1;
@@ -34,6 +37,7 @@ public class Question implements Comparable{
     private  boolean hasTestAnswer;
     private  boolean testCorrection;
     private  int testTimeLength;
+    private String testOneAnswer;
 
 
     //업데이트 관련 변수들
@@ -191,8 +195,45 @@ public class Question implements Comparable{
         this.testTimeLength = testTimeLength;
     }
 
+    public String getTestOneAnswer() {
+        return testOneAnswer;
+    }
+
+    public void setTestOneAnswer(String testOneAnswer) {
+        this.testOneAnswer = testOneAnswer;
+    }
+
+    public String getQuestionPic() {
+        return questionPic;
+    }
+
+    public void setQuestionPic(String questionPic) {
+        this.questionPic = questionPic;
+    }
+
+    public String getQuestionUri() {
+        return questionUri;
+    }
+
+    public void setQuestionUri(String questionUri) {
+        this.questionUri = questionUri;
+    }
+
     @Override
     public int compareTo(@NonNull Object o) {
         return solvedCnt-((Question)o).solvedCnt;
+    }
+
+    public boolean checkStudyCorrection(){
+        boolean correct=true;
+//        for(int i=0;i<ta.size();i++){
+//            Answer t=ta.get(i);
+//            if(t.isCorrect()!=t.isChecked()){
+//                correct=false;
+//            }
+//        }
+
+        return true;
+
     }
 }

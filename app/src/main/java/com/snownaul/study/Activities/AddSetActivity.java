@@ -1,7 +1,15 @@
 package com.snownaul.study.Activities;
 
 import android.app.AlertDialog;
+import android.content.CursorLoader;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.net.Uri;
+import android.os.Build;
+import android.os.Environment;
+import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
@@ -30,6 +38,7 @@ import com.android.volley.Response;
 import com.android.volley.error.VolleyError;
 import com.android.volley.request.SimpleMultiPartRequest;
 import com.android.volley.toolbox.Volley;
+import com.bumptech.glide.Glide;
 import com.fenjuly.mylibrary.ToggleExpandLayout;
 import com.github.bluzwong.swipeback.SwipeBackActivityHelper;
 import com.snownaul.study.G;
@@ -40,7 +49,16 @@ import com.snownaul.study.study_classes.Answer;
 import com.snownaul.study.study_classes.Question;
 import com.snownaul.study.study_classes.SgSet;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+
+import static com.snownaul.study.Activities.AddFeedActivity.CAMERA_PERMISSION;
+import static com.snownaul.study.Activities.AddFeedActivity.EXTERNAL_STORAGE_PERMISSION;
 
 public class AddSetActivity extends AppCompatActivity {
 
@@ -66,6 +84,13 @@ public class AddSetActivity extends AppCompatActivity {
     RadioGroup rgPrivacy;
     ImageView btnClear;
     int privacyNum=0;
+
+//    int picPosition;
+//
+//    public static final int EXTERNAL_STORAGE_PERMISSION=100;
+//    public final int CAMERA_PERMISSION=110;
+//    public final int CAMERA_IMAGE=10;
+//    public final int PHOTO_IMAGE=20;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -96,74 +121,215 @@ public class AddSetActivity extends AppCompatActivity {
         etInfo.setFilters(new InputFilter[]{new AmpersandInputFilter()});
 
         //TODO:시험이라던지 이런게 설정이 덜됬기 때문에 일단 접어둔다..
-//        addQuestion.setOnLongClickListener(new View.OnLongClickListener() {
-//
-//            TextView t1,t2,t3,t4;
-//
-//
-//            @Override
-//            public boolean onLongClick(View v) {
-//                AlertDialog.Builder builder=new AlertDialog.Builder(AddSetActivity.this);
-//
-//                LayoutInflater inf=getLayoutInflater();
-//                View view=inf.inflate(R.layout.dialog_selecttype,null);
-//                builder.setView(view);
-//                final AlertDialog dialog=builder.create();
-//                dialog.setCanceledOnTouchOutside(false);
-//
-//                t1=view.findViewById(R.id.type1);
-//                t2=view.findViewById(R.id.type2);
-//                t3=view.findViewById(R.id.type3);
-//                t4=view.findViewById(R.id.type4);
-//
-//                t1.setOnClickListener(new View.OnClickListener() {
-//                    @Override
-//                    public void onClick(View v) {
-//                        setDefaultQuestionType(Question.TYPE_BASIC);
-//                        dialog.dismiss();
-//
-//                    }
-//                });
-//
-//                t2.setOnClickListener(new View.OnClickListener() {
-//                    @Override
-//                    public void onClick(View v) {
-//                        setDefaultQuestionType(Question.TYPE_RIGHTORWRONG);
-//                        dialog.dismiss();
-//                    }
-//                });
-//
-//                t3.setOnClickListener(new View.OnClickListener() {
-//                    @Override
-//                    public void onClick(View v) {
-//                        setDefaultQuestionType(Question.TYPE_ONEANSWER);
-//                        dialog.dismiss();
-//                    }
-//                });
-//
-//                t4.setOnClickListener(new View.OnClickListener() {
-//                    @Override
-//                    public void onClick(View v) {
-//                        setDefaultQuestionType(Question.TYPE_ORDER);
-//                        dialog.dismiss();
-//                    }
-//                });
-//
-//                dialog.show();
-//
-//
-//
-//
-//
-//                return false;
-//            }
-//        });
+        addQuestion.setOnLongClickListener(new View.OnLongClickListener() {
 
+            TextView t1,t2,t3,t4;
+
+
+            @Override
+            public boolean onLongClick(View v) {
+                AlertDialog.Builder builder=new AlertDialog.Builder(AddSetActivity.this);
+
+                LayoutInflater inf=getLayoutInflater();
+                View view=inf.inflate(R.layout.dialog_selecttype,null);
+                builder.setView(view);
+                final AlertDialog dialog=builder.create();
+                dialog.setCanceledOnTouchOutside(false);
+
+                t1=view.findViewById(R.id.type1);
+                t2=view.findViewById(R.id.type2);
+                t3=view.findViewById(R.id.type3);
+                t4=view.findViewById(R.id.type4);
+
+                t1.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        setDefaultQuestionType(Question.TYPE_BASIC);
+                        dialog.dismiss();
+
+                    }
+                });
+
+                t2.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        setDefaultQuestionType(Question.TYPE_RIGHTORWRONG);
+                        dialog.dismiss();
+                    }
+                });
+
+                t3.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        setDefaultQuestionType(Question.TYPE_ONEANSWER);
+                        dialog.dismiss();
+                    }
+                });
+
+                t4.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        setDefaultQuestionType(Question.TYPE_ORDER);
+                        dialog.dismiss();
+                    }
+                });
+
+                dialog.show();
+
+
+
+
+
+                return false;
+            }
+        });
+
+
+//        if(G.getUserId()==2||G.getUserId()==3){
+//            //외부 저장소 읽고쓰기 권한 퍼미션 체크 및 요청
+//            if(Build.VERSION.SDK_INT>=Build.VERSION_CODES.M){
+//                if(checkSelfPermission(android.Manifest.permission.WRITE_EXTERNAL_STORAGE)== PackageManager.PERMISSION_DENIED){
+//                    //허용이 안되어 있는 상태이므로 퍼미션 다이얼로그 보이기
+//                    requestPermissions(new String[]{android.Manifest.permission.WRITE_EXTERNAL_STORAGE},EXTERNAL_STORAGE_PERMISSION);
+//
+//                }
+//                if(checkSelfPermission(android.Manifest.permission.CAMERA)==PackageManager.PERMISSION_DENIED){
+//                    requestPermissions(new String[]{android.Manifest.permission.CAMERA},CAMERA_PERMISSION);
+//                }
+//            }
+//        }
 
 
         G.hideKeyboard(this);
 
     }
+
+//    public void clickCamera(int position){
+//        picPosition=position;
+//        Intent intent=new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+//        startActivityForResult(intent,CAMERA_IMAGE);
+//
+//
+//    }
+//
+//    public void clickPhoto(int position){
+//        picPosition=position;
+//        Intent intent=new Intent(Intent.ACTION_PICK);
+//        intent.setType("image/*");
+//        startActivityForResult(intent, PHOTO_IMAGE);
+//
+//    }
+//
+//    @Override
+//    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+//
+//        switch (requestCode){
+//            case CAMERA_IMAGE:
+//                if(resultCode==RESULT_OK){
+//                    Uri uri=data.getData();
+//
+//                    if(uri!=null){
+//                        Log.i("MyTag","사진 업로드 uri로 나왔습니다. : "+uri.toString());
+//                        Toast.makeText(this, uri.toString(),Toast.LENGTH_SHORT).show();
+//
+//                        G.newQuestions.get(picPosition).setImgPath(getRealPathFromUri(uri));
+//
+//                        newQuestionsAdapter.notifyItemChanged(picPosition);
+//
+//                    }else{
+//                        Bitmap bm=(Bitmap)data.getExtras().get("data");
+//                        Log.i("MyTag","비트맵으로 나왔습니다.");
+//                        if(bm!=null){
+//                            //Glide.with(this).load(bm).into(iv);
+//                            Uri uriFromBm=saveBitmapAndGetUri(bm);
+//
+//                            if(uriFromBm!=null) {
+//                                Log.i("MyTag","bitmap 저장하고 uri로 바꿨습니다 : "+uriFromBm.toString());
+//
+//                                G.newQuestions.get(picPosition).setImgPath(uriFromBm.getPath());
+//                                newQuestionsAdapter.notifyItemChanged(picPosition);
+//
+//                            }else{
+//                                Log.i("MyTag","널입니다 ㅠㅠㅠ 왜죠?");
+//
+//                            }
+//                            //Toast.makeText(this, "uri는 널이다..", Toast.LENGTH_SHORT).show();
+//
+//
+//                        }
+//                    }
+//                }
+//
+//                break;
+//            case PHOTO_IMAGE:
+//                if(resultCode==RESULT_OK){
+//                    Uri uri=data.getData();
+//
+//                    if(uri!=null){
+//                        Toast.makeText(this, uri.toString(),Toast.LENGTH_SHORT).show();
+//                        G.newQuestions.get(picPosition).setImgPath(getRealPathFromUri(uri));
+//                        newQuestionsAdapter.notifyItemChanged(picPosition);
+//                    }
+//                }
+//                break;
+//            case EXTERNAL_STORAGE_PERMISSION:
+//
+//                break;
+//            case CAMERA_PERMISSION:
+//
+//                break;
+//
+//        }
+//
+//        super.onActivityResult(requestCode, resultCode, data);
+//    }
+//
+//    String getRealPathFromUri(Uri uri){
+//        String[] proj={MediaStore.Images.Media.DATA};
+//        CursorLoader loader=new CursorLoader(this,uri,proj,null,null,null);
+//        Cursor cursor=loader.loadInBackground();
+//        int column_index=cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
+//        cursor.moveToFirst();
+//        String result = cursor.getString(column_index);
+//        cursor.close();
+//
+//        Log.i("MyTag","REAL PATH : "+result);
+//        return result;
+//
+//    }
+//
+//    Uri saveBitmapAndGetUri(Bitmap bitmap){
+//        File path= Environment.getExternalStorageDirectory();
+//
+//        String time=new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
+//        File file=new File(path,time+".jpg");
+//
+//        Uri uri=null;
+//
+//        try{
+//            FileOutputStream fos=new FileOutputStream(file);
+//            bitmap.compress(Bitmap.CompressFormat.JPEG,100,fos);
+//
+//            fos.flush();
+//            fos.close();
+//
+//            Log.i("MyTag","빝맵파일 저장 완료!!");
+//            Intent intent=new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
+//            uri=Uri.parse(file.getPath());
+//            intent.setData(uri);
+//
+//            sendBroadcast(intent);
+//
+//            return uri;
+//        } catch (FileNotFoundException e) {
+//            e.printStackTrace();
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//
+//        return null;
+//
+//    }
 
     public void setDefaultQuestionType(int defaultQuestionType) {
         this.defaultQuestionType = defaultQuestionType;
@@ -357,6 +523,8 @@ public class AddSetActivity extends AppCompatActivity {
 
 
     }
+
+
 
     public void clickSetting(View v){
 

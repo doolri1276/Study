@@ -21,6 +21,8 @@ import com.snownaul.study.study_classes.Question;
 
 import java.util.ArrayList;
 
+import static android.view.View.GONE;
+
 /**
  * Created by alfo6-11 on 2018-05-09.
  */
@@ -63,19 +65,22 @@ public class StudyAnswersAdapter extends RecyclerView.Adapter {
                 vh.tvAnswer.setTypeface(null, Typeface.BOLD);
                 vh.tvAnswer.setTextColor(context.getResources().getColor(R.color.colorGreen));
 
-                vh.cb.setVisibility(View.GONE);
+                vh.cb.setVisibility(GONE);
                 vh.cbRorW.setVisibility(View.VISIBLE);
                 vh.cbRorW.setChecked(true);
             }else if(t.isChecked()){
                 vh.tvAnswer.setTextColor(context.getResources().getColor(R.color.colorRed));
 
-                vh.cb.setVisibility(View.GONE);
+                vh.cb.setVisibility(GONE);
                 vh.cbRorW.setVisibility(View.VISIBLE);
 
             }
-
+            if(questionType==Question.TYPE_ONEANSWER) vh.cbRorW.setVisibility(GONE);
 
         }
+
+
+        //else vh.cbRorW.setVisibility(View.VISIBLE);
 
 //        if(questionType==Question.TYPE_ORDER){
 //            vh.tvNum.setText(t.getSgOrder()+"");
@@ -107,7 +112,7 @@ public class StudyAnswersAdapter extends RecyclerView.Adapter {
                     tvNum.setVisibility(View.VISIBLE);
 
                 case Question.TYPE_ONEANSWER:
-                    cb.setVisibility(View.GONE);
+                    cb.setVisibility(GONE);
                     break;
             }
 

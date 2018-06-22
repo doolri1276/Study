@@ -6,11 +6,14 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -22,6 +25,7 @@ import com.android.volley.Response;
 import com.android.volley.error.VolleyError;
 import com.android.volley.request.SimpleMultiPartRequest;
 import com.android.volley.toolbox.Volley;
+import com.bumptech.glide.Glide;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 import com.snownaul.study.G;
@@ -36,6 +40,7 @@ import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Queue;
+import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -52,16 +57,19 @@ public class StudyTestingPageActivity extends AppCompatActivity {
 
     int questionCnt;
     int timeLimit;
+    int oneAnswerCnt;
 
     //화면관련
     TextView tvTimeLimits;
     LinearLayout bar, qlist;
 
-    LinearLayout type2;
+    LinearLayout type2,type3;
     ToggleButton tbRorW;
-    TextView tvQuestionNo;
-    Button btnTest;
+    TextView tvQuestionNo, tvQuestionCnt;
+    EditText etTestOneAnswer;
+    ImageView btnTest;
     TextView tvRorW;
+    ImageView ivQuestionPic;
 
     TextView tvQuestion, tvScore, tvExplanation;
     RecyclerView recyclerView;
@@ -83,6 +91,8 @@ public class StudyTestingPageActivity extends AppCompatActivity {
     int totalTimeLength;
 
     boolean isSetting;
+    AlertDialog dialog;
+
 
 
     @Override
@@ -104,14 +114,18 @@ public class StudyTestingPageActivity extends AppCompatActivity {
         qlist=findViewById(R.id.qlist);
 
         type2=findViewById(R.id.type2);
+        type3=findViewById(R.id.type3);
         tbRorW=findViewById(R.id.tb_rorw);
         tvQuestionNo=findViewById(R.id.tv_question_no);
+        tvQuestionCnt=findViewById(R.id.tv_question_cnt);
         tvQuestion=findViewById(R.id.tv_question);
         recyclerView=findViewById(R.id.recycler);
         btnTest=findViewById(R.id.btn_test);
+        etTestOneAnswer=findViewById(R.id.et_testoneanswer);
         tvRorW=findViewById(R.id.tv_rorw);
         tvScore=findViewById(R.id.tv_score);
         tvExplanation=findViewById(R.id.tv_explanation);
+        ivQuestionPic = findViewById(R.id.iv_questionpic);
 
 
         prepareTesting();
@@ -148,11 +162,22 @@ public class StudyTestingPageActivity extends AppCompatActivity {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 submitTest();
+                dialog.dismiss();
+                dialog.cancel();
+                isSetting=false;
+
             }
         });
 
-        builder.setNegativeButton(getString(R.string.dialog_negative),null);
-        AlertDialog dialog=builder.create();
+        builder.setNegativeButton(getString(R.string.dialog_negative), new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+                dialog.cancel();
+                isSetting=false;
+            }
+        });
+        dialog=builder.create();
         dialog.setCanceledOnTouchOutside(true);
         dialog.show();
     }
@@ -167,6 +192,9 @@ public class StudyTestingPageActivity extends AppCompatActivity {
 
         //각각의 정답 체크..
         checkAnswers();
+
+        if(G.TEST_TYPING==0)
+            checkOneAnswers();
 
         submitTestResult();
 
@@ -210,6 +238,10 @@ public class StudyTestingPageActivity extends AppCompatActivity {
         }
 
         return;
+    }
+
+    public void checkOneAnswers(){
+
     }
 
     public void submitTestResult(){
@@ -284,6 +316,9 @@ public class StudyTestingPageActivity extends AppCompatActivity {
         Log.i("MyTag","clickBtnㅎㅐㅆ는데 isSetting 상태 : "+isSetting);
 
         if(isSetting)return;
+
+        G.hideKeyboard(StudyTestingPageActivity.this);
+
         switch (studyingMode){
             case StudyingManager.MODE_STUDYING:
                 setBar();
@@ -313,9 +348,38 @@ public class StudyTestingPageActivity extends AppCompatActivity {
 
     public void prepareTesting(){
 
+        etTestOneAnswer.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                if(isSetting)return;
+
+                if(t.getQuestionType()!=Question.TYPE_ONEANSWER) return;
+
+                t.setHasTestAnswer(false);
+                if(s.toString()==null) {
+                    return;
+                }else if(s.toString().length()>0) t.setHasTestAnswer(true);
+
+
+                t.setTestOneAnswer(s.toString());
+
+            }
+        });
+
         switch (G.TEST_RGQ){
             case 0:
                 questionCnt=G.currentStudySet.getSgSet().getQuestions().size();
+
                 break;
             case 1:
                 int num=G.TEST_RGQ_DEFAULT;
@@ -369,8 +433,19 @@ public class StudyTestingPageActivity extends AppCompatActivity {
         questionsParts=new ArrayList<>();
         percentage=new View[questionCnt];
         qnum=new TextView[questionCnt];
+        oneAnswerCnt=0;
+
+        tvQuestionCnt.setText(questionCnt+"");
 
         for(int i=0;i<questionCnt;i++){
+
+            if(G.TEST_TYPING==1&&studyingQuestions.get(i).getQuestionType()==Question.TYPE_ONEANSWER)
+                continue;
+
+            if(studyingQuestions.get(i).getQuestionType()==Question.TYPE_ONEANSWER)
+                oneAnswerCnt++;
+
+
             questionsParts.add(studyingQuestions.get(i));
             Collections.shuffle(questionsParts.get(i).getAnswers());
 
@@ -382,6 +457,22 @@ public class StudyTestingPageActivity extends AppCompatActivity {
             questionsParts.get(i).setHasTestAnswer(false);
             questionsParts.get(i).setTestCorrection(false);
             questionsParts.get(i).setTestTimeLength(0);
+
+            switch (questionsParts.get(i).getQuestionType()){
+                case Question.TYPE_RIGHTORWRONG:
+                    if(new Random().nextInt(10)<5){
+                        questionsParts.get(i).setRightOrWrong(!questionsParts.get(i).isRightOrWrong());
+
+                        ArrayList<Answer> ta=questionsParts.get(i).getAnswers();
+                        for(int j=0;j<ta.size();j++){
+                            ta.get(j).setCorrect(!ta.get(j).isCorrect());
+                        }
+                    }
+                    break;
+                case Question.TYPE_ONEANSWER:
+                    questionsParts.get(i).setTestOneAnswer("");
+                    break;
+            }
 
             percentage[i]=findViewById(R.id.percentage01+i);
             percentage[i].setVisibility(View.INVISIBLE);
@@ -402,6 +493,8 @@ public class StudyTestingPageActivity extends AppCompatActivity {
                     qlist.setVisibility(GONE);
                 }
             });
+
+
         }
 
         if(timeLimit!=-99){
@@ -417,6 +510,8 @@ public class StudyTestingPageActivity extends AppCompatActivity {
 
     public void setStudyPage(){
         studyingMode= StudyingManager.MODE_STUDYING;
+
+        isSetting=true;
 
         if(position>=questionCnt){
             position=questionCnt-1;
@@ -434,6 +529,27 @@ public class StudyTestingPageActivity extends AppCompatActivity {
         t=questionsParts.get(position);
         tvQuestion.setText(t.getQuestion());
 
+        switch (t.getQuestionType()){
+            case Question.TYPE_RIGHTORWRONG:
+                type3.setVisibility(GONE);
+                type2.setVisibility(View.VISIBLE);
+                tbRorW.setChecked(t.isRightOrWrong());
+                recyclerView.setVisibility(View.VISIBLE);
+                break;
+            case Question.TYPE_ONEANSWER:
+                type2.setVisibility(GONE);
+                type3.setVisibility(View.VISIBLE);
+                recyclerView.setVisibility(View.GONE);
+                etTestOneAnswer.setText(t.getTestOneAnswer());
+                break;
+            default:
+                type3.setVisibility(GONE);
+                type2.setVisibility(GONE);
+                recyclerView.setVisibility(View.VISIBLE);
+                break;
+
+        }
+
         if(t.getQuestionType()==Question.TYPE_RIGHTORWRONG){
             type2.setVisibility(View.VISIBLE);
             tbRorW.setChecked(t.isRightOrWrong());
@@ -441,11 +557,19 @@ public class StudyTestingPageActivity extends AppCompatActivity {
             type2.setVisibility(View.GONE);
         }
 
+        if (t.getQuestionPic() == null || t.getQuestionPic().length() == 0) {
+            ivQuestionPic.setVisibility(View.GONE);
+        } else {
+            ivQuestionPic.setVisibility(View.VISIBLE);
+            Glide.with(this).load(t.getQuestionPic()).thumbnail(0.1f).into(ivQuestionPic);
+        }
+
         testAnswersAdapter= new TestAnswersAdapter(this,t,t.getQuestionType(),studyingMode);
         recyclerView.setAdapter(testAnswersAdapter);
 
         startTime=System.currentTimeMillis()/1000;
 
+        isSetting=false;
 
     }
 
@@ -482,6 +606,13 @@ public class StudyTestingPageActivity extends AppCompatActivity {
             tbRorW.setChecked(t.isRightOrWrong());
         }else{
             type2.setVisibility(View.GONE);
+        }
+
+        if (t.getQuestionPic() == null || t.getQuestionPic().length() == 0) {
+            ivQuestionPic.setVisibility(View.GONE);
+        } else {
+            ivQuestionPic.setVisibility(View.VISIBLE);
+            Glide.with(this).load(t.getQuestionPic()).thumbnail(0.1f).into(ivQuestionPic);
         }
 
         testAnswersAdapter= new TestAnswersAdapter(this,t,t.getQuestionType(),studyingMode);
@@ -584,6 +715,20 @@ public class StudyTestingPageActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
+
+        if(qlist.getVisibility()==View.VISIBLE){
+            qlist.setVisibility(GONE);
+            isSetting=false;
+            return;
+        }
+
+        if(dialog!=null){
+            isSetting=false;
+            dialog.dismiss();
+            dialog.cancel();
+            return;
+        }
+
         super.onBackPressed();
         //timer.cancel();
 

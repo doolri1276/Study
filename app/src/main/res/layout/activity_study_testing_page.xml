@@ -320,7 +320,26 @@
                             android:text="1"
                             android:textColor="@color/colorGray"
                             android:textStyle="bold"
-                            android:layout_marginTop="@dimen/normal_padding"/>
+                            android:layout_marginTop="@dimen/normal_padding"
+                            android:layout_marginRight="@dimen/tiny_padding"/>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="/"
+                            android:textColor="@color/colorGray"
+                            android:textStyle="bold"
+                            android:layout_marginTop="@dimen/normal_padding"
+                            android:layout_marginRight="@dimen/tiny_padding"/>
+
+                        <TextView
+                            android:id="@+id/tv_question_cnt"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="5"
+                            android:textColor="@color/colorGray"
+                            android:textStyle="bold"
+                            android:layout_marginTop="@dimen/normal_padding"
+                            android:layout_marginRight="@dimen/tiny_padding"/>
                     </LinearLayout>
 
 
@@ -365,11 +384,21 @@
                         android:layout_height="wrap_content"
                         android:background="@color/colorBase"
                         android:enabled="false"
-                        android:paddingBottom="@dimen/normal_padding"
+                        android:paddingBottom="@dimen/small_padding"
                         android:text="Which of the following best explains about this term broid roina?"
                         android:textColor="@color/colorDeepGray"
                         android:textSize="@dimen/txt_text"
                         android:textStyle="bold" />
+
+                    <ImageView
+                        android:id="@+id/iv_questionpic"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:adjustViewBounds="true" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/small_padding" />
 
                     <android.support.v7.widget.RecyclerView
                         android:id="@+id/recycler"
@@ -379,6 +408,23 @@
                         android:overScrollMode="never">
 
                     </android.support.v7.widget.RecyclerView>
+
+                    <LinearLayout
+                        android:id="@+id/type3"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+                        <EditText
+                            android:id="@+id/et_testoneanswer"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@color/white"
+                            android:padding="@dimen/small_padding"
+                            android:textSize="@dimen/txt_text"
+                            android:textColor="@color/colorDeepGray"
+                            android:hint="@string/q_basic_answerhint"/>
+                    </LinearLayout>
+
 
                     <TextView
                         android:id="@+id/tv_explanation"
@@ -901,7 +947,9 @@
 
 
 
-    <Button
+
+
+    <ImageView
         android:id="@+id/btn_test"
         android:layout_width="match_parent"
         android:layout_height="@dimen/big_icon"
@@ -925,7 +973,137 @@
         android:layout_marginLeft="@dimen/normal_padding"
         android:textSize="@dimen/txt_text"/>
 
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#99000000"
+        android:visibility="gone"
+        android:gravity="center"
+        android:padding="@dimen/normal_padding"
+        >
 
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:background="@color/white"
+                android:orientation="vertical"
+                android:padding="@dimen/normal_padding"
+                >
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/small_padding">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="@dimen/big_padding"
+                        android:text="Question "
+                        android:textColor="@color/colorGray"
+                        android:textStyle="bold"
+                        android:layout_marginTop="@dimen/normal_padding"/>
+                    <TextView
+                        android:id="@+id/tv_question_no2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="@dimen/big_padding"
+                        android:text="1"
+                        android:textColor="@color/colorGray"
+                        android:textStyle="bold"
+                        android:layout_marginTop="@dimen/normal_padding"
+                        android:layout_marginRight="@dimen/tiny_padding"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="/"
+                        android:textColor="@color/colorGray"
+                        android:textStyle="bold"
+                        android:layout_marginTop="@dimen/normal_padding"
+                        android:layout_marginRight="@dimen/tiny_padding"/>
+
+                    <TextView
+                        android:id="@+id/tv_question_cnt2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="5"
+                        android:textColor="@color/colorGray"
+                        android:textStyle="bold"
+                        android:layout_marginTop="@dimen/normal_padding"
+                        android:layout_marginRight="@dimen/tiny_padding"/>
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/tv_question2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:enabled="false"
+                    android:paddingBottom="@dimen/normal_padding"
+                    android:text="Which of the following best explains about this term broid roina?"
+                    android:textColor="@color/colorDeepGray"
+                    android:textSize="@dimen/txt_text"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/test_myanswer"
+                    android:textSize="@dimen/txt_text"
+                    android:textStyle="bold"
+                    />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <LinearLayout
+
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:visibility="visible">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/normal_padding">
+                        <ToggleButton
+                            android:id="@+id/tb_igr"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:textOn="@string/study_igotitright"
+                            android:textOff="@string/study_igotitright"
+                            android:background="@drawable/sel_testbtn_blank"
+                            android:layout_marginRight="@dimen/small_padding"
+                            android:textColor="@color/white"
+                            android:textAllCaps="false"
+                            android:textStyle="bold"
+                            />
+                        <ToggleButton
+                            android:id="@+id/tb_igw"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:textOn="@string/study_igotitwrong"
+                            android:textOff="@string/study_igotitwrong"
+                            android:background="@drawable/sel_testbtn_blank"
+                            android:layout_marginLeft="@dimen/small_padding"
+                            android:textColor="@color/white"
+                            android:textAllCaps="false"
+                            android:textStyle="bold" />
+
+                    </LinearLayout>
+                </LinearLayout>
+
+
+            </LinearLayout>
+        </ScrollView>
+
+
+
+    </RelativeLayout>
 
 
     <View

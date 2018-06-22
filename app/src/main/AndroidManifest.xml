@@ -6,10 +6,6 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.CAMERA" />
 
-    <uses-feature
-        android:name="android.hardware.camera2"
-        android:required="true" />
-
     <!--
     카카오톡
     네이티브 앱 키
@@ -75,7 +71,10 @@ Admob 앱 ID
         <activity
             android:name=".Activities.FeedDetailActivity"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".Activities.FeedCommentActivity"
+        <activity
+            android:name=".Activities.FeedCommentActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".Activities.StudyReportActivity"
             android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 

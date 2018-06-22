@@ -10,6 +10,7 @@ import com.snownaul.study.study_classes.StudySet;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Random;
 
 /**
  * Created by alfo6-11 on 2018-05-09.
@@ -31,6 +32,7 @@ public class StudyingManager {
     public static final int MODE_STUDYING=1;
     public static final int MODE_ANSWER=2;
     public static final int MODE_PAUSE=3;
+    public static final int MODE_ONEANSWER_CHECK=4;
 
     public StudySet getStudyingSet() {
         return studyingSet;
@@ -116,6 +118,19 @@ public class StudyingManager {
             }
             Collections.shuffle(ta);
 
+            switch (t.getQuestionType()){
+                case Question.TYPE_RIGHTORWRONG:
+                    if(new Random().nextInt(10)<5){
+                        t.setRightOrWrong(!t.isRightOrWrong());
+
+                        for(int i=0;i<ta.size();i++){
+                            ta.get(i).setCorrect(!ta.get(i).isCorrect());
+                        }
+                    }
+
+                    break;
+
+            }
 
 
             return t;
@@ -177,16 +192,24 @@ public class StudyingManager {
     }
 
     public boolean checkCorrection(Question q){
-        ArrayList<Answer> ta=q.getAnswers();
-
 
         boolean correct=true;
-        for(int i=0;i<ta.size();i++){
-            Answer t=ta.get(i);
-            if(t.isCorrect()!=t.isChecked()){
-                correct=false;
+
+        if(q.getQuestionType()==Question.TYPE_ONEANSWER){
+            correct=q.isTestCorrection();
+        }else{
+            ArrayList<Answer> ta=q.getAnswers();
+
+
+            for(int i=0;i<ta.size();i++){
+                Answer t=ta.get(i);
+                if(t.isCorrect()!=t.isChecked()){
+                    correct=false;
+                }
             }
         }
+
+
 
         if(correct){
             q.setSolvedCnt(q.getSolvedCnt()+1);
