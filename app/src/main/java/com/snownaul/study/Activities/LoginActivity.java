@@ -17,6 +17,14 @@ import com.android.volley.Response;
 import com.android.volley.error.VolleyError;
 import com.android.volley.request.SimpleMultiPartRequest;
 import com.android.volley.toolbox.Volley;
+import com.facebook.AccessToken;
+import com.facebook.CallbackManager;
+import com.facebook.FacebookCallback;
+import com.facebook.FacebookException;
+import com.facebook.Profile;
+import com.facebook.ProfileTracker;
+import com.facebook.login.LoginManager;
+import com.facebook.login.LoginResult;
 import com.kakao.auth.ErrorCode;
 import com.kakao.auth.ISessionCallback;
 import com.kakao.auth.Session;
@@ -38,6 +46,11 @@ public class LoginActivity extends AppCompatActivity {
     //카카오 로그인을 위한 것들
     LoginButton kakaoLoginBtn;
     private SessionCallback callback;
+
+    //페이스북 로그인을 위한 것들
+    com.facebook.login.widget.LoginButton facebookLoginBtn;
+    private CallbackManager callbackManager;
+    private ProfileTracker profileTracker;
 
 
     @Override
@@ -61,6 +74,59 @@ public class LoginActivity extends AppCompatActivity {
 
         //카카오 로그인
         kakaoLoginBtn=findViewById(R.id.kakao_loginbtn);
+
+        //페이스북 로그인
+        facebookLoginBtn=findViewById(R.id.facebook_loginbtn);
+        callbackManager=CallbackManager.Factory.create();
+
+        /*profileTracker = new ProfileTracker() {
+            @Override
+            protected void onCurrentProfileChanged(Profile oldProfile, Profile currentProfile) {
+                currentProfile.getProfilePictureUri(150,150);
+            }
+        };*/
+
+        facebookLoginBtn.setReadPermissions("email");
+
+        facebookLoginBtn.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
+            @Override
+            public void onSuccess(LoginResult loginResult) {
+                AccessToken accessToken = loginResult.getAccessToken();
+
+                loginWithFacebook(accessToken);
+
+            }
+
+            @Override
+            public void onCancel() {
+
+            }
+
+            @Override
+            public void onError(FacebookException error) {
+                Log.e("loginError", "facebook : "+error.getStackTrace());
+            }
+        });
+
+        AccessToken accessToken = AccessToken.getCurrentAccessToken();
+        boolean isLoggedIn = accessToken !=null&& !accessToken.isExpired();
+
+        if(isLoggedIn){
+            loginWithFacebook(accessToken);
+        }
+
+
+    }
+
+    public void loginWithFacebook(AccessToken accessToken){
+        String sns="Facebook";
+        String snsID = accessToken.getUserId();
+        Log.d("login","facebook login token : "+accessToken.getToken()+", userID : "+accessToken.getUserId()+", describeContents : "+accessToken.describeContents()+
+                "hashCode : "+accessToken.hashCode());
+
+        String imgPath = "http://graph.facebook.com/"+snsID+"/picture?type=normal";
+
+        sendSnsLoginInfoToServer(sns, snsID, imgPath);
     }
 
     @Override
@@ -71,11 +137,14 @@ public class LoginActivity extends AppCompatActivity {
             return;
         }
 
+        //페이스북 로그인 확인
+        callbackManager.onActivityResult(requestCode, resultCode, data);
+
         super.onActivityResult(requestCode, resultCode, data);
     }
 
     public void clickFB(View v){
-        Toast.makeText(this, getString(R.string.coming_soon), Toast.LENGTH_SHORT).show();
+        facebookLoginBtn.performClick();
     }
 
     public void clickKakao(View v){
@@ -109,53 +178,14 @@ public class LoginActivity extends AppCompatActivity {
                 Log.i("Kakao",result.getId()+",,,,,"+result.toString());
 
 
-                String serverUrl="http://snownaul2.dothome.co.kr/StudyGuide/User/loginUser.php";
+
                 String sns="Kakao";
-                int snsID= (int) result.getId();
+                String snsID= result.getId()+"";
+                String imgPath = result.getThumbnailImagePath();
 
-                G.setUserSns(sns);
-                G.setUserSnsId(result.getId());
-                G.setUserProfilepic(result.getThumbnailImagePath());
-
-
-                SimpleMultiPartRequest multiPartRequest=new SimpleMultiPartRequest(Request.Method.POST, serverUrl, new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
-                        Log.i("MyTag","R : "+response);
-                        if(response.equals("FIRST")){
-                            Intent intent=new Intent(LoginActivity.this,FirstSettingActivity.class);
-                            startActivity(intent);
-                            finish();
-                        }else{
-
-                            String[] userInfo=response.split("&");
+                sendSnsLoginInfoToServer(sns, snsID, imgPath);
 
 
-                            G.setUserId(Integer.parseInt(userInfo[0]));
-                            G.setUserNickname(userInfo[1]);
-                            G.setUserAge(Integer.parseInt(userInfo[2]));
-                            G.setUserProfilepic(userInfo[3]);
-
-                            Intent intent=new Intent(LoginActivity.this,MainActivity.class);
-                            startActivity(intent);
-                            finish();
-                        }
-
-                    }
-                }, new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        Log.i("MyTag","132"+error.getMessage());
-                        //Toast.makeText(LoginActivity.this, R.string.login_fail01+" : 133", Toast.LENGTH_SHORT).show();
-                    }
-                });
-
-                multiPartRequest.addStringParam("sns",sns);
-                multiPartRequest.addStringParam("snsID",snsID+"");
-
-                RequestQueue requestQueue= Volley.newRequestQueue(LoginActivity.this);
-
-                requestQueue.add(multiPartRequest);
 
                 //Toast.makeText(LoginActivity.this, "카카오 로그인 성공!", Toast.LENGTH_SHORT).show();
 
@@ -180,6 +210,55 @@ public class LoginActivity extends AppCompatActivity {
         });
 
 
+    }
+
+    public void sendSnsLoginInfoToServer(String sns, String snsID, String imgPath){
+
+        String serverUrl="http://snownaul2.dothome.co.kr/StudyGuide/User/loginUser.php";
+
+        G.setUserSns(sns);
+        G.setUserSnsId(snsID);
+        G.setUserProfilepic(imgPath);
+
+
+        SimpleMultiPartRequest multiPartRequest=new SimpleMultiPartRequest(Request.Method.POST, serverUrl, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                Log.i("MyTag","R : "+response);
+                if(response.equals("FIRST")){
+                    Intent intent=new Intent(LoginActivity.this,FirstSettingActivity.class);
+                    startActivity(intent);
+                    finish();
+                }else{
+
+                    String[] userInfo=response.split("&");
+
+
+                    G.setUserId(Integer.parseInt(userInfo[0]));
+                    G.setUserNickname(userInfo[1]);
+                    G.setUserAge(Integer.parseInt(userInfo[2]));
+                    G.setUserProfilepic(userInfo[3]);
+
+                    Intent intent=new Intent(LoginActivity.this,MainActivity.class);
+                    startActivity(intent);
+                    finish();
+                }
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.i("MyTag","132"+error.getMessage());
+                //Toast.makeText(LoginActivity.this, R.string.login_fail01+" : 133", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        multiPartRequest.addStringParam("sns",sns);
+        multiPartRequest.addStringParam("snsID",snsID+"");
+
+        RequestQueue requestQueue= Volley.newRequestQueue(LoginActivity.this);
+
+        requestQueue.add(multiPartRequest);
     }
 
 

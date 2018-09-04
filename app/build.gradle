@@ -57,6 +57,9 @@ dependencies {
     compile 'com.github.zzz40500:AndroidSweetSheet:1.1.0'
     //HelloChart
     compile 'com.github.lecho:hellocharts-library:1.5.8@aar'
+    //FacebookLogin
+    implementation 'com.facebook.android:facebook-login:[4,5)'
+
 
 }
 

@@ -118,6 +118,13 @@
                 android:layout_height="wrap_content"
                 android:visibility="gone"/>
 
+            <!-- 페이스북 로그인 -->
+            <com.facebook.login.widget.LoginButton
+                android:id="@+id/facebook_loginbtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="gone"/>
+
             <!--<com.google.android.gms.common.SignInButton-->
                 <!--android:id="@+id/google_loginbtn"-->
                 <!--android:layout_width="wrap_content"-->

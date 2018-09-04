@@ -4,6 +4,10 @@
     <!-- 카카오 로그인 -->
     <string name="kakao_app_key" translatable="false">625539f964cefd6cea24924ee86f767c</string>
 
+    <!-- 페이스북 로그인 -->
+    <string name="facebook_app_id" translatable="false">297527654366452</string>
+    <string name="fb_login_protocol_scheme" translatable="false">fb297527654366452</string>
+
     <!-- 구글 로그인 -->
     <!--<string name="default_web_client_id">1007396589166-3hrj2fjs932gn58k7tg445799lssrfh5.apps.googleusercontent.com</string>-->
 
