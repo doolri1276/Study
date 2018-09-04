@@ -25,6 +25,13 @@ import com.facebook.Profile;
 import com.facebook.ProfileTracker;
 import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+import com.google.android.gms.auth.api.signin.GoogleSignInClient;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.common.SignInButton;
+import com.google.android.gms.common.api.ApiException;
+import com.google.android.gms.tasks.Task;
 import com.kakao.auth.ErrorCode;
 import com.kakao.auth.ISessionCallback;
 import com.kakao.auth.Session;
@@ -50,7 +57,11 @@ public class LoginActivity extends AppCompatActivity {
     //페이스북 로그인을 위한 것들
     com.facebook.login.widget.LoginButton facebookLoginBtn;
     private CallbackManager callbackManager;
-    private ProfileTracker profileTracker;
+
+    //구글 로그인을 위한 것들
+    GoogleSignInClient googleSignInClient;
+    SignInButton googleLoginBtn;
+    private static final int GOOGLE_SIGN_IN=9;
 
 
     @Override
@@ -73,9 +84,25 @@ public class LoginActivity extends AppCompatActivity {
 //        logo.startAnimation(ani);
 
         //카카오 로그인
-        kakaoLoginBtn=findViewById(R.id.kakao_loginbtn);
+        setKakaoLogin();
 
         //페이스북 로그인
+        setFacebookLogin();
+
+        //구글 로그인
+        setGoogleLogin();
+
+
+
+    }
+
+
+
+    private void setKakaoLogin(){
+        kakaoLoginBtn=findViewById(R.id.kakao_loginbtn);
+    }
+
+    private void setFacebookLogin(){
         facebookLoginBtn=findViewById(R.id.facebook_loginbtn);
         callbackManager=CallbackManager.Factory.create();
 
@@ -114,8 +141,44 @@ public class LoginActivity extends AppCompatActivity {
         if(isLoggedIn){
             loginWithFacebook(accessToken);
         }
+    }
 
+    private void setGoogleLogin() {
+        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestEmail()
+                .build();
 
+        googleSignInClient=GoogleSignIn.getClient(this, gso);
+
+        googleLoginBtn = findViewById(R.id.google_loginbtn);
+        googleLoginBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent signInIntent = googleSignInClient.getSignInIntent();
+                startActivityForResult(signInIntent, GOOGLE_SIGN_IN);
+            }
+        });
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(this);
+        if(account!=null){
+            loginWithGoogle(account);
+        }
+    }
+
+    public void loginWithGoogle(GoogleSignInAccount account){
+        String sns="Google";
+        String snsID=account.getId();
+        Log.d("login","google ID : "+snsID);
+        String imgPath="http://postfiles6.naver.net/20150427_261/ninevincent_1430122791768m7oO1_JPEG/kakao_1.jpg?type=w1";
+        if(account.getPhotoUrl()!=null){
+            imgPath=account.getPhotoUrl().toString();
+        }
+
+        sendSnsLoginInfoToServer(sns, snsID, imgPath);
     }
 
     public void loginWithFacebook(AccessToken accessToken){
@@ -139,8 +202,24 @@ public class LoginActivity extends AppCompatActivity {
 
         //페이스북 로그인 확인
         callbackManager.onActivityResult(requestCode, resultCode, data);
+        
+        //구글 로그인 확인
+        if(requestCode==GOOGLE_SIGN_IN){
+            Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
+            handleSignInResult(task);
+        }
 
         super.onActivityResult(requestCode, resultCode, data);
+    }
+
+    private void handleSignInResult(Task<GoogleSignInAccount> completedTask) {
+        try{
+            GoogleSignInAccount account = completedTask.getResult(ApiException.class);
+            loginWithGoogle(account);
+
+        } catch (ApiException e) {
+            e.printStackTrace();
+        }
     }
 
     public void clickFB(View v){
@@ -152,8 +231,8 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     public void clickGoogle(View v){
-        Toast.makeText(this, getString(R.string.coming_soon), Toast.LENGTH_SHORT).show();
-
+        Intent signInIntent = googleSignInClient.getSignInIntent();
+        startActivityForResult(signInIntent, GOOGLE_SIGN_IN);
     }
 
     //카카오 로그인 (유저의 정보를 받아오는 함수)////////////////////////////
@@ -237,7 +316,12 @@ public class LoginActivity extends AppCompatActivity {
                     G.setUserId(Integer.parseInt(userInfo[0]));
                     G.setUserNickname(userInfo[1]);
                     G.setUserAge(Integer.parseInt(userInfo[2]));
-                    G.setUserProfilepic(userInfo[3]);
+                    if(userInfo[3]!=null){
+                        G.setUserProfilepic(userInfo[3]);
+                    }else{
+                        G.setUserProfilepic("");
+                    }
+
 
                     Intent intent=new Intent(LoginActivity.this,MainActivity.class);
                     startActivity(intent);
